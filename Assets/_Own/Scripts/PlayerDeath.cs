@@ -29,10 +29,10 @@ public class PlayerDeath : MonoBehaviour
         // Display Resolution Screen
         //_rb.constraints = _rb.constraints |= RigidbodyConstraints.FreezeAll;
 
+        ResetPlayerDefaults();
+
         if (HandleGameOver != null)
             HandleGameOver();
-
-        ResetPlayerDefaults();
     }
 
     void OnTriggerEnter(Collider other)

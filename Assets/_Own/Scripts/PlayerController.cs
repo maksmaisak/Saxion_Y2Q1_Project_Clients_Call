@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
     [Space] 
     [SerializeField] new Rigidbody rigidbody;
     [SerializeField] Lane currentLane;
-    
+
+    private Lane _startingLane;
+
     enum InputKind
     {
         None,
@@ -27,6 +29,12 @@ public class PlayerController : MonoBehaviour
     {
         Assert.IsNotNull(rigidbody);
         Assert.IsNotNull(currentLane);
+
+        _startingLane = currentLane;
+
+        PlayerDeath deathScript = GetComponent<PlayerDeath>();
+        if (deathScript != null)
+            deathScript.HandleGameOver += HandleGameOver;
     }
     
     void FixedUpdate()
@@ -76,5 +84,10 @@ public class PlayerController : MonoBehaviour
         rigidbody.isKinematic = false;
         rigidbody.useGravity  = true;
         rigidbody.AddForce(transform.forward * 200.0f);
+    }
+
+    private void HandleGameOver()
+    {
+        currentLane = _startingLane;
     }
 }
