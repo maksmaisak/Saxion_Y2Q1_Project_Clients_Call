@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerDeath : MonoBehaviour
@@ -28,11 +29,12 @@ public class PlayerDeath : MonoBehaviour
         // Play Animation
         // Display Resolution Screen
         //_rb.constraints = _rb.constraints |= RigidbodyConstraints.FreezeAll;
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+        //ResetPlayerDefaults();
 
-        ResetPlayerDefaults();
-
-        if (HandleGameOver != null)
-            HandleGameOver();
+        //HandleGameOver?.Invoke();
     }
 
     void OnTriggerEnter(Collider other)
