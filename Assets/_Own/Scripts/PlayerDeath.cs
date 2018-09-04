@@ -31,8 +31,7 @@ public class PlayerDeath : MonoBehaviour
 
         ResetPlayerDefaults();
 
-        if (HandleGameOver != null)
-            HandleGameOver();
+        HandleGameOver?.Invoke();
     }
 
     void OnTriggerEnter(Collider other)

@@ -78,7 +78,8 @@ public class PlayerController : MonoBehaviour
 
     private void CheckFall()
     {
-        if (!Physics.Raycast(transform.position, Vector3.down, 20f))
+        var ray = new Ray(transform.position, Vector3.down);
+        if (!Physics.SphereCast(ray, 0.4f, 20f))
         {
             Fall();
         }
