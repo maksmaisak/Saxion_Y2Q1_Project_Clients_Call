@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speedForward = 0.5f;
-    [SerializeField] float jumpDistance = 4f;
+    [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Space] 
     [SerializeField] new Rigidbody rigidbody;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
             transform
-                .DOJump(targetPosition, 1f, 1, jumpDuration)
+                .DOJump(targetPosition, jumpPower, 1, jumpDuration)
                 .OnComplete(() => isJumping = false);
 
             isJumping = true;
