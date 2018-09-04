@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     {
         None,
         JumpLeft,
-        JumpRight
+        JumpRight,
+        JumpForward
     }
 
     private InputKind currentInput;
@@ -48,8 +49,8 @@ public class PlayerController : MonoBehaviour
                 CheckFall();
                 return;
             }
-      
-            Lane targetLane = currentInput == InputKind.JumpRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
+
+            Lane targetLane = GetTargetJumpLane();
             if (targetLane == null) return;
 
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
@@ -64,9 +65,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        if      (horizontalInput >  0.01f) currentInput = InputKind.JumpRight;
-        else if (horizontalInput < -0.01f) currentInput = InputKind.JumpLeft;
+        Vector2 input = new Vector2(
+            Input.GetAxis("Horizontal"),
+            Input.GetAxis("Vertical")
+        );
+        
+        if      (input.x >  0.01f) currentInput = InputKind.JumpRight;
+        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
+        else if (input.y >  0.01f) currentInput = InputKind.JumpForward;
         else currentInput = InputKind.None;
     }
 
@@ -76,6 +82,18 @@ public class PlayerController : MonoBehaviour
         {
             Fall();
         }
+    }
+
+    private Lane GetTargetJumpLane()
+    {
+        switch (currentInput)
+        {
+            case InputKind.JumpLeft: return currentLane.leftNeighbor;
+            case InputKind.JumpRight: return currentLane.rightNeighbor;
+            case InputKind.JumpForward: return currentLane;
+        }
+
+        return null;
     }
 
     private void Fall()
