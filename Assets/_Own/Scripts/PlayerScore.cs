@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerScore : MonoBehaviour
 {
-    [SerializeField] private Text _scoreText = null;
+    ///[SerializeField] private Text _scoreText = null;
+    [SerializeField] private TMP_Text _scoreText;
     private int _score = 0;
     private int _scoreIncreaseAmount = 3;
     private float _updateScoreRate = 0.5f;
