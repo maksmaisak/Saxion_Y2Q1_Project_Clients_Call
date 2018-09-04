@@ -75,6 +75,6 @@ public class PlayerController : MonoBehaviour
         enabled = false;
         rigidbody.isKinematic = false;
         rigidbody.useGravity  = true;
-        rigidbody.AddForce(transform.forward * 200f);
+        rigidbody.AddForce(transform.forward * 200.0f);
     }
 }

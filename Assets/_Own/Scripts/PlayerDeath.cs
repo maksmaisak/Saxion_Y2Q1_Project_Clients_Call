@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField]
-    private Vector3 _spawnPoint = Vector3.zero;
-    [SerializeField]
-    private float _minimumPositionY = -15f;
+    [SerializeField] private Vector3 _spawnPoint = Vector3.zero;
+    [SerializeField] private float _minimumPositionY = -15f;
 
     private Rigidbody _rb = null;
+    private PlayerController _playerController = null;
+
+    public delegate void GameOverEvent();
+    public event GameOverEvent HandleGameOver;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _playerController = GetComponent<PlayerController>();
         StartCoroutine(CheckYBoundary());
     }
 
@@ -23,24 +27,27 @@ public class PlayerDeath : MonoBehaviour
         // Play Sound
         // Play Animation
         // Display Resolution Screen
-        ActivateRigidBodyConstraints(false);
-        transform.position = _spawnPoint;
-        ActivateRigidBodyConstraints(true);
+        //_rb.constraints = _rb.constraints |= RigidbodyConstraints.FreezeAll;
+
+        if (HandleGameOver != null)
+            HandleGameOver();
+
+        ResetPlayerDefaults();
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if(collision.transform.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle"))
             GameOver();
     }
 
-    void ActivateRigidBodyConstraints(bool enabled)
+    private void ResetPlayerDefaults()
     {
-        Debug.Assert(_rb != null);
-
-        _rb.detectCollisions = enabled;
-        _rb.useGravity = enabled;
-        _rb.freezeRotation = !enabled;
+        _playerController.enabled = true;
+        _rb.useGravity = false;
+        _rb.isKinematic = true;
+        transform.position = _spawnPoint;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     IEnumerator CheckYBoundary()

@@ -741,6 +741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4006603393562262}
+  - component: {fileID: 65087368015303814}
   m_Layer: 0
   m_Name: Fance
   m_TagString: Obstacle
@@ -1579,8 +1580,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373851239880982}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.245, y: 0.401, z: 0}
+  m_LocalRotation: {x: -0, y: -0.62380147, z: -0, w: 0.78158283}
+  m_LocalPosition: {x: 3.22, y: 0.275, z: 26.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4033286794990368}
@@ -1632,7 +1633,7 @@ Transform:
   - {fileID: 4122070879051408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -77.189, z: 0}
 --- !u!4 &4007116846685204
 Transform:
   m_ObjectHideFlags: 1
@@ -3070,3 +3071,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1065940977013740}
   m_Mesh: {fileID: 4300000, guid: 723364a41eaf12c49bd5f0d1a9954823, type: 3}
+--- !u!65 &65087368015303814
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373851239880982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1748883, y: 1, z: 1.2305388}
+  m_Center: {x: -0.03, y: 0.45, z: -0.06}
