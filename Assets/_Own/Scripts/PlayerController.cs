@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speedForward = 0.5f;
     [SerializeField] float jumpDistance = 4f;
     [SerializeField] float jumpDuration = 0.2f;
+    [Space] 
+    [SerializeField] new Rigidbody rigidbody;
+    [SerializeField] Lane currentLane;
     
     enum InputKind
     {
@@ -20,10 +23,9 @@ public class PlayerController : MonoBehaviour
     private InputKind currentInput;
     private bool isJumping;
 
-    [SerializeField] Lane currentLane;
-
     void Start()
     {
+        Assert.IsNotNull(rigidbody);
         Assert.IsNotNull(currentLane);
     }
     
@@ -31,8 +33,14 @@ public class PlayerController : MonoBehaviour
     {
         transform.position += Vector3.forward * speedForward * Time.fixedDeltaTime;
 
-        if (!isJumping && currentInput != InputKind.None)
-        {            
+        if (!isJumping)
+        {
+            if (currentInput == InputKind.None)
+            {
+                CheckFall();
+                return;
+            }
+      
             Lane targetLane = currentInput == InputKind.JumpRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
             if (targetLane == null) return;
 
@@ -52,5 +60,21 @@ public class PlayerController : MonoBehaviour
         if      (horizontalInput >  0.01f) currentInput = InputKind.JumpRight;
         else if (horizontalInput < -0.01f) currentInput = InputKind.JumpLeft;
         else currentInput = InputKind.None;
+    }
+
+    private void CheckFall()
+    {
+        if (!Physics.Raycast(transform.position, Vector3.down, 20f))
+        {
+            Fall();
+        }
+    }
+
+    private void Fall()
+    {
+        enabled = false;
+        rigidbody.isKinematic = false;
+        rigidbody.useGravity  = true;
+        rigidbody.AddForce(transform.forward * 200f);
     }
 }
