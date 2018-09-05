@@ -44,11 +44,9 @@ public class PlayerController : MonoBehaviour
 
         if (!isJumping)
         {
-            if (currentInput == InputKind.None)
-            {
-                CheckFall();
+
+            if (CheckFall())
                 return;
-            }
 
             Lane targetLane = GetTargetJumpLane();
             if (targetLane == null) return;
@@ -77,13 +75,16 @@ public class PlayerController : MonoBehaviour
         else currentInput = InputKind.None;
     }
 
-    private void CheckFall()
+    private bool CheckFall()
     {
         var ray = new Ray(transform.position, Vector3.down);
         if (!Physics.SphereCast(ray, 0.4f, 20f))
         {
             Fall();
+            return true;
         }
+
+        return false;
     }
 
     private Lane GetTargetJumpLane()
@@ -103,6 +104,8 @@ public class PlayerController : MonoBehaviour
         enabled = false;
         rigidbody.isKinematic = false;
         rigidbody.useGravity  = true;
+        rigidbody.freezeRotation = true;
+        rigidbody.detectCollisions = false;
         rigidbody.AddForce(transform.forward * 200.0f);
     }
 
