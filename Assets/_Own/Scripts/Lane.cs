@@ -1,9 +1,7 @@
 using UnityEngine;
 
 public class Lane : MonoBehaviour
-{
-    private const float JumpLength = 3f;
-    
+{    
     [SerializeField] Lane _leftNeighbor;
     public Lane leftNeighbor => _leftNeighbor;
     
@@ -14,7 +12,6 @@ public class Lane : MonoBehaviour
     {
         /// TODO Assumes all lanes are straight and axis aligned.
         jumpOrigin.x = transform.position.x;
-        jumpOrigin.z += JumpLength;
         return jumpOrigin;
     }
 }
