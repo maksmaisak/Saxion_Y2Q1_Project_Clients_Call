@@ -22,8 +22,10 @@ public class PlayerController : MonoBehaviour
         JumpForward
     }
 
+    private float _oldSpeed;
     private InputKind currentInput;
     private bool isJumping;
+    private bool canFall = true;
 
     public float positionOnLane => _currentLane.GetPositionOnLane(transform.position);
 
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isJumping)
         {
-            if (CheckDeath())
+            if (canFall && CheckDeath())
                 return;
 
             Lane targetLane = GetTargetJumpLane();
@@ -149,5 +151,21 @@ public class PlayerController : MonoBehaviour
     public bool IsJumping()
     {
         return isJumping;
+    }
+
+    public void SetFall(bool canFall)
+    {
+        this.canFall = canFall;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        _oldSpeed = speedForward;
+        speedForward = newSpeed;
+    }
+
+    public float GetOldSpeed()
+    {
+        return _oldSpeed;
     }
 }

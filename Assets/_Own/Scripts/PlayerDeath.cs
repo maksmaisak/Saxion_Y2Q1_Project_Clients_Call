@@ -10,6 +10,7 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private float _minimumPositionY = -15f;
 
     private Rigidbody _rb = null;
+    private Player _player = null;
     private PlayerController _playerController = null;
 
     public delegate void GameOverEvent();
@@ -18,6 +19,7 @@ public class PlayerDeath : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _player = GetComponent<Player>();
         _playerController = GetComponent<PlayerController>();
     }
 
@@ -38,7 +40,7 @@ public class PlayerDeath : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (!_player.IsGodMode() && other.CompareTag("Obstacle"))
             GameOver();
     }
 
