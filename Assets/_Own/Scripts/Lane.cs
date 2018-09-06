@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Lane : MonoBehaviour
 {    
@@ -13,5 +14,11 @@ public class Lane : MonoBehaviour
         /// TODO Assumes all lanes are straight and axis aligned.
         jumpOrigin.x = transform.position.x;
         return jumpOrigin;
+    }
+
+    public float GetPositionOnLane(Vector3 position)
+    {
+        /// TEMP
+        return position.z;
     }
 }

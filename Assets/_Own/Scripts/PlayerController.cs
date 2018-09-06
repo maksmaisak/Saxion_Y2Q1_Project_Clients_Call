@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpDuration = 0.2f;
     [Space] 
     [SerializeField] new Rigidbody rigidbody;
-    [SerializeField] Lane currentLane;
+    [SerializeField] Lane _currentLane;
 
     private Lane _startingLane;
 
@@ -26,12 +26,15 @@ public class PlayerController : MonoBehaviour
     private InputKind currentInput;
     private bool isJumping;
 
+    public Lane currentLane => _currentLane;
+    public float positionOnLane => _currentLane.GetPositionOnLane(transform.position);
+
     void Start()
     {
         Assert.IsNotNull(rigidbody);
-        Assert.IsNotNull(currentLane);
+        Assert.IsNotNull(_currentLane);
 
-        _startingLane = currentLane;
+        _startingLane = _currentLane;
 
         PlayerDeath deathScript = GetComponent<PlayerDeath>();
         if (deathScript != null)
@@ -44,8 +47,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isJumping)
         {
-
-            if (CheckFall())
+            if (CheckDeath())
                 return;
 
             Lane targetLane = GetTargetJumpLane();
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 .OnComplete(() => isJumping = false);
 
             isJumping = true;
-            currentLane = targetLane;
+            _currentLane = targetLane;
         }
     }
 
@@ -75,42 +77,68 @@ public class PlayerController : MonoBehaviour
         else currentInput = InputKind.None;
     }
 
-    private bool CheckFall()
+    private bool CheckDeath()
     {
-        var ray = new Ray(transform.position, Vector3.down);
-        if (!Physics.SphereCast(ray, 0.4f, 20f))
+        PlayerDeath playerDeath = GetComponent<PlayerDeath>();
+
+        foreach (var obj in WorldRepresentation.Instance.objects)
         {
-            Fall();
+            if (obj.lane != _currentLane) continue;
+
+            bool isObstacle = obj.kind == ObjectKind.Obstacle;
+            bool isEnemy = obj.kind == ObjectKind.Enemy;
+            if ((isObstacle || isEnemy) && obj.IsInside(positionOnLane))
+            {
+                if (isObstacle)
+                {
+                    playerDeath.DeathObstacle();
+                }
+                else
+                {
+                    playerDeath.DeathEnemy();
+                }
+                return true;
+            }
+        }
+
+        if (IsFalling())
+        {
+            playerDeath.DeathFall();
             return true;
         }
 
         return false;
     }
 
+    private bool IsFalling()
+    {
+        foreach (var obj in WorldRepresentation.Instance.objects)
+        {
+            if (obj.lane != _currentLane) continue;
+
+            if (obj.kind == ObjectKind.Platform && obj.IsInside(positionOnLane))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private Lane GetTargetJumpLane()
     {
         switch (currentInput)
         {
-            case InputKind.JumpLeft: return currentLane.leftNeighbor;
-            case InputKind.JumpRight: return currentLane.rightNeighbor;
-            case InputKind.JumpForward: return currentLane;
+            case InputKind.JumpLeft: return _currentLane.leftNeighbor;
+            case InputKind.JumpRight: return _currentLane.rightNeighbor;
+            case InputKind.JumpForward: return _currentLane;
         }
 
         return null;
     }
 
-    private void Fall()
-    {
-        enabled = false;
-        rigidbody.isKinematic = false;
-        rigidbody.useGravity  = true;
-        rigidbody.freezeRotation = true;
-        rigidbody.detectCollisions = false;
-        rigidbody.AddForce(transform.forward * 200.0f);
-    }
-
     private void HandleGameOver()
     {
-        currentLane = _startingLane;
+        _currentLane = _startingLane;
     }
 }

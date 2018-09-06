@@ -15,14 +15,14 @@ public class PlayerDeath : MonoBehaviour
     public delegate void GameOverEvent();
     public event GameOverEvent HandleGameOver;
 
-    private void Start()
+    void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _playerController = GetComponent<PlayerController>();
-        StartCoroutine(CheckYBoundary());
+        //StartCoroutine(CheckYBoundary());
     }
 
-    void GameOver()
+    private void GameOver()
     {
         // Die
         // Play Sound
@@ -61,5 +61,27 @@ public class PlayerDeath : MonoBehaviour
 
             yield return new WaitForSeconds(0.3f);
         }
+    }
+
+    public void DeathObstacle()
+    {
+        GameOver();
+    }
+
+    public void DeathEnemy()
+    {
+        GameOver();
+    }
+
+    public void DeathFall()
+    {
+        GameOver();
+        
+        _playerController.enabled = false;
+        _rb.isKinematic = false;
+        _rb.useGravity  = true;
+        _rb.freezeRotation = true;
+        _rb.detectCollisions = false;
+        _rb.AddForce(transform.forward * 200.0f);
     }
 }
