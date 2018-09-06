@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speedForward = 0.5f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
-    [Space] 
+    [Space]
+    [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
+    [Space]
     [SerializeField] Lane _currentLane;
-
-    private Lane _startingLane;
 
     enum InputKind
     {
@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Assert.IsNotNull(_currentLane);
-
-        _startingLane = _currentLane;
     }
     
     void FixedUpdate()
@@ -133,7 +131,7 @@ public class PlayerController : MonoBehaviour
         if (targetLane != null)
         {
             float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
-            ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckEnemy(targetLane, laneTargetPosition);
+            ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane, laneTargetPosition, enemyJumpOnErrorTolerance);
             enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
         }
         

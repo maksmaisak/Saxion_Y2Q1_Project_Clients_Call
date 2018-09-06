@@ -2694,6 +2694,7 @@ MonoBehaviour:
   speedForward: 10
   jumpPower: 1
   jumpDuration: 0.2
+  enemyJumpOnErrorTolerance: 1
   _currentLane: {fileID: 818426542}
 --- !u!135 &1318668884
 SphereCollider:

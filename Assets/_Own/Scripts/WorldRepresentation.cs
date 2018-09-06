@@ -5,7 +5,7 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     public List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
 
-    public ObjectRepresentation FindOfKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f)
+    public ObjectRepresentation CheckByKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f)
     {
         foreach (ObjectRepresentation record in objects)
         {
@@ -20,7 +20,7 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 
     public ObjectRepresentation CheckEnemy(Lane lane, float position)
     {
-        return FindOfKind(ObjectKind.Enemy, lane, position);
+        return CheckByKind(ObjectKind.Enemy, lane, position);
     }
 }
 
