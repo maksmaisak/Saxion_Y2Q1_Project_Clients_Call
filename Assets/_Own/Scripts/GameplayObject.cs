@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class GameplayObject : MonoBehaviour
+public class GameplayObject : MyBehaviour
 {
     protected ObjectRepresentation representation;
     private bool isRemoved;

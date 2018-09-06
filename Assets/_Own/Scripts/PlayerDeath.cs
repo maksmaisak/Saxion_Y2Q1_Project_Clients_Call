@@ -38,12 +38,6 @@ public class PlayerDeath : MonoBehaviour
         //HandleGameOver?.Invoke();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (!_player.IsGodMode() && other.CompareTag("Obstacle"))
-            GameOver();
-    }
-
     private void ResetPlayerDefaults()
     {
         _playerController.enabled = true;
