@@ -32,7 +32,7 @@ public class GameplayObject : MyBehaviour
         float min = bounds.min.z;
         float max = bounds.max.z;
 
-        Debug.Log($"{min} {max} {GetKind().ToString()}");
+        //Debug.Log($"{min} {max} {GetKind().ToString()}");
 
         return representation = new ObjectRepresentation
         {
