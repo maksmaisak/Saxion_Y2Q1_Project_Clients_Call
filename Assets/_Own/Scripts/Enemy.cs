@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using DG.Tweening;
 
-public class Enemy : MonoBehaviour
+public class Enemy : GameplayObject
 {
-    [SerializeField] Lane currentLane;
     [SerializeField] float jumpInterval = 1f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
@@ -15,11 +14,6 @@ public class Enemy : MonoBehaviour
     private bool isJumpingRight;
 
     private bool isJumping;
-
-    void Start()
-    {
-        Assert.IsNotNull(currentLane);
-    }
 
     void FixedUpdate()
     {
@@ -57,9 +51,13 @@ public class Enemy : MonoBehaviour
         Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
         transform
             .DOJump(targetPosition, jumpPower, 1, jumpDuration)
-            .OnComplete(() => isJumping = false);
+            .OnComplete(() =>
+            {
+                isJumping = false;
+                currentLane = targetLane;
+            });
 
         isJumping = true;
-        currentLane = targetLane;
+        currentLane = null;
     }
 }
