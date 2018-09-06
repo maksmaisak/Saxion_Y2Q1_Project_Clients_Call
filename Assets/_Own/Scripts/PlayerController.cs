@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
             Lane targetLane = GetTargetJumpLane();
             if (targetLane == null) return;
-
+            
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
             JumpTo(targetPosition, targetLane);
         }
@@ -138,6 +138,14 @@ public class PlayerController : MonoBehaviour
     public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
     {
         targetPosition.z += jumpDuration * speedForward;
+
+        if (targetLane != null)
+        {
+            float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
+            ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckEnemy(targetLane, laneTargetPosition);
+            enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
+        }
+        
         transform
             .DOJump(targetPosition, jumpPower, 1, jumpDuration)
             .OnComplete(() => isJumping = false);
@@ -147,7 +155,7 @@ public class PlayerController : MonoBehaviour
         if (targetLane != null)
             _currentLane = targetLane;
     }
-
+    
     public bool IsJumping()
     {
         return isJumping;

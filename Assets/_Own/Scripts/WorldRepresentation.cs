@@ -4,6 +4,24 @@ using System.Collections.Generic;
 public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     public List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
+
+    public ObjectRepresentation FindOfKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f)
+    {
+        foreach (ObjectRepresentation record in objects)
+        {
+            if (record.kind != kind) continue;
+            if (record.lane != lane) continue;
+
+            if (record.IsCloserThan(tolerance, position)) return record;
+        }
+
+        return null;
+    }
+
+    public ObjectRepresentation CheckEnemy(Lane lane, float position)
+    {
+        return FindOfKind(ObjectKind.Enemy, lane, position);
+    }
 }
 
 public enum ObjectKind

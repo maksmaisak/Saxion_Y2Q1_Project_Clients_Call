@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 public class GameplayObject : MonoBehaviour
 {
     protected ObjectRepresentation representation;
+    private bool isRemoved;
 
     protected Lane currentLane
     {
@@ -15,6 +16,14 @@ public class GameplayObject : MonoBehaviour
     protected virtual void Start()
     {
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
+    }
+    
+    public void RemoveFromWorldModel()
+    {
+        if (isRemoved) return;
+
+        WorldRepresentation.Instance.objects.Remove(representation);
+        isRemoved = true;
     }
 
     private ObjectRepresentation MakeRepresentation()
