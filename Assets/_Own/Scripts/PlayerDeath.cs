@@ -7,14 +7,10 @@ using UnityEngine.SceneManagement;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private Vector3 _spawnPoint = Vector3.zero;
-    [SerializeField] private float _minimumPositionY = -15f;
 
     private Rigidbody _rb = null;
     private Player _player = null;
     private PlayerController _playerController = null;
-
-    public delegate void GameOverEvent();
-    public event GameOverEvent HandleGameOver;
 
     void Start()
     {
@@ -35,13 +31,7 @@ public class PlayerDeath : MonoBehaviour
         
         //ResetPlayerDefaults();
 
-        //HandleGameOver?.Invoke();
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!_player.IsGodMode() && other.CompareTag("Obstacle"))
-            GameOver();
+        new GameOver().PostEvent();
     }
 
     private void ResetPlayerDefaults()

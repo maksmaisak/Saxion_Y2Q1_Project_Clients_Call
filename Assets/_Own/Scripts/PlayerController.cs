@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speedForward = 0.5f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
-    [Space] 
+    [Space]
+    [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
+    [Space]
     [SerializeField] Lane _currentLane;
-
-    private Lane _startingLane;
 
     enum InputKind
     {
@@ -32,12 +32,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Assert.IsNotNull(_currentLane);
-
-        _startingLane = _currentLane;
-
-        PlayerDeath deathScript = GetComponent<PlayerDeath>();
-        if (deathScript != null)
-            deathScript.HandleGameOver += HandleGameOver;
     }
     
     void FixedUpdate()
@@ -51,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
             Lane targetLane = GetTargetJumpLane();
             if (targetLane == null) return;
-
+            
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
             JumpTo(targetPosition, targetLane);
         }
@@ -130,14 +124,17 @@ public class PlayerController : MonoBehaviour
         return null;
     }
 
-    private void HandleGameOver()
-    {
-        _currentLane = _startingLane;
-    }
-
     public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
     {
-        targetPosition.z += jumpDuration * speedForward;
+        targetPosition.z += speedForward * jumpDuration;
+
+        if (targetLane != null)
+        {
+            float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
+            ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane, laneTargetPosition, enemyJumpOnErrorTolerance);
+            enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
+        }
+        
         transform
             .DOJump(targetPosition, jumpPower, 1, jumpDuration)
             .OnComplete(() => isJumping = false);
@@ -147,7 +144,7 @@ public class PlayerController : MonoBehaviour
         if (targetLane != null)
             _currentLane = targetLane;
     }
-
+    
     public bool IsJumping()
     {
         return isJumping;

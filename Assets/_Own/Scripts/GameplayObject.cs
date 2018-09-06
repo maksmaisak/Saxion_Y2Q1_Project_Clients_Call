@@ -2,9 +2,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class GameplayObject : MonoBehaviour
+public class GameplayObject : MyBehaviour
 {
     protected ObjectRepresentation representation;
+    private bool isRemoved;
 
     protected Lane currentLane
     {
@@ -16,6 +17,14 @@ public class GameplayObject : MonoBehaviour
     {
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
     }
+    
+    public void RemoveFromWorldModel()
+    {
+        if (isRemoved) return;
+
+        WorldRepresentation.Instance.objects.Remove(representation);
+        isRemoved = true;
+    }
 
     private ObjectRepresentation MakeRepresentation()
     {
@@ -23,7 +32,7 @@ public class GameplayObject : MonoBehaviour
         float min = bounds.min.z;
         float max = bounds.max.z;
 
-        Debug.Log($"{min} {max} {GetKind().ToString()}");
+        //Debug.Log($"{min} {max} {GetKind().ToString()}");
 
         return representation = new ObjectRepresentation
         {

@@ -10,13 +10,6 @@ public class PlayerScore : MonoBehaviour
     private float _updateScoreRate = 0.5f;
     private float _lastUpdate = 0;
 
-    public void Start()
-    {
-        PlayerDeath deathScript = GetComponent<PlayerDeath>();
-        if (deathScript != null)
-            deathScript.HandleGameOver += HandleGameOver;
-    }
-
     public void Update()
     {
         if(_scoreText != null)
@@ -38,10 +31,5 @@ public class PlayerScore : MonoBehaviour
             _score += _scoreIncreaseAmount;
             _scoreText.text = "Score: " + _score;
         }
-    }
-
-    public void HandleGameOver()
-    {
-        _score = 0;
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public abstract class Singleton<T> : MonoBehaviour where T : Component
+public abstract class Singleton<T> : MyBehaviour where T : Singleton<T>
 {
     private static T instance;
 
