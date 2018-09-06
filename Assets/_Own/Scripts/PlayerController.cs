@@ -7,7 +7,6 @@ using UnityEngine.Assertions;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speedForward = 0.5f;
-    [SerializeField] float jumpDistanceForward = 2f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Space] 
@@ -129,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
     {
-        targetPosition.z += jumpDistanceForward;
+        targetPosition.z += speedForward * jumpDuration;
 
         if (targetLane != null)
         {
