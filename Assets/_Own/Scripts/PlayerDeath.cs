@@ -13,9 +13,6 @@ public class PlayerDeath : MonoBehaviour
     private Player _player = null;
     private PlayerController _playerController = null;
 
-    public delegate void GameOverEvent();
-    public event GameOverEvent HandleGameOver;
-
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -35,7 +32,7 @@ public class PlayerDeath : MonoBehaviour
         
         //ResetPlayerDefaults();
 
-        //HandleGameOver?.Invoke();
+        new GameOver().PostEvent();
     }
 
     private void ResetPlayerDefaults()

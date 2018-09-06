@@ -34,10 +34,6 @@ public class PlayerController : MonoBehaviour
         Assert.IsNotNull(_currentLane);
 
         _startingLane = _currentLane;
-
-        PlayerDeath deathScript = GetComponent<PlayerDeath>();
-        if (deathScript != null)
-            deathScript.HandleGameOver += HandleGameOver;
     }
     
     void FixedUpdate()
@@ -128,11 +124,6 @@ public class PlayerController : MonoBehaviour
         }
 
         return null;
-    }
-
-    private void HandleGameOver()
-    {
-        _currentLane = _startingLane;
     }
 
     public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
