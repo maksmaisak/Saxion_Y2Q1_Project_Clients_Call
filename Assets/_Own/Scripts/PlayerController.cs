@@ -52,13 +52,7 @@ public class PlayerController : MonoBehaviour
             if (targetLane == null) return;
 
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
-            targetPosition.z += jumpDuration * speedForward;
-            transform
-                .DOJump(targetPosition, jumpPower, 1, jumpDuration)
-                .OnComplete(() => isJumping = false);
-
-            isJumping = true;
-            currentLane = targetLane;
+            JumpTo(targetPosition, targetLane);
         }
     }
 
@@ -112,5 +106,23 @@ public class PlayerController : MonoBehaviour
     private void HandleGameOver()
     {
         currentLane = _startingLane;
+    }
+
+    public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
+    {
+        targetPosition.z += jumpDuration * speedForward;
+        transform
+            .DOJump(targetPosition, jumpPower, 1, jumpDuration)
+            .OnComplete(() => isJumping = false);
+
+        isJumping = true;
+
+        if (targetLane != null)
+            currentLane = targetLane;
+    }
+
+    public bool IsJumping()
+    {
+        return isJumping;
     }
 }
