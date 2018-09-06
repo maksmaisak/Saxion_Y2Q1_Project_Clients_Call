@@ -5,18 +5,24 @@ using UnityEngine.Assertions;
 public class GameplayObject : MonoBehaviour
 {
     protected ObjectRepresentation representation;
-    
-    void Start()
+
+    protected Lane currentLane
+    {
+        get { return representation.lane; }
+        set { representation.lane = value; }
+    }
+
+    protected virtual void Start()
     {
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
     }
-    
+
     private ObjectRepresentation MakeRepresentation()
     {
         Bounds bounds = GetBounds();
         float min = bounds.min.z;
         float max = bounds.max.z;
-        
+
         Debug.Log($"{min} {max} {GetKind().ToString()}");
 
         return representation = new ObjectRepresentation
