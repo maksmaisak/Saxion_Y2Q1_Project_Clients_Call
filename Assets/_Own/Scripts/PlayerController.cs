@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Space] 
-    [SerializeField] new Rigidbody rigidbody;
     [SerializeField] Lane _currentLane;
 
     private Lane _startingLane;
@@ -26,12 +25,10 @@ public class PlayerController : MonoBehaviour
     private InputKind currentInput;
     private bool isJumping;
 
-    public Lane currentLane => _currentLane;
     public float positionOnLane => _currentLane.GetPositionOnLane(transform.position);
 
     void Start()
     {
-        Assert.IsNotNull(rigidbody);
         Assert.IsNotNull(_currentLane);
 
         _startingLane = _currentLane;

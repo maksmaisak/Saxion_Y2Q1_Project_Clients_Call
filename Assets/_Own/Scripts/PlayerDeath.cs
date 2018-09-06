@@ -19,7 +19,6 @@ public class PlayerDeath : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _playerController = GetComponent<PlayerController>();
-        //StartCoroutine(CheckYBoundary());
     }
 
     private void GameOver()
@@ -50,17 +49,6 @@ public class PlayerDeath : MonoBehaviour
         _rb.isKinematic = true;
         transform.position = _spawnPoint;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-    }
-
-    IEnumerator CheckYBoundary()
-    {
-        while(this.enabled)
-        {
-            if(transform.position.y < _minimumPositionY)
-                GameOver();
-
-            yield return new WaitForSeconds(0.3f);
-        }
     }
 
     public void DeathObstacle()
