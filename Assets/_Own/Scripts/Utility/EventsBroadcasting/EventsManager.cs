@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 /// Automatically subscribes objects to broadcastable events.
-public class EventsManager : Singleton<EventsManager>
+public class EventsManager : PersistentSingleton<EventsManager>
 {
     private readonly Queue<IBroadcastEvent> events = new Queue<IBroadcastEvent>();
     private readonly IEventReceiverRegisterer[] registerers;
