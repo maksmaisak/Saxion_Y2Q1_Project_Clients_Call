@@ -13,7 +13,7 @@ public class PlayerScore : MonoBehaviour
     public void Update()
     {
         if(_scoreText != null)
-        {
+        {  
             _updateScoreRate = 0.5f;
 
             if (Input.GetKey(KeyCode.V))

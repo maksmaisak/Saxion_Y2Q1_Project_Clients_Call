@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         
         if (currentPlatformRepresentation != null)
         {
-            _currentLane = currentPlatformRepresentation.lane;
+            _currentLane = currentPlatformRepresentation.destinationLane ?? currentPlatformRepresentation.lane;
         }
     }
 
