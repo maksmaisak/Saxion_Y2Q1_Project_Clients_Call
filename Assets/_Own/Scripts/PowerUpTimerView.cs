@@ -13,7 +13,7 @@ public class PowerUpTimerView : MyBehaviour, IEventReceiver<PowerUpCollected>
         if (!canShowTimer) return;
         
         timeLeft -= Time.unscaledDeltaTime;
-        timerText.text = "Timer: " + System.Math.Round(timeLeft, 2);
+        timerText.text = "Timer: " + timeLeft.ToString("F2");
 
         if (timeLeft <= 0)
         {

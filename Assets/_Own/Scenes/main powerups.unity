@@ -1136,11 +1136,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114184830435028562, guid: ea99e1f6cdfe7f0489c430df5c106fcf,
-        type: 2}
-      propertyPath: info.basepoints
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
   m_IsPrefabAsset: 0
@@ -2767,7 +2762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31bd269b8442b48509969738f3c0f94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedForward: 10
+  baseSpeed: 10
   jumpPower: 1
   jumpDuration: 0.2
   enemyJumpOnErrorTolerance: 1

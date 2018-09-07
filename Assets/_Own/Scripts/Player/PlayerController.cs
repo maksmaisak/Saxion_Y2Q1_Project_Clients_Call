@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 
 public class PlayerController : GameplayObject
 {
-    [SerializeField] float speedForward = 0.5f;
+    [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Space]
@@ -24,11 +24,13 @@ public class PlayerController : GameplayObject
         JumpRight,
         JumpForward
     }
+    
+    private Player player;
 
-    private float speedMultiplier = 1.0f;
     private InputKind currentInput;
     private bool isJumping;
-    private Player player;
+
+    private float currentSpeed => baseSpeed * player.GetSpeedMultiplier();
 
     protected override void Start()
     {
@@ -39,7 +41,7 @@ public class PlayerController : GameplayObject
     
     void FixedUpdate()
     {
-        transform.position += Vector3.forward * speedForward * player.GetSpeedMultiplier() * Time.fixedDeltaTime;
+        transform.position += Vector3.forward * currentSpeed * Time.fixedDeltaTime;
 
         UpdateBounds();
 
@@ -153,7 +155,7 @@ public class PlayerController : GameplayObject
 
     public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
     {
-        targetPosition.z += speedForward * jumpDuration;
+        targetPosition.z += currentSpeed * jumpDuration;
 
         if (targetLane != null)
         {
