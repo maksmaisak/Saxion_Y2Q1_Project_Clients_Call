@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpDuration = 0.2f;
     [Space]
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
+    [SerializeField] float platformErrorTolerance = 0.1f;
     [Space]
     [SerializeField] Lane _currentLane;
+    [SerializeField] ObjectRepresentation currentPlatformRepresentation;
 
     enum InputKind
     {
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour
     {
         transform.position += Vector3.forward * speedForward * Time.fixedDeltaTime;
 
+        UpdateCurrentPlatform();
+
         if (!isJumping)
         {
             if (canFall && CheckDeath())
@@ -48,6 +52,26 @@ public class PlayerController : MonoBehaviour
             
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
             JumpTo(targetPosition, targetLane);
+        }
+    }
+
+    private void UpdateCurrentPlatform()
+    {
+        currentPlatformRepresentation = WorldRepresentation.Instance.CheckByKind(
+            ObjectKind.Platform, _currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
+        );
+
+        if (currentPlatformRepresentation?.lane != _currentLane)
+        {
+            Debug.Log("Changed lanes.");
+        }
+        
+        // Might move you aside if the platform is moving while you jump on it.
+        transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
+        
+        if (currentPlatformRepresentation != null)
+        {
+            _currentLane = currentPlatformRepresentation.lane;
         }
     }
 
@@ -99,17 +123,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsFalling()
     {
-        foreach (var obj in WorldRepresentation.Instance.objects)
-        {
-            if (obj.lane != _currentLane) continue;
-
-            if (obj.kind == ObjectKind.Platform && obj.IsInside(positionOnLane))
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return currentPlatformRepresentation == null;
     }
 
     private Lane GetTargetJumpLane()
