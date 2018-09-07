@@ -9,6 +9,8 @@ public class Enemy : GameplayObject
     [SerializeField] float jumpInterval = 1f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
+    [Space] 
+    [SerializeField] private int scoreBonusWhenKilled = 100;
 
     private float jumpCountdown;
     private bool isJumpingRight;
@@ -40,6 +42,7 @@ public class Enemy : GameplayObject
     public void JumpedOn()
     {
         wasJumpedOn = true;
+        new ScoreChange(scoreBonusWhenKilled).PostEvent();
     }
 
     private void Jump()
