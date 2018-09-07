@@ -1674,9 +1674,10 @@ GameObject:
   - component: {fileID: 1318668888}
   - component: {fileID: 1318668890}
   - component: {fileID: 1318668889}
+  - component: {fileID: 1318668891}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1698,7 +1699,6 @@ MonoBehaviour:
   enemyJumpOnErrorTolerance: 1
   platformErrorTolerance: 0.25
   platformSnappingCoefficient: 0.0000001
-  _currentLane: {fileID: 818426542}
 --- !u!135 &1318668884
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1806,6 +1806,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {x: 0, y: 0.75, z: -4}
+--- !u!114 &1318668891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1318668882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae17b422d9ba3fb4c80ba7ceaa76cc30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1330000145
 GameObject:
   m_ObjectHideFlags: 0
