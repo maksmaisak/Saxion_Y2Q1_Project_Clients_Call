@@ -5,6 +5,7 @@ public class JumpPad : MonoBehaviour
 {
     [SerializeField] bool _isFacingRight = true;
     [SerializeField] Lane _currentLane = null;
+    /// TODO Maybe just have a destination lane specifiable instead of all that ^. As in "send player to given lane".
 
     // Use this for initialization
     void Start()
@@ -20,7 +21,7 @@ public class JumpPad : MonoBehaviour
         var controller = other.GetComponent<PlayerController>();
         Debug.Assert(controller != null);
 
-        if (controller.IsJumping())
+        if (controller.isJumping)
             return;
 
         Lane targetLane = null;

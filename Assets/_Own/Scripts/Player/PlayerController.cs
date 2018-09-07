@@ -28,7 +28,7 @@ public class PlayerController : GameplayObject
     private Player player;
 
     private InputKind currentInput;
-    private bool isJumping;
+    public bool isJumping { get; private set; }
 
     private float currentSpeed => baseSpeed * player.GetSpeedMultiplier();
 
@@ -172,10 +172,5 @@ public class PlayerController : GameplayObject
 
         if (targetLane != null)
             currentLane = targetLane;
-    }
-
-    public bool IsJumping()
-    {
-        return isJumping;
     }
 }
