@@ -28,7 +28,6 @@ public class PlayerController : GameplayObject
     private float speedMultiplier = 1.0f;
     private InputKind currentInput;
     private bool isJumping;
-    private bool canFall = true;
     private Player player;
 
     protected override void Start()
@@ -49,7 +48,7 @@ public class PlayerController : GameplayObject
 
         if (!isJumping)
         {
-            if (canFall && CheckDeath())
+            if (!player.isGodMode && CheckDeath())
                 return;
 
             Lane targetLane = GetTargetJumpLane();
@@ -176,10 +175,5 @@ public class PlayerController : GameplayObject
     public bool IsJumping()
     {
         return isJumping;
-    }
-
-    public void SetFall(bool canFall)
-    {
-        this.canFall = canFall;
     }
 }

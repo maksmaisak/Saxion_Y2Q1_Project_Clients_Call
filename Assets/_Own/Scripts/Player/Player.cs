@@ -9,19 +9,12 @@ public enum Multiplier
 [RequireComponent(typeof(PlayerController))]
 public class Player : MyBehaviour, IEventReceiver<PowerUpCollected>
 {
-    private PlayerController playerController;
-    private bool isGodMode = false;
+    public bool isGodMode { get; private set; }
     private float speedMultiplier;
-
-    void Start()
-    {
-        playerController = GetComponent<PlayerController>();
-    }
 
     public void On(PowerUpCollected powerUpCollected)
     {
-        if (isGodMode)
-            return;
+        if (isGodMode) return;
 
         PowerUpInfo powerUp = powerUpCollected.powerUpInfo;
 
@@ -35,18 +28,12 @@ public class Player : MyBehaviour, IEventReceiver<PowerUpCollected>
             case PowerUpType.Fast:
                 isGodMode = true;
                 ApplyMultiplier(Multiplier.Speed, powerUp.basepoints);
-                playerController.SetFall(false);
                 break;
 
             default: break;
         }
 
         StartCoroutine(OnPowerUpExpire(powerUp));
-    }
-
-    public bool IsGodMode()
-    {
-        return isGodMode;
     }
 
     private IEnumerator OnPowerUpExpire(PowerUpInfo info)
@@ -62,7 +49,6 @@ public class Player : MyBehaviour, IEventReceiver<PowerUpCollected>
         {
             isGodMode = false;
             ApplyMultiplier(Multiplier.Speed, 0.0f);
-            playerController.SetFall(true);
         }
     }
 
