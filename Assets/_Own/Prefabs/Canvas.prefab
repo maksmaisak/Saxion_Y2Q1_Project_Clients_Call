@@ -76,12 +76,12 @@ GameObject:
   - component: {fileID: 114655864193984640}
   - component: {fileID: 114292407171845166}
   m_Layer: 5
-  m_Name: TimerText
+  m_Name: Timer Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &114088463554323352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1569769423941124}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -366,11 +366,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -471,10 +471,10 @@ RectTransform:
   m_Father: {fileID: 224495815970795142}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -132.55, y: -43.69}
-  m_SizeDelta: {x: 117.77, y: 40.56}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 130, y: -43.68994}
+  m_SizeDelta: {x: 117.77002, y: 40.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224495815970795142
 RectTransform:
@@ -512,6 +512,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -132.55, y: -43.69}
+  m_AnchoredPosition: {x: -132.54999, y: -43.68994}
   m_SizeDelta: {x: 117.77, y: 40.56}
   m_Pivot: {x: 0.5, y: 0.5}
