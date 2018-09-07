@@ -12,25 +12,17 @@ public struct PowerUpInfo
 {
     [Tooltip("Duration in seconds until the power up expires.")]
     public float duration;
-    public float power;
+    public float basepoints;
     public PowerUpType type;
 }
 
-public class PowerUp : MonoBehaviour {
-
+public class PowerUp : Collectable
+{
     [SerializeField] PowerUpInfo info;
 
-    private void OnTriggerEnter(Collider other)
+    public override void OnCollected()
     {
-        if (!other.CompareTag("Player"))
-            return;
-
-        Player player = other.GetComponent<Player>();
-        if (!player)
-            return;
-
-        player.CollectPowerUp(info);
-
-        Destroy(this.gameObject);
+        new PowerUpCollected(info).PostEvent();
+        Destroy(this);
     }
 }

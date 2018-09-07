@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 224444203259911012}
   - component: {fileID: 222201196034625994}
   - component: {fileID: 114655864193984640}
+  - component: {fileID: 114292407171845166}
   m_Layer: 5
   m_Name: TimerText
   m_TagString: Untagged
@@ -117,6 +118,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114292407171845166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569769423941124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833717ff598827e4b8e70ae97dac7514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 114655864193984640}
 --- !u!114 &114480265338643992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,11 +365,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -444,7 +457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 134, y: -43.690002}
+  m_AnchoredPosition: {x: 108, y: -43.69}
   m_SizeDelta: {x: 117.77, y: 40.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224495815970795142

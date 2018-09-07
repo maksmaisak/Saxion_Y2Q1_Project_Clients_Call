@@ -28,7 +28,8 @@ public enum ObjectKind
 {
     Platform,
     Obstacle,
-    Enemy
+    Enemy,
+    Player,
 }
 
 public class ObjectRepresentation

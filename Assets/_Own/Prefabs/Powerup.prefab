@@ -23,10 +23,10 @@ GameObject:
   - component: {fileID: 23270165711383734}
   - component: {fileID: 65965454407830520}
   - component: {fileID: 114426215766597782}
-  - component: {fileID: 114963205645252070}
+  - component: {fileID: 114184830435028562}
   m_Layer: 0
   m_Name: Powerup
-  m_TagString: Powerup
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +98,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114184830435028562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1029386209690116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d1164cbe60734cbf92ece1c0fe7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  searchRadius: 2
+  info:
+    duration: 2
+    basepoints: 0.2
+    type: 1
 --- !u!114 &114426215766597782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,18 +125,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813df590ef053b04ebbf2101c98afa67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114963205645252070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1029386209690116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05b94ccb5a94e04b882b4d0369b6aa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info:
-    duration: 2
-    power: 10.5
-    type: 2

@@ -6,6 +6,7 @@ public class GameplayObject : MyBehaviour
 {
     protected ObjectRepresentation representation;
     private bool isRemoved;
+    public float positionOnLane => currentLane.GetPositionOnLane(transform.position);
 
     protected Lane currentLane
     {
@@ -17,7 +18,7 @@ public class GameplayObject : MyBehaviour
     {
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
     }
-    
+
     public void RemoveFromWorldModel()
     {
         if (isRemoved) return;
@@ -44,6 +45,14 @@ public class GameplayObject : MyBehaviour
         };
     }
 
+    public void UpdateBounds()
+    {
+        Bounds bounds = GetBounds();
+
+        representation.positionStart = bounds.min.z;
+        representation.positionEnd = bounds.max.z;
+    }
+
     private Lane GetLane()
     {
         /// TEMP
@@ -64,6 +73,7 @@ public class GameplayObject : MyBehaviour
         // TEMP
         if (CompareTag("Obstacle")) return ObjectKind.Obstacle;
         if (CompareTag("Enemy")) return ObjectKind.Enemy;
+        if (CompareTag("Player")) return ObjectKind.Player;
 
         return ObjectKind.Platform;
     }

@@ -4,15 +4,13 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : GameplayObject
 {
     [SerializeField] float speedForward = 0.5f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Space]
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
-    [Space]
-    [SerializeField] Lane _currentLane;
 
     enum InputKind
     {
@@ -22,21 +20,24 @@ public class PlayerController : MonoBehaviour
         JumpForward
     }
 
-    private float _oldSpeed;
+    private float speedMultiplier = 1.0f;
     private InputKind currentInput;
     private bool isJumping;
     private bool canFall = true;
+    private Player player;
 
-    public float positionOnLane => _currentLane.GetPositionOnLane(transform.position);
-
-    void Start()
+    protected override void Start()
     {
-        Assert.IsNotNull(_currentLane);
+        base.Start();
+        Assert.IsNotNull(currentLane);
+        player = GetComponent<Player>();
     }
     
     void FixedUpdate()
     {
-        transform.position += Vector3.forward * speedForward * Time.fixedDeltaTime;
+        transform.position += Vector3.forward * speedForward * player.GetSpeedMultiplier() * Time.fixedDeltaTime;
+
+        UpdateBounds();
 
         if (!isJumping)
         {
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
             Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical")
         );
-        
+
         if      (input.x >  0.01f) currentInput = InputKind.JumpRight;
         else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
         else if (input.y >  0.01f) currentInput = InputKind.JumpForward;
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
         foreach (var obj in WorldRepresentation.Instance.objects)
         {
-            if (obj.lane != _currentLane) continue;
+            if (obj.lane != currentLane) continue;
 
             bool isObstacle = obj.kind == ObjectKind.Obstacle;
             bool isEnemy = obj.kind == ObjectKind.Enemy;
@@ -101,12 +102,10 @@ public class PlayerController : MonoBehaviour
     {
         foreach (var obj in WorldRepresentation.Instance.objects)
         {
-            if (obj.lane != _currentLane) continue;
+            if (obj.lane != currentLane) continue;
 
             if (obj.kind == ObjectKind.Platform && obj.IsInside(positionOnLane))
-            {
                 return false;
-            }
         }
 
         return true;
@@ -116,9 +115,9 @@ public class PlayerController : MonoBehaviour
     {
         switch (currentInput)
         {
-            case InputKind.JumpLeft: return _currentLane.leftNeighbor;
-            case InputKind.JumpRight: return _currentLane.rightNeighbor;
-            case InputKind.JumpForward: return _currentLane;
+            case InputKind.JumpLeft: return currentLane.leftNeighbor;
+            case InputKind.JumpRight: return currentLane.rightNeighbor;
+            case InputKind.JumpForward: return currentLane;
         }
 
         return null;
@@ -142,9 +141,9 @@ public class PlayerController : MonoBehaviour
         isJumping = true;
 
         if (targetLane != null)
-            _currentLane = targetLane;
+            currentLane = targetLane;
     }
-    
+
     public bool IsJumping()
     {
         return isJumping;
@@ -153,16 +152,5 @@ public class PlayerController : MonoBehaviour
     public void SetFall(bool canFall)
     {
         this.canFall = canFall;
-    }
-
-    public void SetSpeed(float newSpeed)
-    {
-        _oldSpeed = speedForward;
-        speedForward = newSpeed;
-    }
-
-    public float GetOldSpeed()
-    {
-        return _oldSpeed;
     }
 }

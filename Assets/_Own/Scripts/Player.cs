@@ -1,86 +1,85 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+
+public enum Multiplier
+{
+    Speed = 1,
+}
 
 [RequireComponent(typeof(PlayerController))]
-public class Player : MonoBehaviour
+public class Player : MyBehaviour, IEventReceiver<PowerUpCollected>
 {
-    [SerializeField] float _slowTimeScale = 0.6f;
-    [SerializeField] private TMP_Text _timerText;
+    private PlayerController playerController;
+    private bool isGodMode = false;
+    private float speedMultiplier;
 
-    private PlayerController _playerController;
-    private bool _isGodMode = false;
-    private bool _canShowTimer = false;
-    private float _timerDuration;
-
-    private void Start()
+    void Start()
     {
-        _playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
     }
 
-    private void Update()
+    public void On(PowerUpCollected powerUpCollected)
     {
-        if(_canShowTimer)
-        {
-            _timerDuration -= Time.deltaTime;
-            _timerText.text = "Timer: " + System.Math.Round(_timerDuration, 2);
-
-            if(_timerDuration <= 0)
-            {
-                _canShowTimer = false;
-                _timerDuration = 0.0f;
-                _timerText.enabled = false;
-            }
-        }
-    }
-
-    public void CollectPowerUp(PowerUpInfo powerUp)
-    {
-        if (_isGodMode)
+        if (isGodMode)
             return;
+
+        PowerUpInfo powerUp = powerUpCollected.powerUpInfo;
 
         switch(powerUp.type)
         {
             case PowerUpType.Slow:
-                Time.timeScale = _slowTimeScale;
-                Time.fixedDeltaTime = 0.02f * _slowTimeScale;
-                Invoke("ResetTimeScale", powerUp.duration);
+                Time.timeScale = powerUp.basepoints;
+                Time.fixedDeltaTime = 0.02f * powerUp.basepoints;
                 break;
 
             case PowerUpType.Fast:
-                _isGodMode = true;
-                _playerController.SetSpeed(powerUp.power);
-                _playerController.SetFall(false);
-                Invoke("ResetGodMode", powerUp.duration);
+                isGodMode = true;
+                ApplyMultiplier(Multiplier.Speed, powerUp.basepoints);
+                playerController.SetFall(false);
                 break;
 
             default: break;
         }
 
-        StartTimer(powerUp.duration);
+        StartCoroutine(OnPowerUpExpire(powerUp));
     }
 
     public bool IsGodMode()
     {
-        return _isGodMode;
+        return isGodMode;
     }
 
-    private void ResetTimeScale()
+    private IEnumerator OnPowerUpExpire(PowerUpInfo info)
     {
-        Time.timeScale = 1.0f;
-        Time.fixedDeltaTime = 0.02f;
+        yield return new WaitForSecondsRealtime(info.duration);
+
+        if (info.type == PowerUpType.Slow)
+        {
+            Time.timeScale = 1.0f;
+            Time.fixedDeltaTime = 0.02f;
+        }
+        else if(info.type == PowerUpType.Fast)
+        {
+            isGodMode = false;
+            ApplyMultiplier(Multiplier.Speed, 0.0f);
+            playerController.SetFall(true);
+        }
     }
 
-    private void ResetGodMode()
+    public void ApplyMultiplier(Multiplier multiplier, float amount)
     {
-        _isGodMode = false;
-        _playerController.SetSpeed(_playerController.GetOldSpeed());
-        _playerController.SetFall(true);
+        switch (multiplier)
+        {
+            case Multiplier.Speed:
+                speedMultiplier = amount;
+                break;
+
+            default: break;
+        }
     }
 
-    private void StartTimer(float duration)
+    public float GetSpeedMultiplier()
     {
-        _timerDuration = duration;
-        _canShowTimer = true;
-        _timerText.enabled = true;
+        return Mathf.Max(1.0f, speedMultiplier);
     }
 }
