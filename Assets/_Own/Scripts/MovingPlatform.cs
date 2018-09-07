@@ -6,10 +6,9 @@ public class MovingPlatform : GameplayObject
 {
     [SerializeField] float moveInterval = 1f;
     [SerializeField] float moveDuration = 0.2f;
-
+    [SerializeField] bool isMovingRight;
+    
     private float moveCountdown;
-    private bool isMovingRight;
-
     private bool isMoving;
     
     void FixedUpdate()

@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
+    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")]
+    [SerializeField] float platformSnappingCoefficient = 0.01f;
     [Space]
     [SerializeField] Lane _currentLane;
     [SerializeField] ObjectRepresentation currentPlatformRepresentation;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
         transform.position += Vector3.forward * speedForward * Time.fixedDeltaTime;
 
         UpdateCurrentPlatform();
+        SnapToPlatform();
 
         if (!isJumping)
         {
@@ -53,6 +56,19 @@ public class PlayerController : MonoBehaviour
             Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
             JumpTo(targetPosition, targetLane);
         }
+    }
+    
+    void Update()
+    {
+        Vector2 input = new Vector2(
+            Input.GetAxis("Horizontal"),
+            Input.GetAxis("Vertical")
+        );
+        
+        if      (input.x >  0.01f) currentInput = InputKind.JumpRight;
+        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
+        else if (input.y >  0.01f) currentInput = InputKind.JumpForward;
+        else currentInput = InputKind.None;
     }
 
     private void UpdateCurrentPlatform()
@@ -74,18 +90,14 @@ public class PlayerController : MonoBehaviour
             _currentLane = currentPlatformRepresentation.destinationLane ?? currentPlatformRepresentation.lane;
         }
     }
-
-    void Update()
+    
+    private void SnapToPlatform()
     {
-        Vector2 input = new Vector2(
-            Input.GetAxis("Horizontal"),
-            Input.GetAxis("Vertical")
-        );
-        
-        if      (input.x >  0.01f) currentInput = InputKind.JumpRight;
-        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
-        else if (input.y >  0.01f) currentInput = InputKind.JumpForward;
-        else currentInput = InputKind.None;
+        if (currentPlatformRepresentation == null) return;
+
+        Vector3 localPosition = transform.localPosition;
+        localPosition.x *= Mathf.Pow(platformSnappingCoefficient, Time.deltaTime);
+        transform.localPosition = localPosition;
     }
 
     private bool CheckDeath()
