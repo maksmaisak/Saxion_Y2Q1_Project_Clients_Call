@@ -11,6 +11,11 @@ public class PlayerController : GameplayObject
     [SerializeField] float jumpDuration = 0.2f;
     [Space]
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
+    [SerializeField] float platformErrorTolerance = 0.1f;
+    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")]
+    [SerializeField] float platformSnappingCoefficient = 0.01f;
+    [Space]
+    [SerializeField] ObjectRepresentation currentPlatformRepresentation;
 
     enum InputKind
     {
@@ -39,6 +44,9 @@ public class PlayerController : GameplayObject
 
         UpdateBounds();
 
+        UpdateCurrentPlatform();
+        SnapToPlatform();
+
         if (!isJumping)
         {
             if (canFall && CheckDeath())
@@ -51,7 +59,7 @@ public class PlayerController : GameplayObject
             JumpTo(targetPosition, targetLane);
         }
     }
-
+    
     void Update()
     {
         Vector2 input = new Vector2(
@@ -63,6 +71,35 @@ public class PlayerController : GameplayObject
         else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
         else if (input.y >  0.01f) currentInput = InputKind.JumpForward;
         else currentInput = InputKind.None;
+    }
+
+    private void UpdateCurrentPlatform()
+    {
+        currentPlatformRepresentation = WorldRepresentation.Instance.CheckByKind(
+            ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
+        );
+
+        if (currentPlatformRepresentation?.lane != currentLane)
+        {
+            Debug.Log("Changed lanes.");
+        }
+        
+        // Might move you aside if the platform is moving while you jump on it.
+        transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
+        
+        if (currentPlatformRepresentation != null)
+        {
+            currentLane = currentPlatformRepresentation.destinationLane ?? currentPlatformRepresentation.lane;
+        }
+    }
+    
+    private void SnapToPlatform()
+    {
+        if (currentPlatformRepresentation == null) return;
+
+        Vector3 localPosition = transform.localPosition;
+        localPosition.x *= Mathf.Pow(platformSnappingCoefficient, Time.deltaTime);
+        transform.localPosition = localPosition;
     }
 
     private bool CheckDeath()
@@ -100,15 +137,7 @@ public class PlayerController : GameplayObject
 
     private bool IsFalling()
     {
-        foreach (var obj in WorldRepresentation.Instance.objects)
-        {
-            if (obj.lane != currentLane) continue;
-
-            if (obj.kind == ObjectKind.Platform && obj.IsInside(positionOnLane))
-                return false;
-        }
-
-        return true;
+        return currentPlatformRepresentation == null;
     }
 
     private Lane GetTargetJumpLane()

@@ -5,12 +5,17 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     public List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
 
-    public ObjectRepresentation CheckByKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f)
+    public ObjectRepresentation CheckByKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f, bool areMovingObjectsAllowed = false)
     {
         foreach (ObjectRepresentation record in objects)
         {
             if (record.kind != kind) continue;
-            if (record.lane != lane) continue;
+
+            if (record.lane != lane)
+            {
+                if (!areMovingObjectsAllowed) continue;
+                if (record.destinationLane != lane) continue;
+            }
 
             if (record.IsCloserThan(tolerance, position)) return record;
         }
@@ -32,10 +37,13 @@ public enum ObjectKind
     Player,
 }
 
+/// A representation of a gameplay object that is easier for detecting gameplay events.
 public class ObjectRepresentation
 {
     public ObjectKind kind;
     public Lane lane;
+    /// Null if the object is not moving. If the object is mid-movement between lanes, `lane` is the lane of origin, and `destinationLane` is the lane of destination.
+    public Lane destinationLane;
     public GameObject gameObject;
         
     public float positionStart;
