@@ -19,7 +19,10 @@ public class GameplayObject : MyBehaviour
 
     protected virtual void Start()
     {
-        Assert.AreNotEqual(ObjectKind.Unassigned, objectKind, $"`objectKind` was not set for {this}. Please assign in the inspector.");
+        //Assert.AreNotEqual(ObjectKind.Unassigned, objectKind, $"`objectKind` was not set for {this}. Please assign in the inspector.");
+        // TEMP. Use old system for determining type while transitioning away from the old system.
+        if (objectKind == ObjectKind.Unassigned) objectKind = GetKindBasedOnGameObjectTag();
+        
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
     }
 
@@ -70,5 +73,15 @@ public class GameplayObject : MyBehaviour
         Bounds? bounds = GetComponent<Collider>()?.bounds ?? GetComponent<Renderer>().bounds;
         Assert.IsTrue(bounds.HasValue);
         return bounds.Value;
+    }
+
+    private ObjectKind GetKindBasedOnGameObjectTag()
+    {
+        // TEMP
+        if (CompareTag("Obstacle")) return ObjectKind.Obstacle;
+        if (CompareTag("Enemy"))    return ObjectKind.Enemy;
+        if (CompareTag("Player"))   return ObjectKind.Player;
+
+        return ObjectKind.Platform;
     }
 }
