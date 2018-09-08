@@ -34,10 +34,12 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 
 public enum ObjectKind
 {
+    Unassigned,
     Platform,
     Obstacle,
     Enemy,
-    Player,
+    Collectable,
+    Player
 }
 
 /// A representation of a gameplay object that is easier for detecting gameplay events.

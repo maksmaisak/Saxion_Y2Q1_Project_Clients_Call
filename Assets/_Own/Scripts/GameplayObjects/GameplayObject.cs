@@ -1,9 +1,12 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 public class GameplayObject : MyBehaviour
 {
+    [SerializeField] ObjectKind objectKind = ObjectKind.Unassigned;
+    
     protected ObjectRepresentation representation;
     private bool isRemoved;
     public float positionOnLane => currentLane.GetPositionOnLane(transform.position);
@@ -16,6 +19,7 @@ public class GameplayObject : MyBehaviour
 
     protected virtual void Start()
     {
+        Assert.AreNotEqual(ObjectKind.Unassigned, objectKind, $"`objectKind` was not set for {this}. Please assign in the inspector.");
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
     }
 
@@ -37,7 +41,7 @@ public class GameplayObject : MyBehaviour
 
         return representation = new ObjectRepresentation
         {
-            kind = GetKind(),
+            kind = objectKind,
             lane = GetLane(),
             gameObject = gameObject,
             positionStart = min,
@@ -66,15 +70,5 @@ public class GameplayObject : MyBehaviour
         Bounds? bounds = GetComponent<Collider>()?.bounds ?? GetComponent<Renderer>().bounds;
         Assert.IsTrue(bounds.HasValue);
         return bounds.Value;
-    }
-
-    private ObjectKind GetKind()
-    {
-        // TEMP
-        if (CompareTag("Obstacle")) return ObjectKind.Obstacle;
-        if (CompareTag("Enemy")) return ObjectKind.Enemy;
-        if (CompareTag("Player")) return ObjectKind.Player;
-
-        return ObjectKind.Platform;
     }
 }
