@@ -815,12 +815,6 @@ MonoBehaviour:
   moveInterval: 1
   moveDuration: 0.2
   isMovingRight: 0
---- !u!114 &641965114 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114655864193984640, guid: 19acc75b42c8ca1418f064c09a15086f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1663405162}
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 --- !u!1 &642065872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,7 +1687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31bd269b8442b48509969738f3c0f94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedForward: 10
+  baseSpeed: 10
   jumpPower: 1
   jumpDuration: 0.2
   enemyJumpOnErrorTolerance: 1
@@ -1793,7 +1787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ba85e9de1cea14fa13b0fde12fb624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 641965114}
+  updateScoreInterval: 0.5
+  scoreIncreaseAmount: 3
 --- !u!114 &1318668890
 MonoBehaviour:
   m_ObjectHideFlags: 0

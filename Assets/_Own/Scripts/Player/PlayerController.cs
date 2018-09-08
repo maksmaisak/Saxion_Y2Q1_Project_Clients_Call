@@ -75,9 +75,16 @@ public class PlayerController : GameplayObject
 
     private void UpdateCurrentPlatform()
     {
-        currentPlatformRepresentation = WorldRepresentation.Instance.CheckByKind(
-            ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
-        );
+        if (currentLane == null)
+        {
+            currentPlatformRepresentation = null;
+        }
+        else
+        {
+            currentPlatformRepresentation = WorldRepresentation.Instance.CheckByKind(
+                ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
+            );
+        }
 
         // Might move you aside if the platform is moving while you jump on it.
         transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
@@ -100,6 +107,12 @@ public class PlayerController : GameplayObject
     private bool CheckDeath()
     {
         PlayerDeath playerDeath = GetComponent<PlayerDeath>();
+        
+        if (IsFalling())
+        {
+            playerDeath.DeathFall();
+            return true;
+        }
 
         foreach (var obj in WorldRepresentation.Instance.objects)
         {
@@ -121,13 +134,7 @@ public class PlayerController : GameplayObject
                 return true;
             }
         }
-
-        if (IsFalling())
-        {
-            playerDeath.DeathFall();
-            return true;
-        }
-
+        
         return false;
     }
 
@@ -150,11 +157,19 @@ public class PlayerController : GameplayObject
 
     public void JumpTo(Lane targetLane)
     {
-        Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
-        targetPosition.z += currentSpeed * jumpDuration;
-
-        // Check if will kill enemy at target position
-        KillEnemyAtJumpDestination(targetLane, targetPosition);
+        Vector3 targetPosition;
+        if (targetLane != null)
+        {
+            targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
+            targetPosition.z += currentSpeed * jumpDuration;
+            KillEnemyAtJumpDestination(targetLane, targetPosition);
+        }
+        else
+        {
+            // Temp
+            targetPosition = transform.position + Vector3.right * 3f;
+            targetPosition.z += currentSpeed * jumpDuration;
+        }
 
         transform
             .DOJump(targetPosition, jumpPower, 1, jumpDuration)
