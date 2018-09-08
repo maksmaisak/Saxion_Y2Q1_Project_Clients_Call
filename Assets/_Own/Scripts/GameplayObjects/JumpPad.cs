@@ -1,19 +1,31 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Assertions;
 
-public class JumpPad : MonoBehaviour
+public class JumpPad : GameplayObject
 {
-    [SerializeField] bool _isFacingRight = true;
-    [SerializeField] Lane _currentLane = null;
+    [SerializeField] Lane targetLane;
+    [SerializeField] float playerDetectionRadius = 0.1f;
     /// TODO Maybe just have a destination lane specifiable instead of all that ^. As in "send player to given lane".
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
-        Debug.Assert(_currentLane != null);
+        base.Start();
+        Assert.IsNotNull(targetLane);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void FixedUpdate()
+    {
+        ObjectRepresentation playerRepresentation = WorldRepresentation.Instance.CheckByKind(
+            ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius);
+        if (playerRepresentation == null) return;
+        
+        /// TODO Fix direct dependency.
+        playerRepresentation.gameObject.GetComponent<PlayerController>().JumpTo(targetLane);
+    }
+
+    /*private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
             return;
@@ -45,5 +57,5 @@ public class JumpPad : MonoBehaviour
         }
 
         controller.JumpTo(targetPosition, targetLane);
-    }
+    }*/
 }
