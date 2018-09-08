@@ -100,7 +100,7 @@ public class PlayerController : GameplayObject
         if (currentPlatformRepresentation == null) return;
 
         Vector3 localPosition = transform.localPosition;
-        localPosition.x *= Mathf.Pow(platformSnappingCoefficient, Time.deltaTime);
+        localPosition.x *= Mathf.Pow(platformSnappingCoefficient, Time.fixedDeltaTime);
         transform.localPosition = localPosition;
     }
 

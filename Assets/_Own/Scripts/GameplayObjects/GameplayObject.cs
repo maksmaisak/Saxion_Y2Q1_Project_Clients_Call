@@ -1,9 +1,12 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 public class GameplayObject : MyBehaviour
 {
+    [SerializeField] ObjectKind objectKind = ObjectKind.Unassigned;
+    
     protected ObjectRepresentation representation;
     private bool isRemoved;
     public float positionOnLane => currentLane.GetPositionOnLane(transform.position);
@@ -16,6 +19,10 @@ public class GameplayObject : MyBehaviour
 
     protected virtual void Start()
     {
+        //Assert.AreNotEqual(ObjectKind.Unassigned, objectKind, $"`objectKind` was not set for {this}. Please assign in the inspector.");
+        // TEMP. Use old system for determining type while transitioning away from the old system.
+        if (objectKind == ObjectKind.Unassigned) objectKind = GetKindBasedOnGameObjectTag();
+        
         WorldRepresentation.Instance.objects.Add(MakeRepresentation());
     }
 
@@ -37,7 +44,7 @@ public class GameplayObject : MyBehaviour
 
         return representation = new ObjectRepresentation
         {
-            kind = GetKind(),
+            kind = objectKind,
             lane = GetLane(),
             gameObject = gameObject,
             positionStart = min,
@@ -68,12 +75,12 @@ public class GameplayObject : MyBehaviour
         return bounds.Value;
     }
 
-    private ObjectKind GetKind()
+    private ObjectKind GetKindBasedOnGameObjectTag()
     {
-        // TEMP
+        // TEMP till we completely move away from the tag-based system.
         if (CompareTag("Obstacle")) return ObjectKind.Obstacle;
-        if (CompareTag("Enemy")) return ObjectKind.Enemy;
-        if (CompareTag("Player")) return ObjectKind.Player;
+        if (CompareTag("Enemy"))    return ObjectKind.Enemy;
+        if (CompareTag("Player"))   return ObjectKind.Player;
 
         return ObjectKind.Platform;
     }

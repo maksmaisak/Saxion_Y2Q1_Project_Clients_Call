@@ -2,14 +2,14 @@
 
 public abstract class Collectable : GameplayObject
 {
-    [SerializeField] protected float searchRadius = 2.0f;
+    [SerializeField] protected float playerDetectionRadius = 0.2f;
 
     public abstract void OnCollected();
 
     public void CheckPlayer()
     {
         if (WorldRepresentation.Instance.CheckByKind(
-            ObjectKind.Player, currentLane, positionOnLane, searchRadius) != null)
+            ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius) != null)
         {
             enabled = false;
             OnCollected();
