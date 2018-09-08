@@ -77,7 +77,7 @@ public class GameplayObject : MyBehaviour
 
     private ObjectKind GetKindBasedOnGameObjectTag()
     {
-        // TEMP
+        // TEMP till we completely move away from the tag-based system.
         if (CompareTag("Obstacle")) return ObjectKind.Obstacle;
         if (CompareTag("Enemy"))    return ObjectKind.Enemy;
         if (CompareTag("Player"))   return ObjectKind.Player;
