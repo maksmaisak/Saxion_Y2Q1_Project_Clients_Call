@@ -9,13 +9,13 @@ public class PlayerController : GameplayObject
     [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
-    [Space]
-    [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
+    [Space] [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
-    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")]
-    [SerializeField] float platformSnappingCoefficient = 0.01f;
-    [Space]
-    [SerializeField] ObjectRepresentation currentPlatformRepresentation;
+
+    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")] [SerializeField]
+    float platformSnappingCoefficient = 0.01f;
+
+    [Space] [SerializeField] ObjectRepresentation currentPlatformRepresentation;
 
     enum InputKind
     {
@@ -24,7 +24,7 @@ public class PlayerController : GameplayObject
         JumpRight,
         JumpForward
     }
-    
+
     private Player player;
 
     private InputKind currentInput;
@@ -38,7 +38,7 @@ public class PlayerController : GameplayObject
         Assert.IsNotNull(currentLane);
         player = GetComponent<Player>();
     }
-    
+
     void FixedUpdate()
     {
         transform.position += Vector3.forward * currentSpeed * Time.fixedDeltaTime;
@@ -55,12 +55,11 @@ public class PlayerController : GameplayObject
 
             Lane targetLane = GetTargetJumpLane();
             if (targetLane == null) return;
-            
-            Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
-            JumpTo(targetPosition, targetLane);
+
+            JumpTo(targetLane);
         }
     }
-    
+
     void Update()
     {
         Vector2 input = new Vector2(
@@ -68,9 +67,9 @@ public class PlayerController : GameplayObject
             Input.GetAxis("Vertical")
         );
 
-        if      (input.x >  0.01f) currentInput = InputKind.JumpRight;
+        if (input.x > 0.01f) currentInput = InputKind.JumpRight;
         else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
-        else if (input.y >  0.01f) currentInput = InputKind.JumpForward;
+        else if (input.y > 0.01f) currentInput = InputKind.JumpForward;
         else currentInput = InputKind.None;
     }
 
@@ -80,20 +79,15 @@ public class PlayerController : GameplayObject
             ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
         );
 
-        if (currentPlatformRepresentation?.lane != currentLane)
-        {
-            Debug.Log("Changed lanes.");
-        }
-        
         // Might move you aside if the platform is moving while you jump on it.
         transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
-        
+
         if (currentPlatformRepresentation != null)
         {
             currentLane = currentPlatformRepresentation.destinationLane ?? currentPlatformRepresentation.lane;
         }
     }
-    
+
     private void SnapToPlatform()
     {
         if (currentPlatformRepresentation == null) return;
@@ -123,6 +117,7 @@ public class PlayerController : GameplayObject
                 {
                     playerDeath.DeathEnemy();
                 }
+
                 return true;
             }
         }
@@ -153,24 +148,32 @@ public class PlayerController : GameplayObject
         return null;
     }
 
-    public void JumpTo(Vector3 targetPosition, Lane targetLane = null)
+    public void JumpTo(Lane targetLane)
     {
+        Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
         targetPosition.z += currentSpeed * jumpDuration;
 
-        if (targetLane != null)
-        {
-            float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
-            ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane, laneTargetPosition, enemyJumpOnErrorTolerance);
-            enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
-        }
-        
+        // Check if will kill enemy at target position
+        KillEnemyAtJumpDestination(targetLane, targetPosition);
+
         transform
             .DOJump(targetPosition, jumpPower, 1, jumpDuration)
-            .OnComplete(() => isJumping = false);
+            .OnComplete(() =>
+            {
+                isJumping = false;
+                currentLane = targetLane;
+                representation.destinationLane = null;
+            });
 
         isJumping = true;
+        representation.destinationLane = targetLane;
+    }
 
-        if (targetLane != null)
-            currentLane = targetLane;
+    private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
+    {
+        float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
+        ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane,
+            laneTargetPosition, enemyJumpOnErrorTolerance);
+        enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
     }
 }

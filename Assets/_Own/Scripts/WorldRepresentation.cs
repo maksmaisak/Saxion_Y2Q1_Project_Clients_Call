@@ -5,11 +5,14 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     public List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
 
-    public ObjectRepresentation CheckByKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f, bool areMovingObjectsAllowed = false)
+    public ObjectRepresentation CheckByKind(ObjectKind kind, Lane lane, float position, float tolerance = 0f, bool areMovingObjectsAllowed = true)
     {
         foreach (ObjectRepresentation record in objects)
         {
             if (record.kind != kind) continue;
+
+            bool isMoving = record.destinationLane != null;
+            if (!areMovingObjectsAllowed && isMoving) continue;
 
             if (record.lane != lane)
             {
