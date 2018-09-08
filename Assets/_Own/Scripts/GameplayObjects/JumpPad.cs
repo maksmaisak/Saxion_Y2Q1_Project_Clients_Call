@@ -6,6 +6,7 @@ public class JumpPad : GameplayObject
 {
     [SerializeField] Lane targetLane;
     [SerializeField] float playerDetectionRadius = 0.1f;
+
     /// TODO Maybe just have a destination lane specifiable instead of all that ^. As in "send player to given lane".
 
     // Use this for initialization
@@ -18,9 +19,11 @@ public class JumpPad : GameplayObject
     void FixedUpdate()
     {
         ObjectRepresentation playerRepresentation = WorldRepresentation.Instance.CheckByKind(
-            ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius);
+            ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius, areMovingObjectsAllowed: false
+        );
         if (playerRepresentation == null) return;
-        
+
+        Debug.Log("x");
         /// TODO Fix direct dependency.
         playerRepresentation.gameObject.GetComponent<PlayerController>().JumpTo(targetLane);
     }

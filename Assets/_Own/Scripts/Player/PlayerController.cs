@@ -158,10 +158,15 @@ public class PlayerController : GameplayObject
 
         transform
             .DOJump(targetPosition, jumpPower, 1, jumpDuration)
-            .OnComplete(() => isJumping = false);
+            .OnComplete(() =>
+            {
+                isJumping = false;
+                currentLane = targetLane;
+                representation.destinationLane = null;
+            });
 
         isJumping = true;
-        currentLane = targetLane;
+        representation.destinationLane = targetLane;
     }
 
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
