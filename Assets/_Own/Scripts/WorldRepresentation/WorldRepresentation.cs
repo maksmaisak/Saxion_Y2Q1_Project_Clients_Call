@@ -1,10 +1,22 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Assertions;
 
 public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
-    public List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
+    private readonly List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
+
+    public void Add(ObjectRepresentation obj)
+    {
+        Assert.IsFalse(objects.Contains(obj));
+        objects.Add(obj);
+    }
+
+    public bool Remove(ObjectRepresentation obj)
+    {
+        return objects.Remove(obj);
+    }
 
     public ObjectRepresentation CheckByKind(ObjectKind kind, Lane lane, float position, float margin = 0f, bool areMovingObjectsAllowed = true)
     {
