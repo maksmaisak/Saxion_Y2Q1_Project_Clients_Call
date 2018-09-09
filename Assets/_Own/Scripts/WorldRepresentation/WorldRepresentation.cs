@@ -35,6 +35,7 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
         foreach (ObjectRepresentation other in objects)
         {
             if ((other.kind & allowedKinds) == 0) continue;
+            if (obj.location.isAboveLane != other.location.isAboveLane) continue;
             if (!CommonLanes(obj.location, other.location)) continue;
             
             if (obj.location.bounds.Intersects(other.location.bounds, margin)) return other;
@@ -47,8 +48,10 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
     {
         if (a.isBetweenLanes && b.isBetweenLanes)
         {
+            // Only if they are between the same two lanes
             if (a.laneA == b.laneA && a.laneB == b.laneB) return true;
             if (a.laneA == b.laneB && a.laneB == b.laneA) return true;
+            return false;
         }
 
         if (a.laneA == b.laneA) return true;

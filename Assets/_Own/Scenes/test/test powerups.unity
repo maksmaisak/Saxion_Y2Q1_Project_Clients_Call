@@ -1160,7 +1160,7 @@ Prefab:
     - target: {fileID: 114184830435028562, guid: ea99e1f6cdfe7f0489c430df5c106fcf,
         type: 2}
       propertyPath: info.duration
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
@@ -2818,6 +2818,7 @@ MonoBehaviour:
       laneA: {fileID: 0}
       laneB: {fileID: 0}
       isMovingBetweenLanes: 0
+      isAboveLane: 0
     gameObject: {fileID: 0}
 --- !u!135 &1318668884
 SphereCollider:

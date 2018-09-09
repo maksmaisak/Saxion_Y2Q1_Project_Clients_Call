@@ -49,6 +49,7 @@ public class GameplayObject : MyBehaviour
     
     private ObjectLocation GetLocation()
     {
+        // TEMP TODO A global collection of lanes.
         var lanes = FindObjectsOfType<Lane>().OrderBy(DistanceTo);
 
         Lane laneA = lanes.First();

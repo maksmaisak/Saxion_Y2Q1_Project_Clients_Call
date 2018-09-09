@@ -36,10 +36,6 @@ public struct ObjectLocation
     public RangeFloat bounds;
 
     public bool isMovingBetweenLanes;
+    public bool isAboveLane;
     public bool isBetweenLanes => laneA && laneB;
-
-    /// Syntax sugar
-    public Lane lane => laneA;
-    public Lane originLane => laneA;
-    public Lane targetLane => laneB;
 }

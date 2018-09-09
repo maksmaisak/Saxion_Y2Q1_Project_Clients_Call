@@ -114,28 +114,19 @@ public class PlayerController : GameplayObject
             return true;
         }
 
-        foreach (var obj in WorldRepresentation.Instance.objects)
-        {
-            if (obj.location.laneA != currentLane) continue;
-
-            bool isObstacle = obj.kind == ObjectKind.Obstacle;
-            bool isEnemy = obj.kind == ObjectKind.Enemy;
-            if ((isObstacle || isEnemy) && obj.location.bounds.Contains(positionOnLane))
-            {
-                if (isObstacle)
-                {
-                    playerDeath.DeathObstacle();
-                }
-                else
-                {
-                    playerDeath.DeathEnemy();
-                }
-
-                return true;
-            }
-        }
+        var obj = WorldRepresentation.Instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy);
+        if (obj == null) return false;
         
-        return false;
+        if (obj.kind == ObjectKind.Enemy)
+        {
+            playerDeath.DeathEnemy();
+        }
+        else
+        {
+            playerDeath.DeathObstacle();
+        }
+
+        return true;
     }
 
     private bool IsFalling()
