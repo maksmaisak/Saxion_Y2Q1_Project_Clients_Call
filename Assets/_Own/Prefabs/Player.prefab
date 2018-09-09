@@ -204,7 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ba85e9de1cea14fa13b0fde12fb624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 0}
+  updateScoreInterval: 0.5
+  scoreIncreaseAmount: 3
 --- !u!114 &114959837409729288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -216,10 +217,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31bd269b8442b48509969738f3c0f94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedForward: 10
+  objectKind: 16
+  laneDistanceDifferenceTolerance: 1
+  baseSpeed: 10
   jumpPower: 1
   jumpDuration: 0.2
   enemyJumpOnErrorTolerance: 1
+  platformErrorTolerance: 0.1
+  platformSnappingCoefficient: 0.01
+  currentPlatformRepresentation:
+    kind: 0
+    location:
+      laneA: {fileID: 0}
+      laneB: {fileID: 0}
+      isMovingBetweenLanes: 0
+      isAboveLane: 0
+    gameObject: {fileID: 0}
 --- !u!114 &114972787565816722
 MonoBehaviour:
   m_ObjectHideFlags: 1
