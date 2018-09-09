@@ -31,38 +31,3 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
         return CheckByKind(ObjectKind.Enemy, lane, position);
     }
 }
-
-public enum ObjectKind
-{
-    Unassigned,
-    Platform,
-    Obstacle,
-    Enemy,
-    Collectable,
-    Player
-}
-
-/// A representation of a gameplay object that is easier for detecting gameplay events.
-public class ObjectRepresentation
-{
-    public ObjectKind kind;
-    public Lane lane;
-    /// Null if the object is not moving. If the object is mid-movement between lanes, `lane` is the lane of origin, and `destinationLane` is the lane of destination.
-    public Lane destinationLane;
-    public GameObject gameObject;
-        
-    public float positionStart;
-    public float positionEnd;
-
-    public bool IsInside(float point)
-    {
-        return positionStart <= point && positionEnd >= point;
-    }
-
-    public bool IsCloserThan(float distance, float point)
-    {
-        return
-            positionStart - distance <= point &&
-            positionEnd   + distance >= point;
-    }
-}
