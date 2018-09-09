@@ -23,11 +23,5 @@ public abstract class Collectable : GameplayObject
 
         OnCollected();
         enabled = false;
-        
-        /*if (WorldRepresentation.Instance.CheckByKind(
-            ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius) != null)
-        {
-            
-        }*/
     }
 }

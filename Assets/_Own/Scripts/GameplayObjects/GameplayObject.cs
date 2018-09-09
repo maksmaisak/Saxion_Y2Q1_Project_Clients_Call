@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -5,6 +6,8 @@ using UnityEngine.Assertions;
 public class GameplayObject : MyBehaviour
 {
     [SerializeField] ObjectKind objectKind = ObjectKind.Unassigned;
+    [Tooltip("The maximum allowed difference between distances to two neighboring lanes for the object to register as being between those lanes.")]
+    [SerializeField] float laneDistanceDifferenceTolerance = 1f;
     
     protected ObjectRepresentation representation;
     private bool isRemoved;
@@ -46,18 +49,26 @@ public class GameplayObject : MyBehaviour
     
     private ObjectLocation GetLocation()
     {
-        var lanes = FindObjectsOfType<Lane>()
-            .OrderBy(l => Mathf.Abs(l.transform.position.x - transform.position.x));
+        var lanes = FindObjectsOfType<Lane>().OrderBy(DistanceTo);
 
-        Lane laneA = lanes.FirstOrDefault();
+        Lane laneA = lanes.First();
         
-        // TODO Add detection of laneB
+        float distanceToA = DistanceTo(laneA);
+        Lane laneB = lanes.FirstOrDefault(l => 
+            l != laneA && laneA.HasNeighbor(l) && DistanceTo(l) - distanceToA <= laneDistanceDifferenceTolerance
+        );
 
         return new ObjectLocation
         {
             laneA = laneA,
-            bounds = GetBoundsOn(laneA)
-        };
+            bounds = GetBoundsOn(laneA),
+            laneB = laneB
+        }; 
+    }
+
+    private float DistanceTo(Lane lane)
+    {
+        return Mathf.Abs(lane.transform.position.x - transform.position.x);
     }
 
     private RangeFloat GetBoundsOn(Lane lane)

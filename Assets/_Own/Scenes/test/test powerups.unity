@@ -211,6 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &23357084
 Prefab:
   m_ObjectHideFlags: 0
@@ -372,6 +374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &159200309
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &167617474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373851239880982, guid: da833b34b2eb5c4448d21d2712bb8d94,
@@ -485,6 +491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &251654661
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &278797850
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,6 +870,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &412437244
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &419269815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1128179079062460, guid: 7edc64590623d5043acf098d7af555a9,
@@ -973,6 +987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &433207857
 Prefab:
   m_ObjectHideFlags: 0
@@ -1106,15 +1122,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4724368301555616, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.54
+      value: 1.54
       objectReference: {fileID: 0}
     - target: {fileID: 4724368301555616, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.527
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4724368301555616, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 6.116
+      value: 21.55
       objectReference: {fileID: 0}
     - target: {fileID: 4724368301555616, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1135,6 +1151,16 @@ Prefab:
     - target: {fileID: 4724368301555616, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114184830435028562, guid: ea99e1f6cdfe7f0489c430df5c106fcf,
+        type: 2}
+      propertyPath: info.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114184830435028562, guid: ea99e1f6cdfe7f0489c430df5c106fcf,
+        type: 2}
+      propertyPath: info.duration
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea99e1f6cdfe7f0489c430df5c106fcf, type: 2}
@@ -1293,6 +1319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &559992542
 Prefab:
   m_ObjectHideFlags: 0
@@ -1454,6 +1482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &641486943
 Prefab:
   m_ObjectHideFlags: 0
@@ -1645,6 +1675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &693336482
 Prefab:
   m_ObjectHideFlags: 0
@@ -1806,6 +1838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &760664512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,6 +1937,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &818426540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,6 +2301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1024617529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,6 +2664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!4 &1271018586 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4878469303856272, guid: 55d590aa4d5db416eaf0c04458396694,
@@ -2728,6 +2768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1318668882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,12 +2804,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31bd269b8442b48509969738f3c0f94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
   baseSpeed: 10
   jumpPower: 1
   jumpDuration: 0.2
   enemyJumpOnErrorTolerance: 1
   platformErrorTolerance: 0.1
   platformSnappingCoefficient: 0.01
+  currentPlatformRepresentation:
+    kind: 0
+    location:
+      laneA: {fileID: 0}
+      laneB: {fileID: 0}
+      isMovingBetweenLanes: 0
+    gameObject: {fileID: 0}
 --- !u!135 &1318668884
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2984,6 +3035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1330000145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3112,6 +3165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &1405134955
 Prefab:
   m_ObjectHideFlags: 0
@@ -3195,6 +3250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &1454090229
 Prefab:
   m_ObjectHideFlags: 0
@@ -3356,6 +3413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1590843409
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,6 +3512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1600455133
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,6 +3611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1618834176
 GameObject:
   m_ObjectHideFlags: 0
@@ -3647,6 +3710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1622185174
 GameObject:
   m_ObjectHideFlags: 0
@@ -3744,6 +3809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &1640746095
 Prefab:
   m_ObjectHideFlags: 0
@@ -3965,6 +4032,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1743654005
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,6 +4131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1787682214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4159,6 +4230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1792551273
 GameObject:
   m_ObjectHideFlags: 0
@@ -4437,6 +4510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1948485931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4534,6 +4609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1949179466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4595,6 +4672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &1990799692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4692,6 +4771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1001 &2007568150
 Prefab:
   m_ObjectHideFlags: 0
@@ -4861,6 +4942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &2063057247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4958,6 +5041,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &2102201591 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373851239880982, guid: da833b34b2eb5c4448d21d2712bb8d94,
@@ -4974,6 +5059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
 --- !u!1 &2129997696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5071,3 +5158,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1

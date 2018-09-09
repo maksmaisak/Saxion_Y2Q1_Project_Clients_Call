@@ -21,4 +21,9 @@ public class Lane : MonoBehaviour
         /// TEMP
         return position.z;
     }
+
+    public bool HasNeighbor(Lane other)
+    {
+        return other && (other == leftNeighbor || other == rightNeighbor);
+    }
 }

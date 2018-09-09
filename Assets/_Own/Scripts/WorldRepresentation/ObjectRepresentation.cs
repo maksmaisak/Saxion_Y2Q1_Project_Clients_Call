@@ -17,6 +17,7 @@ public enum ObjectKind
 }
 
 /// A representation of a gameplay object that is easier for detecting gameplay events.
+[Serializable]
 public class ObjectRepresentation
 {
     public ObjectKind kind;
@@ -24,6 +25,7 @@ public class ObjectRepresentation
     public GameObject gameObject;
 }
 
+[Serializable]
 public struct ObjectLocation
 {
     /// The origin lane when moving between lanes, the current lane otherwise.
