@@ -109,7 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056d1164cbe60734cbf92ece1c0fe7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRadius: 2
+  objectKind: 8
+  playerDetectionRadius: 0.2
   info:
     duration: 5
     basepoints: 5

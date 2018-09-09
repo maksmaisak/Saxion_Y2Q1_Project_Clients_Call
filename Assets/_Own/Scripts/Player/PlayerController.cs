@@ -91,7 +91,7 @@ public class PlayerController : GameplayObject
 
         if (currentPlatformRepresentation != null)
         {
-            currentLane = currentPlatformRepresentation.destinationLane ?? currentPlatformRepresentation.lane;
+            representation.location.laneA = currentPlatformRepresentation.location.laneB ?? currentPlatformRepresentation.location.laneA;
         }
     }
 
@@ -116,11 +116,11 @@ public class PlayerController : GameplayObject
 
         foreach (var obj in WorldRepresentation.Instance.objects)
         {
-            if (obj.lane != currentLane) continue;
+            if (obj.location.laneA != currentLane) continue;
 
             bool isObstacle = obj.kind == ObjectKind.Obstacle;
             bool isEnemy = obj.kind == ObjectKind.Enemy;
-            if ((isObstacle || isEnemy) && obj.IsInside(positionOnLane))
+            if ((isObstacle || isEnemy) && obj.location.bounds.Contains(positionOnLane))
             {
                 if (isObstacle)
                 {
@@ -176,12 +176,14 @@ public class PlayerController : GameplayObject
             .OnComplete(() =>
             {
                 isJumping = false;
-                currentLane = targetLane;
-                representation.destinationLane = null;
+                representation.location.laneA = targetLane;
+                representation.location.laneB = null;
+                representation.location.isMovingBetweenLanes = false;
             });
 
         isJumping = true;
-        representation.destinationLane = targetLane;
+        representation.location.laneB = targetLane;
+        representation.location.isMovingBetweenLanes = true;
     }
 
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
@@ -189,6 +191,7 @@ public class PlayerController : GameplayObject
         float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
         ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane,
             laneTargetPosition, enemyJumpOnErrorTolerance);
+        
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
     }
 }

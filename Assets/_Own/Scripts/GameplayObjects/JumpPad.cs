@@ -13,8 +13,11 @@ public class JumpPad : GameplayObject
             ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius, areMovingObjectsAllowed: false
         );
         if (playerRepresentation == null) return;
+        if (playerRepresentation.location.isMovingBetweenLanes) return;
 
-        /// TODO Fix direct dependency.
+        /// TODO Meh. Fix direct dependency.
         playerRepresentation.gameObject.GetComponent<PlayerController>().JumpTo(targetLane);
+        
+        enabled = false;
     }
 }

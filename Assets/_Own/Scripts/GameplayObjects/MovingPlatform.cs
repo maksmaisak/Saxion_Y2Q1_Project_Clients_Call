@@ -50,11 +50,11 @@ public class MovingPlatform : GameplayObject
             .OnComplete(() =>
             {
                 isMoving = false;
-                currentLane = targetLane;
-                representation.destinationLane = null;
+                representation.location.laneA = targetLane;
+                representation.location.laneB = null;
             });
 
         isMoving = true;
-        representation.destinationLane = targetLane;
+        representation.location.laneB = targetLane;
     }
 }

@@ -108,7 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2424cc6876eb4f4eb82db56a4f1672a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectKind: 4
+  objectKind: 8
   playerDetectionRadius: 0.2
   scoreBonus: 10
-  disappearAnimationDuration: 0.5
+  animationDuration: 0.25
+  jumpHeight: 3
+  jumpPower: 1

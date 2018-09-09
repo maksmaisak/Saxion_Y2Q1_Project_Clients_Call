@@ -1,7 +1,6 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 public class GameplayObject : MyBehaviour
 {
@@ -9,13 +8,9 @@ public class GameplayObject : MyBehaviour
     
     protected ObjectRepresentation representation;
     private bool isRemoved;
-    public float positionOnLane => currentLane.GetPositionOnLane(transform.position);
 
-    protected Lane currentLane
-    {
-        get { return representation.lane; }
-        set { representation.lane = value; }
-    }
+    protected float positionOnLane => representation.location.bounds.middle;
+    protected Lane currentLane => representation.location.laneA;
 
     protected virtual void Start()
     {
@@ -36,39 +31,48 @@ public class GameplayObject : MyBehaviour
 
     private ObjectRepresentation MakeRepresentation()
     {
-        Bounds bounds = GetBounds();
-        float min = bounds.min.z;
-        float max = bounds.max.z;
-
-        //Debug.Log($"{min} {max} {GetKind().ToString()}");
-
         return representation = new ObjectRepresentation
         {
             kind = objectKind,
-            lane = GetLane(),
-            gameObject = gameObject,
-            positionStart = min,
-            positionEnd = max
+            location = GetLocation(),
+            gameObject = gameObject
         };
     }
 
     public void UpdateBounds()
     {
-        Bounds bounds = GetBounds();
-
-        representation.positionStart = bounds.min.z;
-        representation.positionEnd = bounds.max.z;
+        representation.location.bounds = GetBoundsOn(representation.location.laneA);
     }
-
-    private Lane GetLane()
+    
+    private ObjectLocation GetLocation()
     {
-        /// TEMP
-        return FindObjectsOfType<Lane>()
-            .OrderBy(l => Mathf.Abs(l.transform.position.x - transform.position.x))
-            .FirstOrDefault();
+        var lanes = FindObjectsOfType<Lane>()
+            .OrderBy(l => Mathf.Abs(l.transform.position.x - transform.position.x));
+
+        Lane laneA = lanes.FirstOrDefault();
+        
+        // TODO Add detection of laneB
+
+        return new ObjectLocation
+        {
+            laneA = laneA,
+            bounds = GetBoundsOn(laneA)
+        };
     }
 
-    private Bounds GetBounds()
+    private RangeFloat GetBoundsOn(Lane lane)
+    {
+        Bounds bounds3D = GetWorldspaceBounds();
+
+        Vector3 back  = bounds3D.center + Vector3.back    * bounds3D.extents.z;
+        Vector3 front = bounds3D.center + Vector3.forward * bounds3D.extents.z;
+
+        float min = lane.GetPositionOnLane(back );
+        float max = lane.GetPositionOnLane(front);
+        return new RangeFloat(min, max);
+    }
+
+    private Bounds GetWorldspaceBounds()
     {
         Bounds? bounds = GetComponent<Collider>()?.bounds ?? GetComponent<Renderer>().bounds;
         Assert.IsTrue(bounds.HasValue);

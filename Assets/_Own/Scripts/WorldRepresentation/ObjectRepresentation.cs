@@ -1,91 +1,43 @@
+using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+[Flags]
 public enum ObjectKind
 {
-    Unassigned,
-    Platform,
-    Obstacle,
-    Enemy,
-    Collectable,
-    Player
+    Unassigned  = 0,
+    
+    Platform    = 1 << 0,
+    Obstacle    = 1 << 1,
+    Enemy       = 1 << 2,
+    Custom      = 1 << 3,
+    Player      = 1 << 4,
+    
+    All         = ~0
 }
 
 /// A representation of a gameplay object that is easier for detecting gameplay events.
 public class ObjectRepresentation
 {
     public ObjectKind kind;
-    public Lane lane;
-    /// Null if the object is not moving. If the object is mid-movement between lanes, `lane` is the lane of origin, and `destinationLane` is the lane of destination.
-    public Lane destinationLane;
+    public ObjectLocation location;
     public GameObject gameObject;
-        
-    public float positionStart;
-    public float positionEnd;
-
-    public bool IsInside(float point)
-    {
-        return positionStart <= point && positionEnd >= point;
-    }
-
-    public bool IsCloserThan(float distance, float point)
-    {
-        return
-            positionStart - distance <= point &&
-            positionEnd   + distance >= point;
-    }
 }
 
 public struct ObjectLocation
 {
-    public Lane laneA;
-    public RangeFloat boundsLaneA;
-    
+    /// The origin lane when moving between lanes, the current lane otherwise.
+    public Lane laneA;    
+    /// The target lane when moving between lanes, null otherwise.
     public Lane laneB;
-    public RangeFloat boundsLaneB;
+    /// Assumes all lanes are parallel.
+    public RangeFloat bounds;
 
-    public bool isMoving;
+    public bool isMovingBetweenLanes;
     public bool isBetweenLanes => laneA && laneB;
 
-    #region Steady on one lane
-    public RangeFloat bounds
-    {
-        get
-        {
-            Assert.IsFalse(isBetweenLanes, "Can't get `bounds` on an object that's between lanes. Use boundsLaneA or boundsLaneB instead.");
-            return boundsLaneA;
-        }
-    }
-
-    public Lane lane
-    {
-        get
-        {
-            Assert.IsFalse(isBetweenLanes, "Can't get `lane` on an object that's between lanes. Use lanaA or laneB instead.");
-            return laneA;
-        }
-    }
-    #endregion
-
-    #region Moving between lanes
-    
-    public Lane originLane
-    {
-        get
-        {
-            Assert.IsTrue(isBetweenLanes && isMoving, "Can't get `originLane` that is not moving between lanes.");
-            return laneA;
-        }
-    }
-    
-    public Lane destinationLane
-    {
-        get
-        {
-            Assert.IsTrue(isBetweenLanes && isMoving, "Can't get `destinationLane` that is not moving between lanes.");
-            return laneB;
-        }
-    }
-    
-    #endregion
+    /// Syntax sugar
+    public Lane lane => laneA;
+    public Lane originLane => laneA;
+    public Lane targetLane => laneB;
 }

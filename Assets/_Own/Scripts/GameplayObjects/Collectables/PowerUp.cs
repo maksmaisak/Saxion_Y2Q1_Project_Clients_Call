@@ -20,7 +20,7 @@ public class PowerUp : Collectable
 {
     [SerializeField] PowerUpInfo info;
 
-    public override void OnCollected()
+    protected override void OnCollected()
     {
         new PowerUpCollected(info).PostEvent();
         Destroy(this);
