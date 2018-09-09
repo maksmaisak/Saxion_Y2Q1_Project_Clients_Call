@@ -1,21 +1,19 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 public class GameplayObject : MyBehaviour
 {
     [SerializeField] ObjectKind objectKind = ObjectKind.Unassigned;
+    [Tooltip("The maximum allowed difference between distances to two neighboring lanes for the object to register as being between those lanes.")]
+    [SerializeField] float laneDistanceDifferenceTolerance = 1f;
     
     protected ObjectRepresentation representation;
     private bool isRemoved;
-    public float positionOnLane => currentLane.GetPositionOnLane(transform.position);
 
-    protected Lane currentLane
-    {
-        get { return representation.lane; }
-        set { representation.lane = value; }
-    }
+    protected float positionOnLane => representation.location.bounds.middle;
+    protected Lane currentLane => representation.location.laneA;
 
     protected virtual void Start()
     {
@@ -23,52 +21,70 @@ public class GameplayObject : MyBehaviour
         // TEMP. Use old system for determining type while transitioning away from the old system.
         if (objectKind == ObjectKind.Unassigned) objectKind = GetKindBasedOnGameObjectTag();
         
-        WorldRepresentation.Instance.objects.Add(MakeRepresentation());
+        WorldRepresentation.Instance.Add(MakeRepresentation());
     }
 
     public void RemoveFromWorldModel()
     {
         if (isRemoved) return;
 
-        WorldRepresentation.Instance.objects.Remove(representation);
+        WorldRepresentation.Instance.Remove(representation);
         isRemoved = true;
     }
 
     private ObjectRepresentation MakeRepresentation()
     {
-        Bounds bounds = GetBounds();
-        float min = bounds.min.z;
-        float max = bounds.max.z;
-
-        //Debug.Log($"{min} {max} {GetKind().ToString()}");
-
         return representation = new ObjectRepresentation
         {
             kind = objectKind,
-            lane = GetLane(),
-            gameObject = gameObject,
-            positionStart = min,
-            positionEnd = max
+            location = GetLocation(),
+            gameObject = gameObject
         };
     }
 
     public void UpdateBounds()
     {
-        Bounds bounds = GetBounds();
-
-        representation.positionStart = bounds.min.z;
-        representation.positionEnd = bounds.max.z;
+        representation.location.bounds = GetBoundsOn(representation.location.laneA);
     }
-
-    private Lane GetLane()
+    
+    private ObjectLocation GetLocation()
     {
-        /// TEMP
-        return FindObjectsOfType<Lane>()
-            .OrderBy(l => Mathf.Abs(l.transform.position.x - transform.position.x))
-            .FirstOrDefault();
+        // TEMP TODO A global collection of lanes.
+        var lanes = FindObjectsOfType<Lane>().OrderBy(DistanceTo);
+
+        Lane laneA = lanes.First();
+        
+        float distanceToA = DistanceTo(laneA);
+        Lane laneB = lanes.FirstOrDefault(l => 
+            l != laneA && laneA.HasNeighbor(l) && DistanceTo(l) - distanceToA <= laneDistanceDifferenceTolerance
+        );
+
+        return new ObjectLocation
+        {
+            laneA = laneA,
+            bounds = GetBoundsOn(laneA),
+            laneB = laneB
+        }; 
     }
 
-    private Bounds GetBounds()
+    private float DistanceTo(Lane lane)
+    {
+        return Mathf.Abs(lane.transform.position.x - transform.position.x);
+    }
+
+    private RangeFloat GetBoundsOn(Lane lane)
+    {
+        Bounds bounds3D = GetWorldspaceBounds();
+
+        Vector3 back  = bounds3D.center + Vector3.back    * bounds3D.extents.z;
+        Vector3 front = bounds3D.center + Vector3.forward * bounds3D.extents.z;
+
+        float min = lane.GetPositionOnLane(back );
+        float max = lane.GetPositionOnLane(front);
+        return new RangeFloat(min, max);
+    }
+
+    private Bounds GetWorldspaceBounds()
     {
         Bounds? bounds = GetComponent<Collider>()?.bounds ?? GetComponent<Renderer>().bounds;
         Assert.IsTrue(bounds.HasValue);

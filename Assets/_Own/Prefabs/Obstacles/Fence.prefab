@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 65087368015303814}
   - component: {fileID: 114282785710424338}
   m_Layer: 0
-  m_Name: Fance
+  m_Name: Fence
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3095,3 +3095,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectKind: 2

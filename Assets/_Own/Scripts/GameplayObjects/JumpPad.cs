@@ -5,16 +5,19 @@ using UnityEngine.Assertions;
 public class JumpPad : GameplayObject
 {
     [SerializeField] Lane targetLane;
-    [SerializeField] float playerDetectionRadius = 0.1f;
+    [SerializeField] float playerDetectionMargin = 0.1f;
 
     void FixedUpdate()
     {
-        ObjectRepresentation playerRepresentation = WorldRepresentation.Instance.CheckByKind(
-            ObjectKind.Player, currentLane, positionOnLane, playerDetectionRadius, areMovingObjectsAllowed: false
+        ObjectRepresentation playerRepresentation = WorldRepresentation.Instance.CheckIntersect(
+            representation, ObjectKind.Player, playerDetectionMargin
         );
         if (playerRepresentation == null) return;
+        if (playerRepresentation.location.isMovingBetweenLanes) return;
 
-        /// TODO Fix direct dependency.
+        /// TODO Meh. Fix direct dependency. Something like new JumpToLane(taretLane).PostEvent()?
         playerRepresentation.gameObject.GetComponent<PlayerController>().JumpTo(targetLane);
+        
+        enabled = false;
     }
 }

@@ -91,7 +91,7 @@ public class PlayerController : GameplayObject
 
         if (currentPlatformRepresentation != null)
         {
-            currentLane = currentPlatformRepresentation.destinationLane ?? currentPlatformRepresentation.lane;
+            representation.location.laneA = currentPlatformRepresentation.location.laneB ?? currentPlatformRepresentation.location.laneA;
         }
     }
 
@@ -114,28 +114,19 @@ public class PlayerController : GameplayObject
             return true;
         }
 
-        foreach (var obj in WorldRepresentation.Instance.objects)
-        {
-            if (obj.lane != currentLane) continue;
-
-            bool isObstacle = obj.kind == ObjectKind.Obstacle;
-            bool isEnemy = obj.kind == ObjectKind.Enemy;
-            if ((isObstacle || isEnemy) && obj.IsInside(positionOnLane))
-            {
-                if (isObstacle)
-                {
-                    playerDeath.DeathObstacle();
-                }
-                else
-                {
-                    playerDeath.DeathEnemy();
-                }
-
-                return true;
-            }
-        }
+        var obj = WorldRepresentation.Instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy);
+        if (obj == null) return false;
         
-        return false;
+        if (obj.kind == ObjectKind.Enemy)
+        {
+            playerDeath.DeathEnemy();
+        }
+        else
+        {
+            playerDeath.DeathObstacle();
+        }
+
+        return true;
     }
 
     private bool IsFalling()
@@ -176,12 +167,14 @@ public class PlayerController : GameplayObject
             .OnComplete(() =>
             {
                 isJumping = false;
-                currentLane = targetLane;
-                representation.destinationLane = null;
+                representation.location.laneA = targetLane;
+                representation.location.laneB = null;
+                representation.location.isMovingBetweenLanes = false;
             });
 
         isJumping = true;
-        representation.destinationLane = targetLane;
+        representation.location.laneB = targetLane;
+        representation.location.isMovingBetweenLanes = true;
     }
 
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
@@ -189,6 +182,7 @@ public class PlayerController : GameplayObject
         float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
         ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane,
             laneTargetPosition, enemyJumpOnErrorTolerance);
+        
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
     }
 }

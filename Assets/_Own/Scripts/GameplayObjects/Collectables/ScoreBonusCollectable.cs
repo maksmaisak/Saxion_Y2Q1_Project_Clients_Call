@@ -10,7 +10,7 @@ public class ScoreBonusCollectable : Collectable
     [SerializeField] [Range(0f   , 5f)] float jumpHeight = 3f;
     [SerializeField] [Range(0f   , 5f)] float jumpPower  = 1f;
     
-    public override void OnCollected()
+    protected override void OnCollected()
     {
         new ScoreChange(scoreBonus).PostEvent();
 

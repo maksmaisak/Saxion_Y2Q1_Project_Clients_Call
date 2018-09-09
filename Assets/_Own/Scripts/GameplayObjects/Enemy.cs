@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using DG.Tweening;
+using UnityEditor.CrashReporting;
 
 public class Enemy : GameplayObject
 {
@@ -71,11 +72,11 @@ public class Enemy : GameplayObject
             .OnComplete(() =>
             {
                 isJumping = false;
-                currentLane = targetLane;
+                representation.location.laneA = targetLane;
             });
 
         isJumping = true;
-        currentLane = null;
+        representation.location.laneB = null;
     }
     
     private void PlayDeathAnimation()
