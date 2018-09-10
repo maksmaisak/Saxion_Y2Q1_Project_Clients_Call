@@ -2,8 +2,10 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using DG.Tweening;
 
-public class MovingPlatform : GameplayObject
+public class Platform : GameplayObject
 {
+    [Space]
+    [SerializeField] bool movingPlatform;
     [SerializeField] float moveInterval = 1f;
     [SerializeField] float moveDuration = 0.2f;
     [SerializeField] bool isMovingRight;
@@ -13,6 +15,7 @@ public class MovingPlatform : GameplayObject
     
     void FixedUpdate()
     {
+        if (!movingPlatform) return;
         if (isMoving) return;
 
         if (moveCountdown > 0f)
@@ -26,7 +29,7 @@ public class MovingPlatform : GameplayObject
     
     private void Move()
     {
-        JumpTo(GetNextTargetLane());
+        MoveTo(GetNextTargetLane());
         moveCountdown = moveInterval;
     }
 
@@ -40,7 +43,7 @@ public class MovingPlatform : GameplayObject
         return targetLane;
     }
     
-    private void JumpTo(Lane targetLane)
+    private void MoveTo(Lane targetLane)
     {
         Assert.IsNotNull(targetLane);
         
