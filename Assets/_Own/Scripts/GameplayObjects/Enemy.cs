@@ -43,6 +43,7 @@ public class Enemy : GameplayObject
     public void JumpedOn()
     {
         wasJumpedOn = true;
+        new ProfilerUpdate(PlayerProfile.Killer).PostEvent();
         new ScoreChange(scoreBonusWhenKilled).PostEvent();
     }
 
