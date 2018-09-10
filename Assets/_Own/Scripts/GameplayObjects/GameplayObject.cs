@@ -9,7 +9,7 @@ public class GameplayObject : MyBehaviour
     [Tooltip("The maximum allowed difference between distances to two neighboring lanes for the object to register as being between those lanes.")]
     [SerializeField] float laneDistanceDifferenceTolerance = 1f;
     [Tooltip("The minimum height this must be above a lane to register as being above it.")]
-    [SerializeField] float minHeightAboveLane = 2f;
+    [SerializeField] float minHeightAboveLane = 1.49f;
     
     protected ObjectRepresentation representation;
     private bool isRemoved;
