@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Quitter : MonoBehaviour
+public static class Quit
 {
-    public void QuitToDesktop() 
+    public static void ToDesktop() 
     {
     #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
