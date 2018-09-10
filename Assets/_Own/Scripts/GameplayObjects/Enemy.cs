@@ -43,7 +43,8 @@ public class Enemy : GameplayObject
     public void JumpedOn()
     {
         wasJumpedOn = true;
-        new ScoreChange(scoreBonusWhenKilled).PostEvent();
+        new OnEnemyKilled().PostEvent();
+        new OnScoreChange(scoreBonusWhenKilled).PostEvent();
     }
 
     private void Jump()

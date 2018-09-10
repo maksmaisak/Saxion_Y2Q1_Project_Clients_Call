@@ -7,12 +7,12 @@ public enum Multiplier
 }
 
 [RequireComponent(typeof(PlayerController))]
-public class Player : MyBehaviour, IEventReceiver<PowerUpCollected>
+public class Player : MyBehaviour, IEventReceiver<OnPowerUpCollected>
 {
     public bool isGodMode { get; private set; }
     private float speedMultiplier;
 
-    public void On(PowerUpCollected powerUpCollected)
+    public void On(OnPowerUpCollected powerUpCollected)
     {
         if (isGodMode) return;
 

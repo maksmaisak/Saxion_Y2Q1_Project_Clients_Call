@@ -19,7 +19,7 @@ public class IncreaseScoreOverTime : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(updateScoreInterval * intervalMultiplier);
-            new ScoreChange(scoreIncreaseAmount).PostEvent();
+            new OnScoreChange(scoreIncreaseAmount).PostEvent();
         }
     }
 
