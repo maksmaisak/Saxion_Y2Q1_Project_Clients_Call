@@ -170,11 +170,13 @@ public class PlayerController : GameplayObject
                 representation.location.laneA = targetLane;
                 representation.location.laneB = null;
                 representation.location.isMovingBetweenLanes = false;
+                representation.location.isAboveLane = false;
             });
 
         isJumping = true;
         representation.location.laneB = targetLane;
-        representation.location.isMovingBetweenLanes = true;
+        representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
+        representation.location.isAboveLane = true;
     }
 
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)

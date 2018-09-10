@@ -8,6 +8,8 @@ public class GameplayObject : MyBehaviour
     [SerializeField] ObjectKind objectKind = ObjectKind.Unassigned;
     [Tooltip("The maximum allowed difference between distances to two neighboring lanes for the object to register as being between those lanes.")]
     [SerializeField] float laneDistanceDifferenceTolerance = 1f;
+    [Tooltip("The minimum height this must be above a lane to register as being above it.")]
+    [SerializeField] float minHeightAboveLane = 2f;
     
     protected ObjectRepresentation representation;
     private bool isRemoved;
@@ -31,6 +33,11 @@ public class GameplayObject : MyBehaviour
         WorldRepresentation.Instance.Remove(representation);
         isRemoved = true;
     }
+    
+    public void UpdateBounds()
+    {
+        representation.location.bounds = GetBoundsOn(representation.location.laneA);
+    }
 
     private ObjectRepresentation MakeRepresentation()
     {
@@ -40,11 +47,6 @@ public class GameplayObject : MyBehaviour
             location = GetLocation(),
             gameObject = gameObject
         };
-    }
-
-    public void UpdateBounds()
-    {
-        representation.location.bounds = GetBoundsOn(representation.location.laneA);
     }
     
     private ObjectLocation GetLocation()
@@ -58,18 +60,24 @@ public class GameplayObject : MyBehaviour
         Lane laneB = lanes.FirstOrDefault(l => 
             l != laneA && laneA.HasNeighbor(l) && DistanceTo(l) - distanceToA <= laneDistanceDifferenceTolerance
         );
-
+        
         return new ObjectLocation
         {
             laneA = laneA,
             bounds = GetBoundsOn(laneA),
-            laneB = laneB
+            laneB = laneB,
+            isAboveLane = IsAbove(laneA)
         }; 
     }
 
     private float DistanceTo(Lane lane)
     {
         return Mathf.Abs(lane.transform.position.x - transform.position.x);
+    }
+
+    private bool IsAbove(Lane lane)
+    {
+        return transform.position.y - lane.transform.position.y >= minHeightAboveLane;
     }
 
     private RangeFloat GetBoundsOn(Lane lane)
