@@ -9,13 +9,11 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private Vector3 _spawnPoint = Vector3.zero;
 
     private Rigidbody _rb = null;
-    private Player _player = null;
     private PlayerController _playerController = null;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _player = GetComponent<Player>();
         _playerController = GetComponent<PlayerController>();
     }
 
