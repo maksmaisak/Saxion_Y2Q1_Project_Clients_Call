@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using System.Linq;
 
@@ -12,10 +12,17 @@ public enum PlayerProfile
     All,
 }
 
-public class Profiler : MyBehaviour, IEventReceiver<ProfilerUpdate>
+public class Profiler : MyBehaviour, IEventReceiver<OnEnemyKilled>, 
+    IEventReceiver<OnScoreChange>, IEventReceiver<OnCageOpen>, IEventReceiver<OnPathChange>
 {
-    private readonly Dictionary<PlayerProfile, int> profiles = 
-        new Dictionary<PlayerProfile, int>();
+    readonly Dictionary<PlayerProfile, int> profiles = new Dictionary<PlayerProfile, int>();
+
+    [SerializeField] int onEnemyKilledBonus = 4;
+    [SerializeField] int onScoreChangeBonus = 1;
+    [SerializeField] int onPathChangeBonus  = 4;
+    [SerializeField] int onCageReleaseBonus = 3;
+
+    public PlayerProfile getMostDominantProfile => profiles.OrderBy(x => x.Value).First().Key;
 
     protected void Start()
     {
@@ -23,17 +30,23 @@ public class Profiler : MyBehaviour, IEventReceiver<ProfilerUpdate>
             profiles.Add(index, 0);
     }
 
-    public void On(ProfilerUpdate update)
+    public void On(OnEnemyKilled message)
     {
-        try
-        {
-            profiles[update.profile]++;
-        }
-        catch (KeyNotFoundException)
-        {
-            Debug.LogError("The requested player profile is not handled.");
-        }
+        profiles[PlayerProfile.Killer] += onEnemyKilledBonus;
     }
 
-    public PlayerProfile getMostDominantProfile => profiles.OrderBy(x => x.Value).First().Key;
+    public void On(OnScoreChange message)
+    {
+        profiles[PlayerProfile.Achiever] += onScoreChangeBonus;
+    }
+
+    public void On(OnCageOpen message)
+    {
+        profiles[PlayerProfile.Socializer] += onCageReleaseBonus;
+    }
+
+    public void On(OnPathChange message)
+    {
+        profiles[PlayerProfile.Explorer] += onPathChangeBonus;
+    }
 }

@@ -31,7 +31,7 @@ public class PlayerDeath : MonoBehaviour
         
         //ResetPlayerDefaults();
 
-        new GameOver().PostEvent();
+        new OnGameOver().PostEvent();
     }
 
     private void ResetPlayerDefaults()
