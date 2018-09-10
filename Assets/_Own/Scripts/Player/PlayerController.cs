@@ -126,8 +126,6 @@ public class PlayerController : GameplayObject
         
         var obj = WorldRepresentation.Instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
         if (obj == null) return false;
-        // Obstacles behind the player don't count.
-        if (obj.location.bounds.middle < positionOnLane) return false;
         
         if (obj.kind == ObjectKind.Enemy)
         {
@@ -135,6 +133,8 @@ public class PlayerController : GameplayObject
         }
         else
         {
+            // Obstacles behind the player don't count.
+            if (obj.location.bounds.middle < positionOnLane) return false;
             playerDeath.DeathObstacle();
         }
 
