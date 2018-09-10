@@ -6,16 +6,19 @@ using UnityEngine.Assertions;
 
 public class PlayerController : GameplayObject
 {
+    [Space]
     [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
-    [Space] [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
+    [Space] 
+    [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
+    [SerializeField] float obstacleCollisionTolerance = 0.1f;
 
-    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")] [SerializeField]
-    float platformSnappingCoefficient = 0.01f;
-
-    [Space] [SerializeField] ObjectRepresentation currentPlatformRepresentation;
+    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")] 
+    [SerializeField] float platformSnappingCoefficient = 0.01f;
+    [Space] 
+    [SerializeField] ObjectRepresentation currentPlatformRepresentation;
 
     enum InputKind
     {
@@ -106,16 +109,25 @@ public class PlayerController : GameplayObject
 
     private bool CheckDeath()
     {
+        return CheckDeathFall() || CheckDeathObstaclesEnemies();
+    }
+
+    private bool CheckDeathFall()
+    {
+        if (currentPlatformRepresentation != null) return false;
+        
+        GetComponent<PlayerDeath>().DeathFall();
+        return true;
+    }
+
+    private bool CheckDeathObstaclesEnemies()
+    {
         PlayerDeath playerDeath = GetComponent<PlayerDeath>();
         
-        if (IsFalling())
-        {
-            playerDeath.DeathFall();
-            return true;
-        }
-
-        var obj = WorldRepresentation.Instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy);
+        var obj = WorldRepresentation.Instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
         if (obj == null) return false;
+        // Obstacles behind the player don't count.
+        if (obj.location.bounds.middle < positionOnLane) return false;
         
         if (obj.kind == ObjectKind.Enemy)
         {
@@ -127,11 +139,6 @@ public class PlayerController : GameplayObject
         }
 
         return true;
-    }
-
-    private bool IsFalling()
-    {
-        return currentPlatformRepresentation == null;
     }
 
     private Lane GetTargetJumpLane()
