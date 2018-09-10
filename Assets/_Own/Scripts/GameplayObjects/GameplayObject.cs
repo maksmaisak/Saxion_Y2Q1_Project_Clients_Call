@@ -94,9 +94,10 @@ public class GameplayObject : MyBehaviour
 
     private Bounds GetWorldspaceBounds()
     {
-        Bounds? bounds = GetComponent<Collider>()?.bounds ?? GetComponent<Renderer>().bounds;
-        Assert.IsTrue(bounds.HasValue);
-        return bounds.Value;
+        var col = GetComponentInChildren<Collider>();
+        if (col) return col.bounds;
+        
+        return GetComponentInChildren<Renderer>().bounds;
     }
 
     private ObjectKind GetKindBasedOnGameObjectTag()
