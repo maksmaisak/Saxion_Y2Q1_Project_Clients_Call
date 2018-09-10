@@ -12,7 +12,7 @@ public class ScoreBonusCollectable : Collectable
     
     protected override void OnCollected()
     {
-        new ScoreChange(scoreBonus).PostEvent();
+        new OnScoreChange(scoreBonus).PostEvent();
 
         DOTween
             .Sequence()

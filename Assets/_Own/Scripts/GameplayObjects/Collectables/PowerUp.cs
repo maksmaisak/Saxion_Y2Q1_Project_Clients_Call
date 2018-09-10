@@ -22,7 +22,7 @@ public class PowerUp : Collectable
 
     protected override void OnCollected()
     {
-        new PowerUpCollected(info).PostEvent();
+        new OnPowerUpCollected(info).PostEvent();
         Destroy(this);
     }
 }

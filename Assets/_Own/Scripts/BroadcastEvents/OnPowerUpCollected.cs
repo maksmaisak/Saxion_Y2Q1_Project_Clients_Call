@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpCollected : BroadcastEvent<PowerUpCollected> {
+public class OnPowerUpCollected : BroadcastEvent<OnPowerUpCollected> {
 
-    public PowerUpCollected(PowerUpInfo info)
+    public OnPowerUpCollected(PowerUpInfo info)
     {
         powerUpInfo = info;
     }

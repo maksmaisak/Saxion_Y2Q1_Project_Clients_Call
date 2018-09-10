@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class ScoreView : MyBehaviour, IEventReceiver<ScoreChange>
+public class ScoreView : MyBehaviour, IEventReceiver<OnScoreChange>
 {
     [SerializeField] TMP_Text textMesh;
     [Space] 
@@ -21,7 +21,7 @@ public class ScoreView : MyBehaviour, IEventReceiver<ScoreChange>
         Assert.IsNotNull(textMesh);
     }
 
-    public void On(ScoreChange message)
+    public void On(OnScoreChange message)
     {
         currentScore += message.scoreDelta;
         UpdateText();

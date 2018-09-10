@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class PowerUpTimerView : MyBehaviour, IEventReceiver<PowerUpCollected>
+public class PowerUpTimerView : MyBehaviour, IEventReceiver<OnPowerUpCollected>
 {
     [SerializeField] TMP_Text timerText;
     
@@ -23,7 +23,7 @@ public class PowerUpTimerView : MyBehaviour, IEventReceiver<PowerUpCollected>
         }
     }
     
-    public void On(PowerUpCollected powerUpCollected)
+    public void On(OnPowerUpCollected powerUpCollected)
     {
         StartTimer(powerUpCollected.powerUpInfo.duration);
     }
