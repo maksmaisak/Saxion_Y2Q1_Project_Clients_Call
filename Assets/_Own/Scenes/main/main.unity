@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &23357084
 Prefab:
   m_ObjectHideFlags: 0
@@ -376,6 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &159200309
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &167617474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373851239880982, guid: da833b34b2eb5c4448d21d2712bb8d94,
@@ -493,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &251654661
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,6 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &278797850
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &412437244
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &419269815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1128179079062460, guid: 7edc64590623d5043acf098d7af555a9,
@@ -989,6 +996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &433207857
 Prefab:
   m_ObjectHideFlags: 0
@@ -1264,6 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &559992542
 Prefab:
   m_ObjectHideFlags: 0
@@ -1427,6 +1436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &641486943
 Prefab:
   m_ObjectHideFlags: 0
@@ -1620,6 +1630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &693336482
 Prefab:
   m_ObjectHideFlags: 0
@@ -1783,6 +1794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &760664512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,6 +1894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &818426540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,6 +2230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!20 &1024617531 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20937808024168172, guid: 77e2a7bf615164f4595afe17052da1a9,
@@ -2449,6 +2463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!4 &1271018586 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4878469303856272, guid: 55d590aa4d5db416eaf0c04458396694,
@@ -2553,6 +2568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1327554194
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,6 +2668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1330000145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &1405134955
 Prefab:
   m_ObjectHideFlags: 0
@@ -2909,6 +2927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &1454090229
 Prefab:
   m_ObjectHideFlags: 0
@@ -3072,6 +3091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1590843409
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,6 +3191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1600455133
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,6 +3291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1618834176
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,6 +3391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1622185174
 GameObject:
   m_ObjectHideFlags: 0
@@ -3468,6 +3491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &1640746095
 Prefab:
   m_ObjectHideFlags: 0
@@ -3629,16 +3653,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1024617531}
-    - target: {fileID: 224870914750728454, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -132.54999
-      objectReference: {fileID: 0}
-    - target: {fileID: 224870914750728454, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -43.68994
-      objectReference: {fileID: 0}
     - target: {fileID: 114480265338643992, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -3649,15 +3663,15 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224444203259911012, guid: 19acc75b42c8ca1418f064c09a15086f,
+    - target: {fileID: 114655864193984640, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -132.54999
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224444203259911012, guid: 19acc75b42c8ca1418f064c09a15086f,
+    - target: {fileID: 114655864193984640, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -43.68994
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19acc75b42c8ca1418f064c09a15086f, type: 2}
@@ -3692,6 +3706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1743654005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3791,6 +3806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1787682214
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,6 +3906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1792551273
 GameObject:
   m_ObjectHideFlags: 0
@@ -4170,6 +4187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1948485931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4269,6 +4287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1949179466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4296,6 +4315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 0}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!4 &1949179468
 Transform:
   m_ObjectHideFlags: 0
@@ -4327,6 +4351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1990799692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4426,6 +4451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &2007568150
 Prefab:
   m_ObjectHideFlags: 0
@@ -4597,6 +4623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &2063057247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4696,6 +4723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &2102201591 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373851239880982, guid: da833b34b2eb5c4448d21d2712bb8d94,
@@ -4714,6 +4742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &2129997696
 GameObject:
   m_ObjectHideFlags: 0
@@ -4813,3 +4842,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectKind: 0
   laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
