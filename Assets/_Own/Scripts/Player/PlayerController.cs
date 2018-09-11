@@ -46,17 +46,17 @@ public class PlayerController : GameplayObject
         Assert.IsNotNull(rigidbody);
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        transform.position += Vector3.forward * currentSpeed * Time.fixedDeltaTime;
-
-        UpdateBounds();
-
-        UpdateCurrentPlatform();
-        SnapToPlatform();
-
+        UpdateInput();
+        
         if (!isJumping)
         {
+            transform.position += Vector3.forward * currentSpeed * Time.deltaTime;
+            UpdateBounds();
+            UpdateCurrentPlatform();
+            SnapToPlatform();
+            
             if (!player.isGodMode && CheckDeath())
                 return;
 
@@ -65,11 +65,11 @@ public class PlayerController : GameplayObject
 
             JumpTo(targetLane);
         }
-    }
-
-    void Update()
-    {
-        UpdateInput();
+        else
+        {
+            UpdateBounds();
+            UpdateCurrentPlatform();
+        }
     }
    
     public void JumpTo(Lane targetLane)
@@ -135,7 +135,7 @@ public class PlayerController : GameplayObject
         Vector3 newPosition = transform.position;
         newPosition.x = Mathf.Lerp(
             newPosition.x, targetPosition.x,
-            1f - Mathf.Pow(platformSnappingCoefficient, Time.fixedDeltaTime)
+            1f - Mathf.Pow(platformSnappingCoefficient, Time.deltaTime)
         );
         
         transform.position = newPosition;
