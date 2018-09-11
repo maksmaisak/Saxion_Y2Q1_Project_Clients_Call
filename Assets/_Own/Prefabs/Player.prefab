@@ -11,23 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1426716546539346}
   m_IsPrefabAsset: 1
---- !u!1 &1037173846376740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4646759717468804}
-  - component: {fileID: 20937808024168172}
-  - component: {fileID: 81360000222745118}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1056228387729674
 GameObject:
   m_ObjectHideFlags: 1
@@ -1147,19 +1130,6 @@ Transform:
   m_Father: {fileID: 4520253398640314}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4646759717468804
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1037173846376740}
-  m_LocalRotation: {x: 0.22702394, y: -0, z: -0, w: 0.97388923}
-  m_LocalPosition: {x: 0, y: 2.47, z: -3.03}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4970438211401760}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 26.244001, y: 0, z: 0}
 --- !u!4 &4661963355710746
 Transform:
   m_ObjectHideFlags: 1
@@ -1372,7 +1342,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4758303117678342}
-  - {fileID: 4646759717468804}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1389,46 +1358,6 @@ Transform:
   m_Father: {fileID: 4326225251752104}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20937808024168172
-Camera:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1037173846376740}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 1
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!23 &23175962996139650
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1486,13 +1415,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 32
   m_CollisionDetection: 0
---- !u!81 &81360000222745118
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1037173846376740}
-  m_Enabled: 1
 --- !u!95 &95372642448049614
 Animator:
   serializedVersion: 3
@@ -1550,9 +1472,9 @@ MonoBehaviour:
   objectKind: 16
   laneDistanceDifferenceTolerance: 1
   minHeightAboveLane: 1.49
-  baseSpeed: 10
-  jumpPower: 1
-  jumpDuration: 0.2
+  baseSpeed: 9
+  jumpPower: 0.8
+  jumpDuration: 0.3
   enemyJumpOnErrorTolerance: 1
   platformErrorTolerance: 0.4
   obstacleCollisionTolerance: 0.1
