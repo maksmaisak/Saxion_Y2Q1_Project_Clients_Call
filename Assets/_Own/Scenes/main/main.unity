@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1792551274}
-  m_IndirectSpecularColor: {r: 2.5996492, g: 0.70594054, b: 0.6149363, a: 1}
+  m_IndirectSpecularColor: {r: 3.2828562, g: 0.7357891, b: 0.62556255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2378,10 +2378,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1674251641708474, guid: 97e1284834463495b832af51039c9837, type: 2}
-      propertyPath: m_Name
-      value: O_City_Hydrant
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e1284834463495b832af51039c9837, type: 2}
   m_IsPrefabAsset: 0
@@ -3723,11 +3719,6 @@ Prefab:
     - target: {fileID: 4970438211401760, guid: 77e2a7bf615164f4595afe17052da1a9, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114541087892599500, guid: 77e2a7bf615164f4595afe17052da1a9,
-        type: 2}
-      propertyPath: platformErrorTolerance
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77e2a7bf615164f4595afe17052da1a9, type: 2}
