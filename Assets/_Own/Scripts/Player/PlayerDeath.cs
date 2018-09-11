@@ -24,12 +24,14 @@ public class PlayerDeath : MonoBehaviour
         // Play Animation
         // Display Resolution Screen
         //_rb.constraints = _rb.constraints |= RigidbodyConstraints.FreezeAll;
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         //ResetPlayerDefaults();
 
+        SceneManager.LoadScene("main_resolution_screen", LoadSceneMode.Single);
         new OnGameOver().PostEvent();
+        new OnResolutionScreen(WorldRepresentation.Instance.playerScore, WorldRepresentation.Instance.playerProfiles).PostEvent();
     }
 
     private void ResetPlayerDefaults()
