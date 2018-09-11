@@ -1338,7 +1338,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426716546539346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: -4}
+  m_LocalPosition: {x: 0, y: 0.75, z: -25.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4758303117678342}
@@ -1498,10 +1498,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d9d3f5afd26034b82e7f0853154442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnemyKilledBonus: 2
-  onScoreChangeBonus: 2
+  onEnemyKilledBonus: 3
+  onScoreChangeBonus: 1
   onPathChangeBonus: 4
-  onCageReleaseBonus: 5
+  onCageOpenBonus: 20
 --- !u!114 &114894864119097754
 MonoBehaviour:
   m_ObjectHideFlags: 1

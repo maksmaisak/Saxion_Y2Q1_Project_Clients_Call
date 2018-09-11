@@ -7,6 +7,10 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     private readonly List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
 
+    /// TEMP move this somewhere else
+    public int playerScore { get; set; }
+    public Dictionary<PlayerProfile, int> playerProfiles { get; set; }
+
     public void Add(ObjectRepresentation obj)
     {
         Assert.IsFalse(objects.Contains(obj));
