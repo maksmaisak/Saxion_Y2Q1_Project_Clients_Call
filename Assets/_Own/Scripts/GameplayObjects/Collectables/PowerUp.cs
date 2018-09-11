@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 public enum PowerUpType
 {
@@ -19,10 +20,14 @@ public struct PowerUpInfo
 public class PowerUp : Collectable
 {
     [SerializeField] PowerUpInfo info;
+    [SerializeField] StandardCollectableAnimationSettings animations;
 
     protected override void OnCollected()
     {
         new OnPowerUpCollected(info).PostEvent();
-        Destroy(this);
+        
+        animations
+            .PlayDisappearAnimation(gameObject)
+            .AppendCallback(() => Destroy(gameObject));
     }
 }
