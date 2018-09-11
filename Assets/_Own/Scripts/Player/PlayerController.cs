@@ -49,7 +49,7 @@ public class PlayerController : GameplayObject
     void Update()
     {
         UpdateInput();
-        
+                
         if (!isJumping)
         {
             transform.position += Vector3.forward * currentSpeed * Time.deltaTime;
