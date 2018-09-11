@@ -4,6 +4,7 @@ using UnityEngine.Experimental.UIElements;
 
 public class ScoreBonusCollectable : Collectable
 {
+    [Space]
     [SerializeField] int scoreBonus = 10;
     [Header("Disappear animation parameters")]
     [SerializeField] [Range(0.01f, 1f)] float animationDuration = 0.25f;
