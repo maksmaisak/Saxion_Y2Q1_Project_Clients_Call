@@ -74,10 +74,15 @@ public class Enemy : GameplayObject
             {
                 isJumping = false;
                 representation.location.laneA = targetLane;
+                representation.location.laneB = null;
+                representation.location.isMovingBetweenLanes = false;
+                representation.location.isAboveLane = false;
             });
-
+        
         isJumping = true;
-        representation.location.laneB = null;
+        representation.location.laneB = targetLane;
+        representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
+        representation.location.isAboveLane = true;
     }
     
     private void PlayDeathAnimation()

@@ -50,6 +50,7 @@ public class Platform : GameplayObject
         Vector3 targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
         transform
             .DOMove(targetPosition, moveDuration)
+            .SetEase(Ease.InOutExpo)
             .OnComplete(() =>
             {
                 isMoving = false;
