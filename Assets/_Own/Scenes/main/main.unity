@@ -1975,26 +1975,6 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1808922659}
-    - target: {fileID: 114795866982183074, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35,
-        type: 2}
-      propertyPath: desiredDistanceXZ
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114795866982183074, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35,
-        type: 2}
-      propertyPath: positionDamping.z
-      value: 0.0001
-      objectReference: {fileID: 0}
-    - target: {fileID: 114795866982183074, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35,
-        type: 2}
-      propertyPath: positionDamping.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114795866982183074, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35,
-        type: 2}
-      propertyPath: positionDamping.x
-      value: 0.077802874
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35, type: 2}
   m_IsPrefabAsset: 0
