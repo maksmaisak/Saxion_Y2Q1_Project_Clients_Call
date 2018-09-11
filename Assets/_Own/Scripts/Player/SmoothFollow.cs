@@ -7,7 +7,7 @@ public class SmoothFollow : MonoBehaviour
     private Transform target;
     // The distance in the x-z plane to the target
     [SerializeField]
-    private float distance = 10.0f;
+    private float desiredDistance = 10.0f;
     // the height we want the camera to be above the target
     [SerializeField]
     private float height = 5.0f;
@@ -18,6 +18,8 @@ public class SmoothFollow : MonoBehaviour
     private float heightDamping;
     [SerializeField]
     private float horizontalDamping;
+    [SerializeField]
+    private float distanceDamping;
 
     // Use this for initialization
     void Start() { }
@@ -30,11 +32,12 @@ public class SmoothFollow : MonoBehaviour
             return;
 
         // Calculate the current rotation angles
-        var wantedRotationAngle = target.eulerAngles.y;
-        var wantedHeight = target.position.y + height;
+        float wantedRotationAngle = target.eulerAngles.y;
+        float wantedHeight = target.position.y + height;
 
-        var currentRotationAngle = transform.eulerAngles.y;
-        var currentHeight = transform.position.y;
+        float currentRotationAngle = transform.eulerAngles.y;
+        float currentHeight = transform.position.y;
+        float currentPositionX = transform.position.x;
 
         // Damp the rotation around the y-axis
         currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -42,16 +45,22 @@ public class SmoothFollow : MonoBehaviour
         // Damp the height
         currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
 
+        // Damp the x position
+        currentPositionX = Mathf.Lerp(currentPositionX, target.position.x, horizontalDamping * Time.deltaTime);
+
         // Convert the angle into a rotation
         var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
         // Set the position of the camera on the x-z plane to:
         // distance meters behind the target
-        transform.position = new Vector3(transform.position.x, target.position.y, target.position.z);
-        transform.position -= currentRotation * transform.forward * distance;
+        Vector3 targetPosition = target.position - currentRotation * transform.forward * desiredDistance;
+
+        if ((targetPosition - transform.position).magnitude <= Mathf.Epsilon)
+            transform.position = targetPosition;
+        else
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - Mathf.Pow(distanceDamping, Time.deltaTime));
 
         // Set the height of the camera
-        float deltaX = Mathf.Lerp(transform.position.x, target.position.x, horizontalDamping * Time.deltaTime);
-        transform.position = new Vector3(deltaX, currentHeight, transform.position.z);
+        transform.position = new Vector3(currentPositionX, currentHeight, transform.position.z);
     }
 }

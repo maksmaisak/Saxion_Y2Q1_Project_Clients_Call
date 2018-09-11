@@ -104,7 +104,12 @@ ModelImporter:
     13700002: Mesh
     13700004: Right_Eye
     13700006: TongUnwrap_Mesh
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: c6d7eb5d14d68a5468cd9ab153b01e06, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
