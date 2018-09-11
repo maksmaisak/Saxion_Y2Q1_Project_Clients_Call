@@ -1,66 +1,53 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SmoothFollow : MonoBehaviour
 {
     // The target we are following
-    [SerializeField]
-    private Transform target;
+    [SerializeField] Transform target;
     // The distance in the x-z plane to the target
-    [SerializeField]
-    private float desiredDistance = 10.0f;
+    [SerializeField] float desiredDistanceXZ = 4f;
     // the height we want the camera to be above the target
-    [SerializeField]
-    private float height = 5.0f;
+    [SerializeField] float desiredDistanceY = 2f;
 
-    [SerializeField]
-    private float rotationDamping;
-    [SerializeField]
-    private float heightDamping;
-    [SerializeField]
-    private float horizontalDamping;
-    [SerializeField]
-    private float distanceDamping;
+    [Header("Damping (0 is instant snapping, 1 is no motion at all)")]
+    [SerializeField] Vector3 positionDamping = Vector3.one * 0.01f;
+    [SerializeField] float rotationDamping;
 
-    // Use this for initialization
-    void Start() { }
-
-    // Update is called once per frame
     void LateUpdate()
     {
-        // Early out if we don't have a target
-        if (!target)
-            return;
+        if (!target) return;
 
         // Calculate the current rotation angles
-        float wantedRotationAngle = target.eulerAngles.y;
-        float wantedHeight = target.position.y + height;
-
+        float desiredRotationAngle = target.eulerAngles.y;
         float currentRotationAngle = transform.eulerAngles.y;
-        float currentHeight = transform.position.y;
-        float currentPositionX = transform.position.x;
 
         // Damp the rotation around the y-axis
-        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
-
-        // Damp the height
-        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
-
-        // Damp the x position
-        currentPositionX = Mathf.Lerp(currentPositionX, target.position.x, horizontalDamping * Time.deltaTime);
+        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, desiredRotationAngle, rotationDamping * Time.deltaTime);
 
         // Convert the angle into a rotation
-        var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
-
+        var currentRotation = Quaternion.Euler(0f, currentRotationAngle, 0f);
+        
         // Set the position of the camera on the x-z plane to:
         // distance meters behind the target
-        Vector3 targetPosition = target.position - currentRotation * transform.forward * desiredDistance;
+        Vector3 desiredPosition =
+            target.position +
+            currentRotation * Vector3.back * desiredDistanceXZ +
+            Vector3.up * desiredDistanceY;
 
-        if ((targetPosition - transform.position).magnitude <= Mathf.Epsilon)
-            transform.position = targetPosition;
-        else
-            transform.position = Vector3.Lerp(transform.position, targetPosition, 1f - Mathf.Pow(distanceDamping, Time.deltaTime));
+        //desiredPosition.y = 0.75f + desiredDistanceY;
+                
+        Vector3 delta = desiredPosition - transform.position;
+        delta.x *= Mathf.Pow(positionDamping.x, Time.deltaTime);
+        delta.y *= Mathf.Pow(positionDamping.y, Time.deltaTime);
+        delta.z *= Mathf.Pow(positionDamping.z, Time.deltaTime);
+        transform.position = desiredPosition - delta;
+    }
 
-        // Set the height of the camera
-        transform.position = new Vector3(currentPositionX, currentHeight, transform.position.z);
+    /// Provides the t-value for a Lerp, which would make the Lerp, when applied once per frame,
+    /// equivalent to multiplying the distance between the targets by dampingCoef.
+    private float LerpDamp(float dampingCoef)
+    {
+        return 1f - Mathf.Pow(dampingCoef, Time.deltaTime);
     }
 }

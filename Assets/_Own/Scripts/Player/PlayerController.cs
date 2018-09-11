@@ -44,36 +44,62 @@ public class PlayerController : GameplayObject
 
     void FixedUpdate()
     {
-        transform.position += Vector3.forward * currentSpeed * Time.fixedDeltaTime;
-
         UpdateBounds();
-
         UpdateCurrentPlatform();
-        SnapToPlatform();
 
         if (!isJumping)
         {
-            if (!player.isGodMode && CheckDeath())
-                return;
-
-            Lane targetLane = GetTargetJumpLane();
-            if (targetLane == null) return;
-
-            JumpTo(targetLane);
+            if (!player.isGodMode && CheckDeath()) return;
         }
     }
 
     void Update()
     {
-        Vector2 input = new Vector2(
-            Input.GetAxis("Horizontal"),
-            Input.GetAxis("Vertical")
-        );
+        UpdateInput();
 
-        if (input.x > 0.01f) currentInput = InputKind.JumpRight;
-        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
-        else if (input.y > 0.01f) currentInput = InputKind.JumpForward;
-        else currentInput = InputKind.None;
+        if (isJumping) return;
+        
+        transform.position += Vector3.forward * currentSpeed * Time.deltaTime;
+        SnapToPlatform();
+            
+        Lane targetLane = GetTargetJumpLane();
+        if (targetLane != null)
+        {
+            JumpTo(targetLane);
+        }
+    }
+   
+    public void JumpTo(Lane targetLane)
+    {
+        Vector3 targetPosition;
+        if (targetLane != null)
+        {
+            targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
+            targetPosition.z += currentSpeed * jumpDuration;
+            KillEnemyAtJumpDestination(targetLane, targetPosition);
+        }
+        else
+        {
+            // Temp
+            targetPosition = transform.position + Vector3.right * 3f;
+            targetPosition.z += currentSpeed * jumpDuration;
+        }
+
+        transform
+            .DOJump(targetPosition, jumpPower, 1, jumpDuration)
+            .OnComplete(() =>
+            {
+                isJumping = false;
+                representation.location.laneA = targetLane;
+                representation.location.laneB = null;
+                representation.location.isMovingBetweenLanes = false;
+                representation.location.isAboveLane = false;
+            });
+
+        isJumping = true;
+        representation.location.laneB = targetLane;
+        representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
+        representation.location.isAboveLane = true;
     }
 
     private void UpdateCurrentPlatform()
@@ -111,7 +137,7 @@ public class PlayerController : GameplayObject
     {
         return CheckDeathFall() || CheckDeathObstaclesEnemies();
     }
-
+    
     private bool CheckDeathFall()
     {
         if (currentPlatformRepresentation != null) return false;
@@ -153,39 +179,6 @@ public class PlayerController : GameplayObject
         return null;
     }
 
-    public void JumpTo(Lane targetLane)
-    {
-        Vector3 targetPosition;
-        if (targetLane != null)
-        {
-            targetPosition = targetLane.GetJumpDestinationFrom(transform.position);
-            targetPosition.z += currentSpeed * jumpDuration;
-            KillEnemyAtJumpDestination(targetLane, targetPosition);
-        }
-        else
-        {
-            // Temp
-            targetPosition = transform.position + Vector3.right * 3f;
-            targetPosition.z += currentSpeed * jumpDuration;
-        }
-
-        transform
-            .DOJump(targetPosition, jumpPower, 1, jumpDuration)
-            .OnComplete(() =>
-            {
-                isJumping = false;
-                representation.location.laneA = targetLane;
-                representation.location.laneB = null;
-                representation.location.isMovingBetweenLanes = false;
-                representation.location.isAboveLane = false;
-            });
-
-        isJumping = true;
-        representation.location.laneB = targetLane;
-        representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
-        representation.location.isAboveLane = true;
-    }
-
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
     {
         float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
@@ -193,5 +186,18 @@ public class PlayerController : GameplayObject
             laneTargetPosition, enemyJumpOnErrorTolerance);
         
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
+    }
+
+    private void UpdateInput()
+    {
+        Vector2 input = new Vector2(
+            Input.GetAxis("Horizontal"),
+            Input.GetAxis("Vertical")
+        );
+
+        if (input.x > 0.01f) currentInput = InputKind.JumpRight;
+        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
+        else if (input.y > 0.01f) currentInput = InputKind.JumpForward;
+        else currentInput = InputKind.None;
     }
 }
