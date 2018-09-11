@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4092895133876332}
+  - component: {fileID: 114278893762096366}
   m_Layer: 0
   m_Name: O_City_Bin
   m_TagString: Untagged
@@ -112,3 +113,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1119555282386454}
   m_Mesh: {fileID: 4300000, guid: fc7a202d2b4cc44afa7f1415458d36e1, type: 3}
+--- !u!114 &114278893762096366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723298707488118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ea66975f0a436398a6cd34e9ccbf7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectKind: 2
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
