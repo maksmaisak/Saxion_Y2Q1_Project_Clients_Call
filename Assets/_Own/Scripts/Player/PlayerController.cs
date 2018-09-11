@@ -29,6 +29,7 @@ public class PlayerController : GameplayObject
     }
 
     private Player player;
+    private new Rigidbody rigidbody;
 
     private InputKind currentInput;
     public bool isJumping { get; private set; }
@@ -40,33 +41,35 @@ public class PlayerController : GameplayObject
         base.Start();
         Assert.IsNotNull(currentLane);
         player = GetComponent<Player>();
+        rigidbody = GetComponent<Rigidbody>();
+        Assert.IsNotNull(player);
+        Assert.IsNotNull(rigidbody);
     }
 
     void FixedUpdate()
     {
+        transform.position += Vector3.forward * currentSpeed * Time.fixedDeltaTime;
+
         UpdateBounds();
+
         UpdateCurrentPlatform();
+        SnapToPlatform();
 
         if (!isJumping)
         {
-            if (!player.isGodMode && CheckDeath()) return;
+            if (!player.isGodMode && CheckDeath())
+                return;
+
+            Lane targetLane = GetTargetJumpLane();
+            if (targetLane == null) return;
+
+            JumpTo(targetLane);
         }
     }
 
     void Update()
     {
         UpdateInput();
-
-        if (isJumping) return;
-        
-        transform.position += Vector3.forward * currentSpeed * Time.deltaTime;
-        SnapToPlatform();
-            
-        Lane targetLane = GetTargetJumpLane();
-        if (targetLane != null)
-        {
-            JumpTo(targetLane);
-        }
     }
    
     public void JumpTo(Lane targetLane)
@@ -128,9 +131,14 @@ public class PlayerController : GameplayObject
     {
         if (currentPlatformRepresentation == null) return;
 
-        Vector3 localPosition = transform.localPosition;
-        localPosition.x *= Mathf.Pow(platformSnappingCoefficient, Time.fixedDeltaTime);
-        transform.localPosition = localPosition;
+        Vector3 targetPosition = currentPlatformRepresentation.gameObject.transform.position;
+        Vector3 newPosition = transform.position;
+        newPosition.x = Mathf.Lerp(
+            newPosition.x, targetPosition.x,
+            1f - Mathf.Pow(platformSnappingCoefficient, Time.fixedDeltaTime)
+        );
+        
+        transform.position = newPosition;
     }
 
     private bool CheckDeath()
