@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4028242033502732}
-  - component: {fileID: 114810558583703064}
+  - component: {fileID: 114770346289425944}
   m_Layer: 0
   m_Name: Cage
   m_TagString: Untagged
@@ -68,11 +68,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1957474519690540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 1.5, z: 2.5}
+  m_LocalPosition: {x: 0, y: 1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4934293752231868}
   - {fileID: 4475881851624522}
+  - {fileID: 4934293752231868}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -87,7 +87,7 @@ Transform:
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 4028242033502732}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4934293752231868
 Transform:
@@ -100,7 +100,7 @@ Transform:
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 4028242033502732}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!23 &23255241431441600
 MeshRenderer:
@@ -186,7 +186,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1686991082145208}
   m_Mesh: {fileID: 4300000, guid: 96c4f43d931a04f83bcee70e1cd73b4f, type: 3}
---- !u!114 &114810558583703064
+--- !u!114 &114770346289425944
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,14 +194,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1957474519690540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2424cc6876eb4f4eb82db56a4f1672a3, type: 3}
+  m_Script: {fileID: 11500000, guid: c9d1f3d9d5a17a0489a3f4f8ca736c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 8
   laneDistanceDifferenceTolerance: 1
   minHeightAboveLane: 1.49
   playerDetectionRadius: 0.2
-  scoreBonus: 10
-  animationDuration: 0.25
-  jumpHeight: 3
-  jumpPower: 1
+  scoreBonus: 100
+  cage: {fileID: 4475881851624522}
+  bird: {fileID: 4934293752231868}
+  animationDuration: 0.375
+  cageJumpOffset: {x: -1.5, y: 0, z: 2}
+  cageJumpPower: 0.25
+  birdJumpOffset: {x: 1.5, y: 0, z: 6}
+  birdJumpPower: 0.25
+  birdRiseHeight: 5
+  birdRiseDuration: 0.375
+  birdRiseEase: 11
