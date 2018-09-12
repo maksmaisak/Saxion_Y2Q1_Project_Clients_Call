@@ -169,11 +169,12 @@ public class PlayerController : GameplayObject
         {
             playerDeath.DeathEnemy();
         }
-        else
+        else if(obj.kind == ObjectKind.Obstacle)
         {
             // Obstacles behind the player don't count.
             if (obj.location.bounds.middle < positionOnLane) return false;
             playerDeath.DeathObstacle();
+            enabled = false;
         }
 
         return true;
