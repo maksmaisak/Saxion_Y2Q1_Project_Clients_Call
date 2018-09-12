@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using DG.Tweening;
-using UnityEditor.CrashReporting;
 
 public class Enemy : GameplayObject
 {
