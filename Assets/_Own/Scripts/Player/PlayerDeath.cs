@@ -35,6 +35,7 @@ public class PlayerDeath : MonoBehaviour
     {
         GameOver();
 
+        playerController.enabled = false;
         rigidBody.isKinematic = false;
         rigidBody.useGravity  = true;
         rigidBody.freezeRotation = true;
