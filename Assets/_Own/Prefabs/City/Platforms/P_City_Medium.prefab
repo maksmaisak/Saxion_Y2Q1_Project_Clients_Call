@@ -128,6 +128,10 @@ MonoBehaviour:
   laneDistanceDifferenceTolerance: 1
   minHeightAboveLane: 1.49
   movingPlatform: 0
-  moveInterval: 1
-  moveDuration: 0.4
+  moveInterval: 1.5
+  shakeDuration: 0.5
+  moveDuration: 0.9
   isMovingRight: 0
+  shakeStrength: 20
+  shakeVibrato: 4
+  shakeElasticity: 1

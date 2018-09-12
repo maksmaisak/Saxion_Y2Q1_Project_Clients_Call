@@ -6,31 +6,50 @@ public class Platform : GameplayObject
 {
     [Space]
     [SerializeField] bool movingPlatform;
-    [SerializeField] float moveInterval = 1f;
+    [SerializeField] float moveInterval = 0.6f;
+    [SerializeField] float shakeDuration = 0.4f;
     [SerializeField] float moveDuration = 0.2f;
     [SerializeField] bool isMovingRight;
-    
+    [Header("Animation")] 
+    [SerializeField] float shakeStrength = 10f;
+    [SerializeField] int shakeVibrato = 10;
+    [SerializeField] float shakeElasticity = 1f;
+
     private float moveCountdown;
-    private bool isMoving;
-    
+    private bool isPlayingAnimation;
+
+    protected override void Start()
+    {
+        base.Start();
+        moveCountdown = moveInterval;
+    }
+
     void FixedUpdate()
     {
         if (!movingPlatform) return;
-        if (isMoving) return;
-
+        if (isPlayingAnimation) return;
+        
         if (moveCountdown > 0f)
-        {
+        {            
             moveCountdown -= Time.fixedDeltaTime;
             if (moveCountdown > 0f) return;
+            
+            ShakeAndMove();
         }
-
-        Move();
     }
     
-    private void Move()
+    private void ShakeAndMove()
     {
-        MoveTo(GetNextTargetLane());
-        moveCountdown = moveInterval;
+        //UpdateMovementDirection();
+        Lane nextLane = GetNextTargetLane();
+
+        isPlayingAnimation = true;
+        PlayShake().OnComplete(() =>
+        {
+            MoveTo(nextLane);
+            moveCountdown = moveInterval;
+            isPlayingAnimation = false;
+        });
     }
 
     private Lane GetNextTargetLane()
@@ -41,6 +60,12 @@ public class Platform : GameplayObject
         isMovingRight = !isMovingRight;
         targetLane = isMovingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
         return targetLane;
+    }
+
+    private Tween PlayShake()
+    {
+        Vector3 targetAngles = Vector3.forward * shakeStrength * (isMovingRight ? -1f : 1f);
+        return transform.DOPunchRotation(targetAngles, shakeDuration, shakeVibrato, shakeElasticity);
     }
     
     private void MoveTo(Lane targetLane)
@@ -53,12 +78,12 @@ public class Platform : GameplayObject
             .SetEase(Ease.InOutQuart)
             .OnComplete(() =>
             {
-                isMoving = false;
                 representation.location.laneA = targetLane;
                 representation.location.laneB = null;
+                representation.location.isMovingBetweenLanes = false;
             });
 
-        isMoving = true;
         representation.location.laneB = targetLane;
+        representation.location.isMovingBetweenLanes = true;
     }
 }

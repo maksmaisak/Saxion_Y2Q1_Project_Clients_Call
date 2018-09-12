@@ -70,7 +70,7 @@ public class GameplayObject : MyBehaviour
         }; 
     }
 
-    private float DistanceTo(Lane lane)
+    protected float DistanceTo(Lane lane)
     {
         return Mathf.Abs(lane.transform.position.x - transform.position.x);
     }

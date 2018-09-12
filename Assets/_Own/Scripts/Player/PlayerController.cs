@@ -119,13 +119,16 @@ public class PlayerController : GameplayObject
             );
         }
 
-        // Might move you aside if the platform is moving while you jump on it.
-        transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
-
         if (currentPlatformRepresentation != null)
         {
-            representation.location.laneA = currentPlatformRepresentation.location.laneB ?? currentPlatformRepresentation.location.laneA;
+            representation.location.laneA = GetClosestLaneFrom(currentPlatformRepresentation.location);
         }
+    }
+
+    private Lane GetClosestLaneFrom(ObjectLocation location)
+    {
+        if (!location.laneB) return location.laneA;
+        return DistanceTo(location.laneB) < DistanceTo(location.laneA) ? location.laneB : location.laneA;
     }
 
     private void SnapToPlatform()
