@@ -6,17 +6,18 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerDeath : MonoBehaviour
 {
-    private Rigidbody _rb = null;
-    private PlayerController _playerController = null;
+    private Rigidbody rigidBody = null;
+    private PlayerController playerController = null;
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
-        _playerController = GetComponent<PlayerController>();
+        rigidBody = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void GameOver()
     {
+        playerController.enabled = false;
         new OnGameOver().PostEvent();
     }
 
@@ -33,12 +34,11 @@ public class PlayerDeath : MonoBehaviour
     public void DeathFall()
     {
         GameOver();
-        
-        _playerController.enabled = false;
-        _rb.isKinematic = false;
-        _rb.useGravity  = true;
-        _rb.freezeRotation = true;
-        _rb.detectCollisions = false;
-        _rb.AddForce(transform.forward * 200.0f);
+
+        rigidBody.isKinematic = false;
+        rigidBody.useGravity  = true;
+        rigidBody.freezeRotation = true;
+        rigidBody.detectCollisions = false;
+        rigidBody.AddForce(transform.forward * 200.0f);
     }
 }

@@ -174,7 +174,6 @@ public class PlayerController : GameplayObject
             // Obstacles behind the player don't count.
             if (obj.location.bounds.middle < positionOnLane) return false;
             playerDeath.DeathObstacle();
-            enabled = false;
         }
 
         return true;
