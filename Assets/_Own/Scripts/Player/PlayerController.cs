@@ -120,7 +120,7 @@ public class PlayerController : GameplayObject
         }
 
         // Might move you aside if the platform is moving while you jump on it.
-        transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
+        //transform.SetParent(currentPlatformRepresentation?.gameObject.transform);
 
         if (currentPlatformRepresentation != null)
         {

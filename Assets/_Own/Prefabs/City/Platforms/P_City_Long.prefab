@@ -129,5 +129,9 @@ MonoBehaviour:
   minHeightAboveLane: 1.49
   movingPlatform: 0
   moveInterval: 1
+  shakeDuration: 0.4
   moveDuration: 0.4
   isMovingRight: 0
+  shakeStrength: 20
+  shakeVibrato: 4
+  shakeElasticity: 1
