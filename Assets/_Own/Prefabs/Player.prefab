@@ -320,6 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4970438211401760}
+  - component: {fileID: 114696317479379728}
   - component: {fileID: 33279697236313656}
   - component: {fileID: 23175962996139650}
   - component: {fileID: 135021542896146200}
@@ -1457,7 +1458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ded1d064568f77428c5318e2fdf428a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPoint: {x: 0, y: 0.75, z: -4}
 --- !u!114 &114541087892599500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1502,6 +1502,17 @@ MonoBehaviour:
   onScoreChangeBonus: 1
   onPathChangeBonus: 4
   onCageOpenBonus: 20
+--- !u!114 &114696317479379728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1426716546539346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0baece306b5140f68f7d628746234608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114894864119097754
 MonoBehaviour:
   m_ObjectHideFlags: 1

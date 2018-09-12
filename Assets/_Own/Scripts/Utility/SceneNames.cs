@@ -8,6 +8,8 @@ public static class SceneNames
     //public const string managementName = "management";
     //public const string managementPath = "Assets/_Own/Scenes/Final/management.unity";
 
+    public const string preload = "__preload";
     public const string mainMenuName = "main_menu";
     public const string mainLevelName = "main";
+    public const string mainResolutionScreenName = "main_resolution_screen";
 }

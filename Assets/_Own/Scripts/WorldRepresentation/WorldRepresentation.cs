@@ -7,7 +7,7 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     private readonly List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
 
-    /// TEMP move this somewhere else
+    /// TEMP move this somewhere else. A global state manager, like the one that will manage audio.
     public int playerScore { get; set; }
     public Dictionary<PlayerProfile, int> playerProfiles { get; set; }
 
