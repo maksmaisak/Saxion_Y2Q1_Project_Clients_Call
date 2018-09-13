@@ -6,16 +6,19 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
 {
     [SerializeField] AudioSource soundtrackAudioSource;
     [SerializeField] AudioClip soundtrack;
-    [SerializeField] float soundtrackPitchWhenSlowPowerup = 0.5f;
-    [SerializeField] float soundtrackPitchWhenFastPowerup = 2f;
+    [SerializeField] float pitchChangeDuration = 0.5f;
+    [SerializeField] float pitchMultiplierWhenSlowPowerup = 0.5f;
+    [SerializeField] float pitchMultiplierWhenFastPowerup = 2f;
 
     private float soundtrackDefaultPitch;
-    
+
     void Start()
     {
         if (!soundtrack) return;
         if (!soundtrackAudioSource) return;
-        
+
+        soundtrackDefaultPitch = soundtrackAudioSource.pitch;
+
         soundtrackAudioSource.clip = soundtrack;
         soundtrackAudioSource.loop = true;
         soundtrackAudioSource.Play();
@@ -23,18 +26,31 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
 
     public void On(OnPowerUpCollected message)
     {
-        float targetPitch = GetTargetPitch(message.powerUpInfo.type);
+        float targetPitch = soundtrackDefaultPitch * GetTargetPitch(message.powerUpInfo.type);
 
         soundtrackAudioSource.DOKill(complete: false);
-        soundtrackAudioSource.DOPitch(soundtrackPitchWhenSlowPowerup, targetPitch);
+        DOTween
+            .Sequence()
+            .SetUpdate(isIndependentUpdate: true)
+            .AppendInterval(message.powerUpInfo.duration)
+            .Join(TweenSoundtrackPitch(targetPitch))
+            .Append(TweenSoundtrackPitch(soundtrackDefaultPitch));
+
+    }
+
+    private Tween TweenSoundtrackPitch(float targetPitch)
+    {
+        return soundtrackAudioSource
+            .DOPitch(targetPitch, pitchChangeDuration)
+            .SetUpdate(isIndependentUpdate: true);
     }
 
     private float GetTargetPitch(PowerUpType powerUpType)
     {
         switch (powerUpType)
         {
-            case PowerUpType.Slow: return soundtrackPitchWhenSlowPowerup;
-            case PowerUpType.Fast: return soundtrackPitchWhenFastPowerup;
+            case PowerUpType.Slow: return pitchMultiplierWhenSlowPowerup;
+            case PowerUpType.Fast: return pitchMultiplierWhenFastPowerup;
         }
 
         return soundtrackDefaultPitch;

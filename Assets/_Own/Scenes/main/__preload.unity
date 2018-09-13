@@ -140,7 +140,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -305,3 +305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundtrackAudioSource: {fileID: 136859165}
   soundtrack: {fileID: 8300000, guid: ce572f3245e244f309a7796a514b8e7d, type: 3}
+  pitchChangeDuration: 0.5
+  pitchMultiplierWhenSlowPowerup: 0.5
+  pitchMultiplierWhenFastPowerup: 2

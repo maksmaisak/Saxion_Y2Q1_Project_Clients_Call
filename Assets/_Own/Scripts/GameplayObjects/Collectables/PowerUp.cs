@@ -17,6 +17,7 @@ public struct PowerUpInfo
     public PowerUpType type;
 }
 
+/// TODO This needs refactoring. Checking by PowerUpType all over the place sucks a lot.
 public class PowerUp : Collectable
 {
     [SerializeField] PowerUpInfo info;
