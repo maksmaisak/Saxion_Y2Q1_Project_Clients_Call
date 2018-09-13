@@ -21,8 +21,9 @@ public class Player : MyBehaviour, IEventReceiver<OnPowerUpCollected>
         switch(powerUp.type)
         {
             case PowerUpType.Slow:
-                Time.timeScale = powerUp.basepoints;
-                Time.fixedDeltaTime = 0.02f * powerUp.basepoints;
+                TimeHelper.timeScale = powerUp.basepoints;
+                //Time.timeScale = powerUp.basepoints;
+                //Time.fixedDeltaTime = 0.02f * powerUp.basepoints;
                 break;
 
             case PowerUpType.Fast:
@@ -42,8 +43,7 @@ public class Player : MyBehaviour, IEventReceiver<OnPowerUpCollected>
 
         if (info.type == PowerUpType.Slow)
         {
-            Time.timeScale = 1.0f;
-            Time.fixedDeltaTime = 0.02f;
+            TimeHelper.timeScale = 1f;
         }
         else if(info.type == PowerUpType.Fast)
         {

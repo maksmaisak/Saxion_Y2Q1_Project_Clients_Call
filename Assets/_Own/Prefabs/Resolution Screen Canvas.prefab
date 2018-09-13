@@ -536,7 +536,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b707f2dc32ebe4fba9b34ad1a29985df, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -554,7 +554,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b707f2dc32ebe4fba9b34ad1a29985df, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -1954,6 +1954,8 @@ MonoBehaviour:
   - {fileID: 114924688209422952}
   - {fileID: 114679837832577906}
   - {fileID: 114717736404898392}
+  animationDuration: 1
+  animationInitialDelay: 1
 --- !u!114 &114636123110181856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3275,7 +3277,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.4855957, y: 0}
+  m_SizeDelta: {x: 0, y: 0.24963379}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224868370310117620
 RectTransform:
