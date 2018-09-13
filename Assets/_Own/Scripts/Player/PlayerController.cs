@@ -11,6 +11,9 @@ public class PlayerController : GameplayObject
     [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
+
+    [Tooltip("Smaller means the player can double jump within a larger period of time. Since the previous jump")]
+    [SerializeField] float doubleJumpTime = 0.1f;
     [Space] 
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
@@ -32,7 +35,12 @@ public class PlayerController : GameplayObject
     private Player player;
     private new Rigidbody rigidbody;
 
+    private bool isJumpReleased = true;
+    private bool isJumpPressedDuringJump = false;
+    private bool isDoubleJump = false;
+    private float previousJumpStartTime = 0f;
     private InputKind currentInput;
+
     public bool isJumping { get; private set; }
 
     private float currentSpeed => baseSpeed * player.GetSpeedMultiplier();
@@ -68,11 +76,17 @@ public class PlayerController : GameplayObject
         }
         else
         {
+            if (isJumpPressedDuringJump)
+            {
+                isDoubleJump = true;
+                isJumpPressedDuringJump = false;
+            }
+
             UpdateBounds();
             UpdateCurrentPlatform();
         }
     }
-   
+
     public void JumpTo(Lane targetLane)
     {
         Vector3 targetPosition;
@@ -98,9 +112,16 @@ public class PlayerController : GameplayObject
                 representation.location.laneB = null;
                 representation.location.isMovingBetweenLanes = false;
                 representation.location.isAboveLane = false;
+
+                if (isDoubleJump)
+                    JumpTo(targetLane);
             });
 
         isJumping = true;
+        if (isDoubleJump)
+            isDoubleJump = false;
+        isJumpReleased = false;
+        previousJumpStartTime = Time.time;
         representation.location.laneB = targetLane;
         representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
         representation.location.isAboveLane = true;
@@ -209,7 +230,33 @@ public class PlayerController : GameplayObject
 
         if (input.x > 0.01f) currentInput = InputKind.JumpRight;
         else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
-        else if (input.y > 0.01f) currentInput = InputKind.JumpForward;
+        else if (input.y > 0.01f && isJumpReleased) currentInput = InputKind.JumpForward;
         else currentInput = InputKind.None;
+
+        if (isDoubleJump || isJumpPressedDuringJump)
+            return;
+
+        /// If the JumpForward button was released
+        /// and pressed again right before the previous jump ends
+        /// then the character should make a double jump
+        bool isHoldingJump = Input.GetKey(KeyCode.W);
+        if (isJumping)
+        {
+            if (!isJumpReleased && !isHoldingJump)
+                isJumpReleased = true;
+
+            if (isJumpReleased && Input.GetKeyDown(KeyCode.W))
+            {
+                float timeNow = Time.time;
+                float nextLandingTime = previousJumpStartTime + jumpDuration;
+                if (timeNow >= previousJumpStartTime + doubleJumpTime && timeNow <= nextLandingTime)
+                    isJumpPressedDuringJump = true;
+            }
+        }
+        else if (!isJumpReleased && !isHoldingJump)
+            isJumpReleased = true;
+
+        if (!isJumpReleased)
+            currentInput = InputKind.None;
     }
 }
