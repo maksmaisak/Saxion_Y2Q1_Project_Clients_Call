@@ -13,8 +13,6 @@ public class ScoreView : MyBehaviour, IEventReceiver<OnScoreChange>
     [SerializeField] float animationDuration = 0.2f;
     [SerializeField] int   animationVibrato  = 10;
 
-    private int currentScore;
-
     void Start()
     {
         Assert.IsNotNull(textMesh);
@@ -22,14 +20,19 @@ public class ScoreView : MyBehaviour, IEventReceiver<OnScoreChange>
 
     public void On(OnScoreChange message)
     {
-        currentScore = WorldRepresentation.Instance.playerScore += message.scoreDelta;
-        UpdateText();
+        int score = WorldRepresentation.Instance.playerScore += message.scoreDelta;
+        UpdateText(score);
+        if (message.playBumpEffect) PlayBumpEffect();
     }
 
-    private void UpdateText()
+    private void UpdateText(int score)
     {
-        textMesh.text = $"Score: {currentScore}";
+        string scoreString = score > 99 ? score.ToString() : score.ToString("D2");
+        textMesh.text = "Score: " + scoreString;
+    }
 
+    private void PlayBumpEffect()
+    {
         textMesh.rectTransform.DOKill(complete: true);
         textMesh.rectTransform.DOPunchScale(Vector3.one * animationScale, animationDuration, animationVibrato);
     }

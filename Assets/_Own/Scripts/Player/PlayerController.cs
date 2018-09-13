@@ -20,6 +20,8 @@ public class PlayerController : GameplayObject
     [SerializeField] float platformSnappingCoefficient = 0.01f;
     [Space] 
     [SerializeField] ObjectRepresentation currentPlatformRepresentation;
+    [Space]
+    [SerializeField] AudioSource jumpAudioSource;
 
     enum InputKind
     {
@@ -104,6 +106,16 @@ public class PlayerController : GameplayObject
         representation.location.laneB = targetLane;
         representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
         representation.location.isAboveLane = true;
+
+        PlayJumpSound();
+    }
+
+    private void PlayJumpSound()
+    {
+        if (!jumpAudioSource || !jumpAudioSource.clip) return;
+        
+        jumpAudioSource.Play();
+        jumpAudioSource.pitch = jumpAudioSource.clip.length / jumpDuration;
     }
 
     private void UpdateCurrentPlatform()
