@@ -137,7 +137,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8ba0c60a4976149b59f9345893300b5f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
     animationDuration: 0.25
     jumpHeight: 3
     jumpPower: 1
-  powerupSoundSource: {fileID: 82166500210445040}
+    disappearSoundSource: {fileID: 82166500210445040}
 --- !u!114 &114561509668781514
 MonoBehaviour:
   m_ObjectHideFlags: 1

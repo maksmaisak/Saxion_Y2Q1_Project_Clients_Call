@@ -25,6 +25,8 @@ public class Cage : Collectable
     [SerializeField] float birdRiseHeight = 5f;
     [SerializeField] float birdRiseDuration = 0.375f;
     [SerializeField] Ease birdRiseEase = Ease.InQuart;
+    [Header("Sound")]
+    [SerializeField] AudioSource soundSource;
 
     protected override void Start()
     {
@@ -48,9 +50,14 @@ public class Cage : Collectable
         seq.Join(Fade(cage));
 
         seq.Join(bird.DOJump(birdJumpOffset, birdJumpPower, 1, animationDuration).SetRelative());
-        //seq.Join(Fade(bird).SetEase(Ease.InExpo));
-        seq.Append(bird.DOMoveY(5f, birdRiseDuration).SetRelative().SetEase(Ease.InQuart));
+        seq.Append(bird.DOMoveY(5f, birdRiseDuration).SetRelative().SetEase(birdRiseEase));
 
+        if (soundSource && soundSource.clip)
+        {
+            soundSource.Play();
+            seq.AppendInterval(soundSource.clip.length);
+        }
+        
         seq.AppendCallback(() => Destroy(gameObject));
     }
 
