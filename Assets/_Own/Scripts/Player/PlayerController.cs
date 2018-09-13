@@ -147,7 +147,7 @@ public class PlayerController : GameplayObject
         }
         else
         {
-            currentPlatformRepresentation = WorldRepresentation.Instance.CheckByKind(
+            currentPlatformRepresentation = WorldRepresentation.instance.CheckByKind(
                 ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
             );
         }
@@ -195,7 +195,7 @@ public class PlayerController : GameplayObject
     {
         PlayerDeath playerDeath = GetComponent<PlayerDeath>();
         
-        var obj = WorldRepresentation.Instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
+        var obj = WorldRepresentation.instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
         if (obj == null) return false;
         
         if (obj.kind == ObjectKind.Enemy)
@@ -227,7 +227,7 @@ public class PlayerController : GameplayObject
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
     {
         float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
-        ObjectRepresentation enemyRecord = WorldRepresentation.Instance.CheckByKind(ObjectKind.Enemy, targetLane,
+        ObjectRepresentation enemyRecord = WorldRepresentation.instance.CheckByKind(ObjectKind.Enemy, targetLane,
             laneTargetPosition, enemyJumpOnErrorTolerance);
         
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();

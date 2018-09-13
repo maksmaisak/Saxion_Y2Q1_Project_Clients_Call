@@ -246,6 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2041511379}
   - component: {fileID: 2041511378}
+  - component: {fileID: 2041511381}
   - component: {fileID: 2041511377}
   - component: {fileID: 2041511380}
   m_Layer: 0
@@ -308,3 +309,14 @@ MonoBehaviour:
   pitchChangeDuration: 0.5
   pitchMultiplierWhenSlowPowerup: 0.75
   pitchMultiplierWhenFastPowerup: 1.5
+--- !u!114 &2041511381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2041511376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a2f21c748134b86bdc3a41aeb8eedd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -11,6 +11,10 @@ public class EventsManager : PersistentSingleton<EventsManager>
     private readonly Queue<IBroadcastEvent> events = new Queue<IBroadcastEvent>();
     private readonly IEventReceiverRegisterer[] registerers;
 
+    [Tooltip("All event messages will be delivered this way unless specified otherwise when creating the event.")]
+    [SerializeField]
+    MessageDeliveryType defaultDeliveryType = MessageDeliveryType.FixedUpdate;
+
     public EventsManager()
     {
         registerers = MakeRegisterers();
@@ -19,13 +23,13 @@ public class EventsManager : PersistentSingleton<EventsManager>
     void FixedUpdate()
     {
         IBroadcastEvent[] eventsArray;
-                
+
         lock (events)
         {
             eventsArray = events.ToArray();
             events.Clear();
         }
-        
+
         foreach (IBroadcastEvent engineEvent in eventsArray) engineEvent.DeliverEvent();
     }
 
@@ -47,10 +51,28 @@ public class EventsManager : PersistentSingleton<EventsManager>
 
     public void Post(IBroadcastEvent broadcastEvent)
     {
-        lock (events)
+        MessageDeliveryType deliveryType = GetDeliveryType(broadcastEvent);
+        switch (deliveryType)
         {
-            events.Enqueue(broadcastEvent);
+            case MessageDeliveryType.Immediate:
+                broadcastEvent.DeliverEvent();
+                break;
+            case MessageDeliveryType.FixedUpdate:
+                lock (events) events.Enqueue(broadcastEvent);
+                break;
+            case MessageDeliveryType.Unspecified:
+            default:
+                throw new ArgumentOutOfRangeException($"Invalid delivery type: {deliveryType}");
         }
+    }
+
+    private MessageDeliveryType GetDeliveryType(IBroadcastEvent broadcastEvent)
+    {
+        MessageDeliveryType deliveryType = broadcastEvent.deliveryType;
+        if (deliveryType == MessageDeliveryType.Unspecified)
+            return defaultDeliveryType;
+
+        return deliveryType;
     }
 
     #region Dark Arts
@@ -81,7 +103,8 @@ public class EventsManager : PersistentSingleton<EventsManager>
         }
         catch (ArgumentException)
         {
-            Debug.LogError($"Invalid generic parameter for {eventType}. It should inherit from NetworkMessage<{eventType.Name}>");
+            Debug.LogError(
+                $"Invalid generic parameter for {eventType}. It should inherit from NetworkMessage<{eventType.Name}>");
             return null;
         }
     }
@@ -102,7 +125,7 @@ public class EventsManager : PersistentSingleton<EventsManager>
         {
             var receiver = obj as IEventReceiver<TEvent>;
             if (receiver == null) return false;
-            
+
             BroadcastEvent<TEvent>.handlers += receiver.On;
             return true;
         }
@@ -111,7 +134,7 @@ public class EventsManager : PersistentSingleton<EventsManager>
         {
             var receiver = obj as IEventReceiver<TEvent>;
             if (receiver == null) return false;
-            
+
             BroadcastEvent<TEvent>.handlers -= receiver.On;
             return true;
         }

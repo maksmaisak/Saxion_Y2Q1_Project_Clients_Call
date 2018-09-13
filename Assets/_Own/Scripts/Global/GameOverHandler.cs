@@ -35,7 +35,7 @@ public class GameOverHandler : MyBehaviour, IEventReceiver<OnGameOver>
 
     public void GoToResolutionScreen()
     {
-        var world = WorldRepresentation.Instance;
+        var world = WorldRepresentation.instance;
         Assert.IsNotNull(world);
         
         SceneManager.LoadScene(SceneNames.mainResolutionScreenName, LoadSceneMode.Single);

@@ -13,7 +13,7 @@ public abstract class Collectable : GameplayObject
 
     private void CheckPlayer()
     {
-        var playerRepresentation = WorldRepresentation.Instance.CheckIntersect(
+        var playerRepresentation = WorldRepresentation.instance.CheckIntersect(
             representation, 
             ObjectKind.Player, 
             playerDetectionRadius

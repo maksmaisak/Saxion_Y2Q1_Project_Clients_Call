@@ -3,20 +3,20 @@ using System.Collections;
 
 public class PersistentSingleton<T> : MyBehaviour where T : Component
 {
-    private static T instance;
+    private static T instanceCached;
 
-    public static T Instance
+    public static T instance
     {
         get
         {
             if (isApplicationQuitting) return null;
 
-            if (instance == null)
+            if (instanceCached == null)
             {
-                instance = FindInstance() ?? CreateInstance();
+                instanceCached = FindInstance() ?? CreateInstance();
             }
 
-            return instance;
+            return instanceCached;
         }
     }
 

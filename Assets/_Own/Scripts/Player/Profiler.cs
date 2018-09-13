@@ -21,29 +21,29 @@ public class Profiler : MyBehaviour, IEventReceiver<OnEnemyKilled>,
 
     protected void Start()
     {
-        WorldRepresentation.Instance.playerProfiles = new Dictionary<PlayerProfile, int>();
+        WorldRepresentation.instance.playerProfiles = new Dictionary<PlayerProfile, int>();
 
         for (PlayerProfile index = PlayerProfile.Killer; index != PlayerProfile.All; index++)
-            WorldRepresentation.Instance.playerProfiles.Add(index, 0);
+            WorldRepresentation.instance.playerProfiles.Add(index, 0);
     }
 
     public void On(OnEnemyKilled message)
     {
-        WorldRepresentation.Instance.playerProfiles[PlayerProfile.Killer] += onEnemyKilledBonus;
+        WorldRepresentation.instance.playerProfiles[PlayerProfile.Killer] += onEnemyKilledBonus;
     }
 
     public void On(OnScoreChange message)
     {
-        WorldRepresentation.Instance.playerProfiles[PlayerProfile.Achiever] += onScoreChangeBonus;
+        WorldRepresentation.instance.playerProfiles[PlayerProfile.Achiever] += onScoreChangeBonus;
     }
 
     public void On(OnCageOpen message)
     {
-        WorldRepresentation.Instance.playerProfiles[PlayerProfile.Socializer] += onCageOpenBonus;
+        WorldRepresentation.instance.playerProfiles[PlayerProfile.Socializer] += onCageOpenBonus;
     }
 
     public void On(OnPathChange message)
     {
-        WorldRepresentation.Instance.playerProfiles[PlayerProfile.Explorer] += onPathChangeBonus;
+        WorldRepresentation.instance.playerProfiles[PlayerProfile.Explorer] += onPathChangeBonus;
     }
 }
