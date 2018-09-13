@@ -28,11 +28,15 @@ public class PowerUp : Collectable
     protected override void OnCollected()
     {
         new OnPowerUpCollected(info).PostEvent();
-        
-        if (powerupSoundSource) powerupSoundSource.Play();
-        
-        animations
-            .PlayDisappearAnimation(gameObject)
-            .AppendCallback(() => Destroy(gameObject));
+
+        Sequence sequence = animations.PlayDisappearAnimation(gameObject);
+
+        if (powerupSoundSource && powerupSoundSource.clip)
+        {
+            powerupSoundSource.Play();
+            sequence.AppendInterval(powerupSoundSource.clip.length);
+        }
+
+        sequence.AppendCallback(() => Destroy(gameObject));
     }
 }

@@ -28,7 +28,7 @@ public class ScoreView : MyBehaviour, IEventReceiver<OnScoreChange>
     private void UpdateText(int score)
     {
         string scoreString = score > 99 ? score.ToString() : score.ToString("D2");
-        textMesh.text = $"Score: " + scoreString;
+        textMesh.text = "Score: " + scoreString;
     }
 
     private void PlayBumpEffect()
