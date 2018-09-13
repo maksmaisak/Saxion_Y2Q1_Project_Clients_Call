@@ -20,7 +20,7 @@ public class ScoreView : MyBehaviour, IEventReceiver<OnScoreChange>
 
     public void On(OnScoreChange message)
     {
-        int score = WorldRepresentation.Instance.playerScore += message.scoreDelta;
+        int score = WorldRepresentation.instance.playerScore += message.scoreDelta;
         UpdateText(score);
         if (message.playBumpEffect) PlayBumpEffect();
     }

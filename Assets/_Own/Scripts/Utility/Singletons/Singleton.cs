@@ -4,18 +4,17 @@ using System;
 
 public abstract class Singleton<T> : MyBehaviour where T : Singleton<T>
 {
-    private static T instance;
-
-    public static T Instance
+    private static T instanceCached;
+    public static T instance
     {
         get
         {
-            if (instance == null)
+            if (instanceCached == null)
             {
-                instance = FindInstance() ?? CreateInstance();
+                instanceCached = FindInstance() ?? CreateInstance();
             }
 
-            return instance;
+            return instanceCached;
         }
     }
 

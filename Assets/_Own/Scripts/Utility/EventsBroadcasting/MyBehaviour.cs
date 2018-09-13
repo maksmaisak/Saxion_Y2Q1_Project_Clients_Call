@@ -5,12 +5,12 @@ public abstract class MyBehaviour : MonoBehaviour
 {
     protected virtual void Awake()
     {
-        EventsManager.Instance.Add(this);
+        EventsManager.instance.Add(this);
     }
 
     protected virtual void OnDestroy()
     {
-        var manager = EventsManager.Instance;
+        var manager = EventsManager.instance;
         if (manager) // In case it has been destroyed.
         {
             manager.Remove(this);

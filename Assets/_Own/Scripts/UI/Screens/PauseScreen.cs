@@ -4,34 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PauseScreen : TransitionableScreen
+public class PauseScreen : TransitionableScreen, 
+    IEventReceiver<OnPause>, 
+    IEventReceiver<OnUnpause>
 {
     [SerializeField] float transitionDuration = 1f;
     [SerializeField] float maxScale = 2f;
 
-    private float initialTimeScale = 1f;
-
-    void Update()
-    {
-        if (!Input.GetButtonDown("Pause")) return;
-
-        if (isCurrentlySelected) 
-            TransitionOut();
-        else 
-            TransitionIn();
-    }
-
+    public void On(OnPause message)   => TransitionIn();
+    public void On(OnUnpause message) => TransitionOut();
+    
     protected override void OnTransitionIn()
     {
-        initialTimeScale = Time.timeScale;
-        Time.timeScale = 0f;
         FadeInZoom();
         SelectFirstButton();
     }
 
     protected override void OnTransitionOut()
     {
-        Time.timeScale = initialTimeScale;
         FadeOutZoom();
     }
 

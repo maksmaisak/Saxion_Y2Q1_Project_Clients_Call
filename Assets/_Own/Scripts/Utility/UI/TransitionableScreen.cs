@@ -8,7 +8,7 @@ using UnityEngine.UI;
 #pragma warning disable 0649
 
 [RequireComponent(typeof(CanvasGroup))]
-public class TransitionableScreen : MonoBehaviour
+public class TransitionableScreen : MyBehaviour
 {
     protected static readonly Stack<TransitionableScreen> previousScreens = new Stack<TransitionableScreen>();
     protected static TransitionableScreen currentlySelected;

@@ -23,14 +23,14 @@ public class GameplayObject : MyBehaviour
         // TEMP. Use old system for determining type while transitioning away from the old system.
         if (objectKind == ObjectKind.Unassigned) objectKind = GetKindBasedOnGameObjectTag();
         
-        WorldRepresentation.Instance.Add(MakeRepresentation());
+        WorldRepresentation.instance.Add(MakeRepresentation());
     }
 
     public void RemoveFromWorldModel()
     {
         if (isRemoved) return;
 
-        WorldRepresentation.Instance.Remove(representation);
+        WorldRepresentation.instance.Remove(representation);
         isRemoved = true;
     }
     
