@@ -39,7 +39,7 @@ public class PlayerController : GameplayObject
     private new Rigidbody rigidbody;
 
     private bool wasJumpPressed = true;
-    private bool isJumpPressedDuringJump = false;
+    private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
 
@@ -113,8 +113,8 @@ public class PlayerController : GameplayObject
             });
 
         isJumping = true;
-        isJumpPressedDuringJump = false;
-        previousJumpStartTime = Time.time;
+        wasJumpPressedDuringJump = false;
+        previousJumpStartTime = Time.unscaledTime;
         representation.location.laneB = targetLane;
         representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
         representation.location.isAboveLane = true;
@@ -229,30 +229,30 @@ public class PlayerController : GameplayObject
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
     }
 
-    // TODO Extract into player input.
     private void UpdateInput()
     {
-        Vector2 input = new Vector2(
-            Input.GetAxis("Horizontal"),
-            Input.GetAxis("Vertical")
-        );
-
+        var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         wasJumpPressed = Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical");
 
-        if (input.x > 0.01f && wasJumpPressed) currentInput = InputKind.JumpRight;
-        else if (input.x < -0.01f && wasJumpPressed) currentInput = InputKind.JumpLeft;
-        else if (input.y > 0.01f && wasJumpPressed) currentInput = InputKind.JumpForward;
-        else if (!isJumpPressedDuringJump) currentInput = InputKind.None;
-
-        /// If the Jump button was released
-        /// and pressed again right before the previous jump ends
-        /// then the character should make a double jump
-        if (isJumping && wasJumpPressed)
+        if (!wasJumpPressed)
         {
-            float timeNow = Time.time;
+            if (!wasJumpPressedDuringJump) currentInput = InputKind.None;
+            return;
+        }
+        
+        if (input.x > 0.01f) currentInput = InputKind.JumpRight;
+        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
+        else if (input.y > 0.01f) currentInput = InputKind.JumpForward;
+
+        /// If the Jump button was pressed
+        /// right before the previous jump ends
+        /// then the character should make another jump after the current one ends.
+        if (isJumping)
+        {
+            float timeNow = Time.unscaledTime;
             float nextLandingTime = previousJumpStartTime + jumpDuration;
             if (timeNow >= nextLandingTime - doubleJumpTime && timeNow <= nextLandingTime)
-                isJumpPressedDuringJump = true;
+                wasJumpPressedDuringJump = true;
         }
     }
 }
