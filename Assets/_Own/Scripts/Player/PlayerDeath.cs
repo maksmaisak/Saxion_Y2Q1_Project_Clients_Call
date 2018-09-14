@@ -18,7 +18,7 @@ public class PlayerDeath : MonoBehaviour
     private void GameOver()
     {
         playerController.enabled = false;
-        new OnGameOver().PostEvent();
+        new OnInsertCoinScreen().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
     }
 
     public void DeathObstacle()
