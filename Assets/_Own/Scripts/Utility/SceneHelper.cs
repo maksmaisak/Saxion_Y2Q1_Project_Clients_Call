@@ -25,7 +25,7 @@ public class SceneHelper : SimpleSingleton<SceneHelper>
         if (currentSceneBuildIndex != nextScene.buildIndex)
         {
             currentSceneBuildIndex = nextScene.buildIndex;
-            if (OnActiveSceneChange != null) OnActiveSceneChange();
+            OnActiveSceneChange?.Invoke();
         }
     }
 }

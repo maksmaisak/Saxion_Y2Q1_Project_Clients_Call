@@ -14,10 +14,13 @@ public class LevelManager : Singleton<LevelManager>
     {        
         Debug.Log("LoadLevel called");
         //new OnLevelBeginSwitching().PostEvent();
-        
-        SceneManager.LoadScene(levelSceneName);
- 
-        //new OnLevelSwitched().PostEvent();
+
+        Time.timeScale = 0f;
+        SceneManager.LoadSceneAsync(levelSceneName).completed += ao =>
+        {
+            Time.timeScale = 1f;
+            //new OnLevelSwitched().PostEvent();
+        };
     }
 
     public void LoadPreviousLevel()
