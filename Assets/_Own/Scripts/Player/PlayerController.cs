@@ -25,6 +25,7 @@ public class PlayerController : GameplayObject
     [SerializeField] ObjectRepresentation currentPlatformRepresentation;
     [Space]
     [SerializeField] AudioSource jumpAudioSource;
+    [SerializeField] Animator animator;
 
     enum InputKind
     {
@@ -54,6 +55,7 @@ public class PlayerController : GameplayObject
         rigidbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(player);
         Assert.IsNotNull(rigidbody);
+        Assert.IsNotNull(animator);
     }
 
     void Update()
@@ -66,20 +68,20 @@ public class PlayerController : GameplayObject
             UpdateBounds();
             UpdateCurrentPlatform();
             SnapToPlatform();
-            
-            if (!player.isGodMode && CheckDeath())
-                return;
 
-            Lane targetLane = GetTargetJumpLane();
-            if (targetLane == null) return;
-
-            JumpTo(targetLane);
+            if (player.isGodMode || !CheckDeath())
+            {
+                Lane targetLane = GetTargetJumpLane();
+                if (targetLane) JumpTo(targetLane);
+            }
         }
         else
         {
             UpdateBounds();
             UpdateCurrentPlatform();
         }
+
+        UpdateAnimator();
     }
 
     public void JumpTo(Lane targetLane)
@@ -103,6 +105,7 @@ public class PlayerController : GameplayObject
             .OnComplete(() =>
             {
                 isJumping = false;
+
                 representation.location.laneA = targetLane;
                 representation.location.laneB = null;
                 representation.location.isMovingBetweenLanes = false;
@@ -221,6 +224,7 @@ public class PlayerController : GameplayObject
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
     }
 
+    // TODO Extract into player input.
     private void UpdateInput()
     {
         Vector2 input = new Vector2(
@@ -228,7 +232,7 @@ public class PlayerController : GameplayObject
             Input.GetAxis("Vertical")
         );
 
-        wasJumpPressed = (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"));
+        wasJumpPressed = Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical");
 
         if (input.x > 0.01f && wasJumpPressed) currentInput = InputKind.JumpRight;
         else if (input.x < -0.01f && wasJumpPressed) currentInput = InputKind.JumpLeft;
@@ -238,15 +242,29 @@ public class PlayerController : GameplayObject
         /// If the Jump button was released
         /// and pressed again right before the previous jump ends
         /// then the character should make a double jump
+        if (isJumping && wasJumpPressed)
+        {
+            float timeNow = Time.time;
+            float nextLandingTime = previousJumpStartTime + jumpDuration;
+            if (timeNow >= nextLandingTime - doubleJumpTime && timeNow <= nextLandingTime)
+                isJumpPressedDuringJump = true;
+        }
+    }
+
+    private void UpdateAnimator()
+    {
         if (isJumping)
         {
-            if (wasJumpPressed)
-            {
-                float timeNow = Time.time;
-                float nextLandingTime = previousJumpStartTime + jumpDuration;
-                if (timeNow >= nextLandingTime - doubleJumpTime && timeNow <= nextLandingTime)
-                    isJumpPressedDuringJump = true;
-            }
+            Lane targetLane = representation.location.laneB;
+            if (targetLane == currentLane) animator.SetBool("Jump_F", true);
+            if (targetLane == currentLane.leftNeighbor) animator.SetBool("Jump_L", true);
+            if (targetLane == currentLane.rightNeighbor) animator.SetBool("Jump_R", true);
+        }
+        else
+        {
+            animator.SetBool("Jump_L", false);
+            animator.SetBool("Jump_F", false);
+            animator.SetBool("Jump_R", false);
         }
     }
 }

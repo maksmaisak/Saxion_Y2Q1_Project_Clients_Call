@@ -1,0 +1,376 @@
+fileFormatVersion: 2
+guid: 6ba6a33203f1cc446b24274869e57da6
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Belly
+    100002: BellyControl
+    100004: Charactercontroller
+    100006: CharacterRotator
+    100008: ChestControl
+    100010: Head
+    100012: Headcontrol
+    100014: ikHandle1
+    100016: ikHandle2
+    100018: Jaw
+    100020: Left_elbow
+    100022: Left_Eye
+    100024: Left_Eye 1
+    100026: Left_eye_control
+    100028: Left_Hand
+    100030: Left_hand_Controller
+    100032: Left_Shoulder
+    100034: Left_Wing
+    100036: Left_wing2
+    100038: Left_wingcontrol1
+    100040: Left_wingcontrol1 1
+    100042: Left_Wings
+    100044: locator1
+    100046: locator2
+    100048: Mesh
+    100050: Mouth_controller
+    100052: MouthControl
+    100054: neck
+    100056: nurbsCircle6
+    100058: R_Wing_Controller1
+    100060: R_Wing_Controller2
+    100062: Right_elbow
+    100064: Right_Eye
+    100066: Right_eye
+    100068: Right_eye_control
+    100070: Right_Hand
+    100072: Right_Handcontroller
+    100074: Right_Shoulder
+    100076: Right_Wing
+    100078: Right_wing2
+    100080: Right_Wings
+    100082: Root
+    100084: spine
+    100086: Spine_2
+    100088: Tail1
+    100090: Tail1control
+    100092: Tail2
+    100094: Tail2Control
+    100096: Tail3
+    100098: Tail_3control
+    100100: //RootNode
+    100102: tong1
+    100104: tong2
+    100106: TongUnwrap_Mesh
+    100108: transform3
+    100110: transform4
+    100112: transform5
+    400000: Belly
+    400002: BellyControl
+    400004: Charactercontroller
+    400006: CharacterRotator
+    400008: ChestControl
+    400010: Head
+    400012: Headcontrol
+    400014: ikHandle1
+    400016: ikHandle2
+    400018: Jaw
+    400020: Left_elbow
+    400022: Left_Eye
+    400024: Left_Eye 1
+    400026: Left_eye_control
+    400028: Left_Hand
+    400030: Left_hand_Controller
+    400032: Left_Shoulder
+    400034: Left_Wing
+    400036: Left_wing2
+    400038: Left_wingcontrol1
+    400040: Left_wingcontrol1 1
+    400042: Left_Wings
+    400044: locator1
+    400046: locator2
+    400048: Mesh
+    400050: Mouth_controller
+    400052: MouthControl
+    400054: neck
+    400056: nurbsCircle6
+    400058: R_Wing_Controller1
+    400060: R_Wing_Controller2
+    400062: Right_elbow
+    400064: Right_Eye
+    400066: Right_eye
+    400068: Right_eye_control
+    400070: Right_Hand
+    400072: Right_Handcontroller
+    400074: Right_Shoulder
+    400076: Right_Wing
+    400078: Right_wing2
+    400080: Right_Wings
+    400082: Root
+    400084: spine
+    400086: Spine_2
+    400088: Tail1
+    400090: Tail1control
+    400092: Tail2
+    400094: Tail2Control
+    400096: Tail3
+    400098: Tail_3control
+    400100: //RootNode
+    400102: tong1
+    400104: tong2
+    400106: TongUnwrap_Mesh
+    400108: transform3
+    400110: transform4
+    400112: transform5
+    2100000: lambert1
+    2100002: Eyes
+    2100004: lambert4
+    4300000: Mesh
+    4300002: TongUnwrap_Mesh
+    4300004: Right_Eye
+    4300006: Left_Eye
+    4300008: Right_Wing
+    4300010: Left_Wing
+    7400000: Moving_F
+    7400002: Jump_f
+    7400004: Jump_R
+    7400006: Jump_L
+    7400008: Death
+    9500000: //RootNode
+    13700000: Left_Eye
+    13700002: Left_Wing
+    13700004: Mesh
+    13700006: Right_Eye
+    13700008: Right_Wing
+    13700010: TongUnwrap_Mesh
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: 7b869de26f63f764cad9e66fe023be9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 010952e2734fef14da09d15651a66930, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: b405777e1d2c2a84f836233b546e47d8, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Moving_F
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jump_f
+      takeName: Take 001
+      firstFrame: 70
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jump_R
+      takeName: Take 001
+      firstFrame: 120
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jump_L
+      takeName: Take 001
+      firstFrame: 170
+      lastFrame: 210
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 220
+      lastFrame: 235
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
