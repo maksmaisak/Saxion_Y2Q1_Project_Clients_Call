@@ -121,9 +121,10 @@ public class PlayerController : GameplayObject
 
         PlayJumpSound();
         
-        if (targetLane == currentLane) animator.SetTrigger("Jump_F 0");
-        if (targetLane == currentLane.leftNeighbor) animator.SetTrigger("Jump_L 0");
-        if (targetLane == currentLane.rightNeighbor) animator.SetTrigger("Jump_R 0");
+        if      (targetLane == currentLane.leftNeighbor ) animator.SetTrigger("Jump_L");
+        else if (targetLane == currentLane.rightNeighbor) animator.SetTrigger("Jump_R");
+        else if (targetLane == currentLane) animator.SetTrigger("Jump_F");
+        else animator.SetTrigger("Jump_R"); // TEMP. Jump to a null lane is right by default.
     }
 
     private void PlayJumpSound()
@@ -252,23 +253,6 @@ public class PlayerController : GameplayObject
             float nextLandingTime = previousJumpStartTime + jumpDuration;
             if (timeNow >= nextLandingTime - doubleJumpTime && timeNow <= nextLandingTime)
                 isJumpPressedDuringJump = true;
-        }
-    }
-
-    private void UpdateAnimator()
-    {
-        if (isJumping)
-        {
-            Lane targetLane = representation.location.laneB;
-            if (targetLane == currentLane) animator.SetTrigger("Jump_F 0");
-            if (targetLane == currentLane.leftNeighbor) animator.SetTrigger("Jump_L 0");
-            if (targetLane == currentLane.rightNeighbor) animator.SetTrigger("Jump_R 0");
-        }
-        else
-        {
-            animator.SetBool("Jump_L", false);
-            animator.SetBool("Jump_F", false);
-            animator.SetBool("Jump_R", false);
         }
     }
 }
