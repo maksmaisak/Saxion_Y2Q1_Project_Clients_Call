@@ -37,9 +37,8 @@ public class PlayerController : GameplayObject
     private Player player;
     private new Rigidbody rigidbody;
 
-    private bool isJumpReleased = true;
+    private bool wasJumpPressed = true;
     private bool isJumpPressedDuringJump = false;
-    private bool isDoubleJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
 
@@ -78,12 +77,6 @@ public class PlayerController : GameplayObject
         }
         else
         {
-            if (isJumpPressedDuringJump)
-            {
-                isDoubleJump = true;
-                isJumpPressedDuringJump = false;
-            }
-
             UpdateBounds();
             UpdateCurrentPlatform();
         }
@@ -114,15 +107,10 @@ public class PlayerController : GameplayObject
                 representation.location.laneB = null;
                 representation.location.isMovingBetweenLanes = false;
                 representation.location.isAboveLane = false;
-
-                if (isDoubleJump)
-                    JumpTo(targetLane);
             });
 
         isJumping = true;
-        if (isDoubleJump)
-            isDoubleJump = false;
-        isJumpReleased = false;
+        isJumpPressedDuringJump = false;
         previousJumpStartTime = Time.time;
         representation.location.laneB = targetLane;
         representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
@@ -240,35 +228,25 @@ public class PlayerController : GameplayObject
             Input.GetAxis("Vertical")
         );
 
-        if (input.x > 0.01f) currentInput = InputKind.JumpRight;
-        else if (input.x < -0.01f) currentInput = InputKind.JumpLeft;
-        else if (input.y > 0.01f && isJumpReleased) currentInput = InputKind.JumpForward;
-        else currentInput = InputKind.None;
+        wasJumpPressed = (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"));
 
-        if (isDoubleJump || isJumpPressedDuringJump)
-            return;
+        if (input.x > 0.01f && wasJumpPressed) currentInput = InputKind.JumpRight;
+        else if (input.x < -0.01f && wasJumpPressed) currentInput = InputKind.JumpLeft;
+        else if (input.y > 0.01f && wasJumpPressed) currentInput = InputKind.JumpForward;
+        else if (!isJumpPressedDuringJump) currentInput = InputKind.None;
 
-        /// If the JumpForward button was released
+        /// If the Jump button was released
         /// and pressed again right before the previous jump ends
         /// then the character should make a double jump
-        bool isHoldingJump = Input.GetKey(KeyCode.W);
         if (isJumping)
         {
-            if (!isJumpReleased && !isHoldingJump)
-                isJumpReleased = true;
-
-            if (isJumpReleased && Input.GetKeyDown(KeyCode.W))
+            if (wasJumpPressed)
             {
                 float timeNow = Time.time;
                 float nextLandingTime = previousJumpStartTime + jumpDuration;
-                if (timeNow >= previousJumpStartTime + doubleJumpTime && timeNow <= nextLandingTime)
+                if (timeNow >= nextLandingTime - doubleJumpTime && timeNow <= nextLandingTime)
                     isJumpPressedDuringJump = true;
             }
         }
-        else if (!isJumpReleased && !isHoldingJump)
-            isJumpReleased = true;
-
-        if (!isJumpReleased)
-            currentInput = InputKind.None;
     }
 }
