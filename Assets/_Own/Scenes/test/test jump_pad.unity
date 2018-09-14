@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1792551274}
-  m_IndirectSpecularColor: {r: 0.6814928, g: 0.7454244, b: 0.64912224, a: 1}
+  m_IndirectSpecularColor: {r: 3.2864323, g: 0.7355016, b: 0.6253924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -212,6 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &23357084
 Prefab:
   m_ObjectHideFlags: 0
@@ -374,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &159200309
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &167617474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373851239880982, guid: da833b34b2eb5c4448d21d2712bb8d94,
@@ -489,6 +495,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &251654661
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &278797850
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +876,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &412437244
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,6 +976,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &419269815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1128179079062460, guid: 7edc64590623d5043acf098d7af555a9,
@@ -981,6 +995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &433207857
 Prefab:
   m_ObjectHideFlags: 0
@@ -1255,6 +1271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &559992542
 Prefab:
   m_ObjectHideFlags: 0
@@ -1417,6 +1435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &627606170
 Prefab:
   m_ObjectHideFlags: 0
@@ -1670,6 +1690,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &693336482
 Prefab:
   m_ObjectHideFlags: 0
@@ -1832,6 +1854,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &760664512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,6 +1954,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &818426540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,6 +2290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1024617529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,6 +2654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!4 &1271018586 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4878469303856272, guid: 55d590aa4d5db416eaf0c04458396694,
@@ -2729,6 +2759,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1318668882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,12 +2796,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 16
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
   baseSpeed: 10
   jumpPower: 1
   jumpDuration: 0.2
+  doubleJumpTime: 0.1
   enemyJumpOnErrorTolerance: 1
   platformErrorTolerance: 0.1
+  obstacleCollisionTolerance: 0.1
   platformSnappingCoefficient: 0.01
+  currentPlatformRepresentation:
+    kind: 0
+    location:
+      laneA: {fileID: 0}
+      laneB: {fileID: 0}
+      isMovingBetweenLanes: 0
+      isAboveLane: 0
+    gameObject: {fileID: 0}
+  jumpAudioSource: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!135 &1318668884
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2877,7 +2923,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ded1d064568f77428c5318e2fdf428a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPoint: {x: 0, y: 0.75, z: -4}
+  playerAnimator: {fileID: 0}
+  delayBeforeResolutionScreen: 2
 --- !u!114 &1318668891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,6 +3034,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1330000145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,6 +3165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &1405134955
 Prefab:
   m_ObjectHideFlags: 0
@@ -3200,6 +3251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &1454090229
 Prefab:
   m_ObjectHideFlags: 0
@@ -3362,6 +3415,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1590843409
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,6 +3515,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1600455133
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,6 +3615,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1618834176
 GameObject:
   m_ObjectHideFlags: 0
@@ -3656,6 +3715,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1622185174
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,6 +3815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &1640746095
 Prefab:
   m_ObjectHideFlags: 0
@@ -3945,6 +4008,16 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: -43.68994
       objectReference: {fileID: 0}
+    - target: {fileID: 224067562641576062, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1.6739502
+      objectReference: {fileID: 0}
+    - target: {fileID: 224067562641576062, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19acc75b42c8ca1418f064c09a15086f, type: 2}
   m_IsPrefabAsset: 0
@@ -3977,6 +4050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1743654005
 GameObject:
   m_ObjectHideFlags: 0
@@ -4075,6 +4150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1787682214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4173,6 +4250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1792551273
 GameObject:
   m_ObjectHideFlags: 0
@@ -4452,6 +4531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1948485931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,6 +4631,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1949179466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4612,6 +4695,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &1990799692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4710,6 +4795,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1001 &2007568150
 Prefab:
   m_ObjectHideFlags: 0
@@ -4880,6 +4967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &2063057247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4978,6 +5067,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &2102201591 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373851239880982, guid: da833b34b2eb5c4448d21d2712bb8d94,
@@ -4995,6 +5086,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
 --- !u!1 &2129997696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5093,3 +5186,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49

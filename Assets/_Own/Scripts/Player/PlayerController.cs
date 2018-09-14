@@ -81,7 +81,7 @@ public class PlayerController : GameplayObject
             UpdateCurrentPlatform();
         }
 
-        UpdateAnimator();
+        //UpdateAnimator();
     }
 
     public void JumpTo(Lane targetLane)
@@ -120,6 +120,10 @@ public class PlayerController : GameplayObject
         representation.location.isAboveLane = true;
 
         PlayJumpSound();
+        
+        if (targetLane == currentLane) animator.SetTrigger("Jump_F 0");
+        if (targetLane == currentLane.leftNeighbor) animator.SetTrigger("Jump_L 0");
+        if (targetLane == currentLane.rightNeighbor) animator.SetTrigger("Jump_R 0");
     }
 
     private void PlayJumpSound()
@@ -256,9 +260,9 @@ public class PlayerController : GameplayObject
         if (isJumping)
         {
             Lane targetLane = representation.location.laneB;
-            if (targetLane == currentLane) animator.SetBool("Jump_F", true);
-            if (targetLane == currentLane.leftNeighbor) animator.SetBool("Jump_L", true);
-            if (targetLane == currentLane.rightNeighbor) animator.SetBool("Jump_R", true);
+            if (targetLane == currentLane) animator.SetTrigger("Jump_F 0");
+            if (targetLane == currentLane.leftNeighbor) animator.SetTrigger("Jump_L 0");
+            if (targetLane == currentLane.rightNeighbor) animator.SetTrigger("Jump_R 0");
         }
         else
         {
