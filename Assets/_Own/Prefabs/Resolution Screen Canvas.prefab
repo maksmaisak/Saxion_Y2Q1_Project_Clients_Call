@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 114523648005631428}
   - component: {fileID: 114869349291098406}
   - component: {fileID: 95780491917477064}
+  - component: {fileID: 114697646025272764}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -2166,6 +2167,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114697646025272764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1365582131555386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7e49fe568e41f093542703100482c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114717736404898392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2522,8 +2534,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114822386834865760}
-        m_MethodName: QuiToDesktop
+      - m_Target: {fileID: 114697646025272764}
+        m_MethodName: QuitToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3277,7 +3289,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0.24963379}
+  m_SizeDelta: {x: 0, y: 0.11999512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224868370310117620
 RectTransform:
