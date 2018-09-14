@@ -2351,6 +2351,21 @@ Prefab:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114541087892599500, guid: 77e2a7bf615164f4595afe17052da1a9,
+        type: 2}
+      propertyPath: jumpPower
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114541087892599500, guid: 77e2a7bf615164f4595afe17052da1a9,
+        type: 2}
+      propertyPath: jumpDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114541087892599500, guid: 77e2a7bf615164f4595afe17052da1a9,
+        type: 2}
+      propertyPath: doubleJumpTime
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77e2a7bf615164f4595afe17052da1a9, type: 2}
   m_IsPrefabAsset: 0
