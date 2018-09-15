@@ -31,7 +31,7 @@ public class PlayerDeath : MonoBehaviour
         playerController.enabled = false;
 
         CollideAnimation();
-        Delay(delayBeforeResolutionScreen, GameOver);
+        this.Delay(delayBeforeResolutionScreen, GameOver);
     }
 
     public void DeathEnemy()
@@ -39,7 +39,7 @@ public class PlayerDeath : MonoBehaviour
         playerController.enabled = false;
 
         CollideAnimation();
-        Delay(delayBeforeResolutionScreen, GameOver);
+        this.Delay(delayBeforeResolutionScreen, GameOver);
     }
 
     public void DeathFall()
@@ -59,16 +59,5 @@ public class PlayerDeath : MonoBehaviour
     private void CollideAnimation()
     {
         playerAnimator.SetBool("Death", true);
-    }
-
-    private void Delay(float delay, Action action)
-    {
-        StartCoroutine(DelayCoroutine(delay, action));
-    }
-
-    private IEnumerator DelayCoroutine(float delay, Action action)
-    {
-        yield return new WaitForSeconds(delay);
-        action?.Invoke();
     }
 }

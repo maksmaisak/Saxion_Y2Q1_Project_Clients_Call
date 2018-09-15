@@ -8,18 +8,18 @@ public class LevelManager : Singleton<LevelManager>
     private readonly Stack<int> previousSceneBuildIndices = new Stack<int>();
 
     private bool isSceneBeingLoaded;
-    private bool isPreloadedSceenAwaiting;
+    private bool isPreloadedScreenAwaiting;
     
     public void LoadLevel(string levelSceneName)
     {        
         Debug.Log("LoadLevel called");
-        //new OnLevelBeginSwitching().PostEvent();
+        new OnLevelBeginSwitching().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
 
         Time.timeScale = 0f;
         SceneManager.LoadSceneAsync(levelSceneName).completed += ao =>
         {
             Time.timeScale = 1f;
-            //new OnLevelSwitched().PostEvent();
+            new OnLevelFinishSwitching().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
         };
     }
 
