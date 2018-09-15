@@ -10,6 +10,7 @@ public class Portal : GameplayObject
         BonusLevelExit
     }
     
+    [Space]
     [SerializeField] float playerDetectionMargin = 0.2f;
     [SerializeField] Kind kind;
     [SerializeField] string nextLevelName;
@@ -19,9 +20,11 @@ public class Portal : GameplayObject
         var playerRepresentation = WorldRepresentation.instance.CheckIntersect(
             representation, 
             ObjectKind.Player, 
-            playerDetectionMargin
+            playerDetectionMargin,
+            aboveLaneMatters: false
         );
         if (playerRepresentation == null) return;
+        if (representation.location.isAboveLane && !playerRepresentation.location.isAboveLane) return;
       
         LevelManager.instance.LoadLevel(nextLevelName);
         new OnPortalEntered(kind).PostEvent();

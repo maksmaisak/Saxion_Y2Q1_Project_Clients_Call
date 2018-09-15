@@ -44,14 +44,14 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
         return null;
     }
 
-    public ObjectRepresentation CheckIntersect(ObjectRepresentation obj, ObjectKind allowedKinds, float margin = 0f)
+    public ObjectRepresentation CheckIntersect(ObjectRepresentation obj, ObjectKind allowedKinds, float margin = 0f, bool aboveLaneMatters = true)
     {
         // TODO Broadphase optimization here
         
         foreach (ObjectRepresentation other in objects)
         {
             if ((other.kind & allowedKinds) == 0) continue;
-            if (obj.location.isAboveLane != other.location.isAboveLane) continue;
+            if (aboveLaneMatters && obj.location.isAboveLane != other.location.isAboveLane) continue;
             if (!CommonLanes(obj.location, other.location)) continue;
             
             if (obj.location.bounds.Intersects(other.location.bounds, margin)) return other;
