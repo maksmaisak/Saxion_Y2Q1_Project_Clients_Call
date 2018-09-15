@@ -5,7 +5,8 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class PlayerController : GameplayObject
+public class PlayerController : GameplayObject,
+    IEventReceiver<OnLevelBeginSwitching>
 {
     [Space]
     [SerializeField] float baseSpeed = 10f;
@@ -83,6 +84,8 @@ public class PlayerController : GameplayObject
 
         //UpdateAnimator();
     }
+    
+    public void On(OnLevelBeginSwitching message) => enabled = false;
 
     public void JumpTo(Lane targetLane)
     {
