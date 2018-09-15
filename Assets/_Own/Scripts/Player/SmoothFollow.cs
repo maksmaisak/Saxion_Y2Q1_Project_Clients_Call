@@ -38,9 +38,9 @@ public class SmoothFollow : MonoBehaviour
         //desiredPosition.y = 0.75f + desiredDistanceY;
                 
         Vector3 delta = desiredPosition - transform.position;
-        delta.x *= Mathf.Pow(positionDamping.x, Time.deltaTime);
-        delta.y *= Mathf.Pow(positionDamping.y, Time.deltaTime);
-        delta.z *= Mathf.Pow(positionDamping.z, Time.deltaTime);
+        delta.x *= Mathf.Pow(positionDamping.x, Time.unscaledDeltaTime);
+        delta.y *= Mathf.Pow(positionDamping.y, Time.unscaledDeltaTime);
+        delta.z *= Mathf.Pow(positionDamping.z, Time.unscaledDeltaTime);
         transform.position = desiredPosition - delta;
     }
 

@@ -42,8 +42,10 @@ public class PlayerController : GameplayObject
     private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
+    private Lane previousLane;
 
     public bool isJumping { get; private set; }
+    public ObjectRepresentation previousPlatform { get; private set; }
 
     private float currentSpeed => baseSpeed * player.GetSpeedMultiplier();
 
@@ -58,10 +60,10 @@ public class PlayerController : GameplayObject
         Assert.IsNotNull(animator);
     }
 
-    void Update()
+    private void Update()
     {
         UpdateInput();
-                
+
         if (!isJumping)
         {
             transform.position += Vector3.forward * currentSpeed * Time.deltaTime;
@@ -82,6 +84,13 @@ public class PlayerController : GameplayObject
         }
 
         //UpdateAnimator();
+    }
+
+    public void UpdatePlatformAndLaneAfterRespawn()
+    {
+        animator.SetBool("Death", false);
+        currentPlatformRepresentation = previousPlatform;
+        representation.location.laneA = GetClosestLaneFrom(currentPlatformRepresentation.location);
     }
 
     public void JumpTo(Lane targetLane)
@@ -115,6 +124,9 @@ public class PlayerController : GameplayObject
         isJumping = true;
         wasJumpPressedDuringJump = false;
         previousJumpStartTime = Time.unscaledTime;
+        if (currentPlatformRepresentation != null)
+            previousPlatform = currentPlatformRepresentation;
+        previousLane = representation.location.laneA;
         representation.location.laneB = targetLane;
         representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
         representation.location.isAboveLane = true;
@@ -150,6 +162,7 @@ public class PlayerController : GameplayObject
 
         if (currentPlatformRepresentation != null)
         {
+            previousPlatform = currentPlatformRepresentation;
             representation.location.laneA = GetClosestLaneFrom(currentPlatformRepresentation.location);
         }
     }
@@ -178,11 +191,11 @@ public class PlayerController : GameplayObject
     {
         return CheckDeathFall() || CheckDeathObstaclesEnemies();
     }
-    
+
     private bool CheckDeathFall()
     {
         if (currentPlatformRepresentation != null) return false;
-        
+
         GetComponent<PlayerDeath>().DeathFall();
         return true;
     }
