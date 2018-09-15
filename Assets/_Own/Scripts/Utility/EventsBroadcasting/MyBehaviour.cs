@@ -11,6 +11,7 @@ public abstract class MyBehaviour : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        EventsManager.instance.Remove(this);
+        var manager = EventsManager.instance;
+        if (manager) manager.Remove(this);
     }
 }
