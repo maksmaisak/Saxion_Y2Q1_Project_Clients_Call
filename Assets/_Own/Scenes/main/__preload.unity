@@ -450,7 +450,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0.00012207031}
+  m_SizeDelta: {x: 0.32421875, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500788397
 MonoBehaviour:
@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 2041511381}
   - component: {fileID: 2041511377}
   - component: {fileID: 2041511380}
+  - component: {fileID: 2041511382}
   m_Layer: 0
   m_Name: __app
   m_TagString: GameController
@@ -583,3 +584,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultDeliveryType: 1
+--- !u!114 &2041511382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2041511376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d9d3f5afd26034b82e7f0853154442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnemyKilledBonus: 6
+  onScoreChangeBonus: 1
+  onPathChangeBonus: 4
+  onCageOpenBonus: 20

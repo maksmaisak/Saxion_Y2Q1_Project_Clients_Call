@@ -9,8 +9,7 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 
     /// TEMP move this somewhere else. A global state manager, like the one that will manage audio.
     public int playerScore { get; set; }
-    public Dictionary<PlayerProfile, int> playerProfiles { get; set; }
-
+    
     public void Add(ObjectRepresentation obj)
     {
         Assert.IsFalse(objects.Contains(obj));

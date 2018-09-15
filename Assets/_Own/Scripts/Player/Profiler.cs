@@ -8,42 +8,51 @@ public enum PlayerProfile
     Socializer,
     Explorer,
     Achiever,
-    All,
+    
+    NumProfiles,
 }
 
-public class Profiler : MyBehaviour, IEventReceiver<OnEnemyKilled>, 
-    IEventReceiver<OnScoreChange>, IEventReceiver<OnCageOpen>, IEventReceiver<OnPathChange>
+public class Profiler : PersistentSingleton<Profiler>, 
+    IEventReceiver<OnEnemyKilled>,
+    IEventReceiver<OnScoreChange>,
+    IEventReceiver<OnCageOpen>,
+    IEventReceiver<OnPathChange>
 {
     [SerializeField] int onEnemyKilledBonus = 4;
     [SerializeField] int onScoreChangeBonus = 1;
     [SerializeField] int onPathChangeBonus  = 4;
     [SerializeField] int onCageOpenBonus    = 3;
 
-    protected void Start()
-    {
-        WorldRepresentation.instance.playerProfiles = new Dictionary<PlayerProfile, int>();
-
-        for (PlayerProfile index = PlayerProfile.Killer; index != PlayerProfile.All; index++)
-            WorldRepresentation.instance.playerProfiles.Add(index, 0);
-    }
+    private readonly Dictionary<PlayerProfile, int> profiles = new Dictionary<PlayerProfile, int>();
+    
+    void Start() => ClearProfiles();
+    
+    public Dictionary<PlayerProfile, int> GetProfiles() => new Dictionary<PlayerProfile, int>(profiles);
+    public void Reset() => ClearProfiles();
 
     public void On(OnEnemyKilled message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Killer] += onEnemyKilledBonus;
+        profiles[PlayerProfile.Killer] += onEnemyKilledBonus;
     }
 
     public void On(OnScoreChange message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Achiever] += onScoreChangeBonus;
+        profiles[PlayerProfile.Achiever] += onScoreChangeBonus;
     }
 
     public void On(OnCageOpen message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Socializer] += onCageOpenBonus;
+        profiles[PlayerProfile.Socializer] += onCageOpenBonus;
     }
 
     public void On(OnPathChange message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Explorer] += onPathChangeBonus;
+        profiles[PlayerProfile.Explorer] += onPathChangeBonus;
+    }
+
+    private void ClearProfiles()
+    {
+        for (var index = PlayerProfile.Killer; index != PlayerProfile.NumProfiles; ++index)
+            profiles[index] = 0;
     }
 }

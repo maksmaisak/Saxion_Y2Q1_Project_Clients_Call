@@ -30,16 +30,22 @@ public class GameOverHandler : MyBehaviour, IEventReceiver<OnGameOver>
 
     public void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        LevelManager.instance.ReloadCurrentLevel();
     }
 
     public void GoToResolutionScreen()
     {
         var world = WorldRepresentation.instance;
         Assert.IsNotNull(world);
+
+        var profiler = Profiler.instance;
+        Assert.IsNotNull(profiler);
+        
+        var message = new OnResolutionScreen(world.playerScore, profiler.GetProfiles());
+        profiler.Reset();
         
         SceneManager.LoadScene(SceneNames.mainResolutionScreenName, LoadSceneMode.Single);
         
-        new OnResolutionScreen(world.playerScore, world.playerProfiles).PostEvent();
+        message.PostEvent();
     }
 }

@@ -23,6 +23,11 @@ public class LevelManager : Singleton<LevelManager>
         };
     }
 
+    public void ReloadCurrentLevel()
+    {
+        LoadLevel(SceneManager.GetActiveScene().name);
+    }
+
     public void LoadPreviousLevel()
     {
         throw new NotImplementedException();
