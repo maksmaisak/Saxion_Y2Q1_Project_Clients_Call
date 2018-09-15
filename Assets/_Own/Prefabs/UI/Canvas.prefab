@@ -620,8 +620,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  transitionDuration: 0.1
-  maxScale: 2
+  fadeZoom:
+    transitionDuration: 0.1
+    fadedOutScale: 2
 --- !u!114 &114397549326457994
 MonoBehaviour:
   m_ObjectHideFlags: 1
