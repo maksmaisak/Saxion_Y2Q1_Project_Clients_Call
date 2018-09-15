@@ -3,12 +3,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 
+/// A representation of the current level that's easier to use for detecting gameplay events.
 public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     private readonly List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
-
-    /// TEMP move this somewhere else. A global state manager, like the one that will manage audio.
-    public int playerScore { get; set; }
     
     public void Add(ObjectRepresentation obj)
     {

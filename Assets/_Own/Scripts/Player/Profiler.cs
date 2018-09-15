@@ -23,36 +23,30 @@ public class Profiler : PersistentSingleton<Profiler>,
     [SerializeField] int onPathChangeBonus  = 4;
     [SerializeField] int onCageOpenBonus    = 3;
 
-    private readonly Dictionary<PlayerProfile, int> profiles = new Dictionary<PlayerProfile, int>();
-    
-    void Start() => ClearProfiles();
-    
-    public Dictionary<PlayerProfile, int> GetProfiles() => new Dictionary<PlayerProfile, int>(profiles);
-    public void Reset() => ClearProfiles();
+    private GlobalState globalState;
 
+    void Start()
+    {
+        globalState = GlobalState.instance;
+    }
+    
     public void On(OnEnemyKilled message)
     {
-        profiles[PlayerProfile.Killer] += onEnemyKilledBonus;
+        globalState.profiles[PlayerProfile.Killer] += onEnemyKilledBonus;
     }
 
     public void On(OnScoreChange message)
     {
-        profiles[PlayerProfile.Achiever] += onScoreChangeBonus;
+        globalState.profiles[PlayerProfile.Achiever] += onScoreChangeBonus;
     }
 
     public void On(OnCageOpen message)
     {
-        profiles[PlayerProfile.Socializer] += onCageOpenBonus;
+        globalState.profiles[PlayerProfile.Socializer] += onCageOpenBonus;
     }
 
     public void On(OnPathChange message)
     {
-        profiles[PlayerProfile.Explorer] += onPathChangeBonus;
-    }
-
-    private void ClearProfiles()
-    {
-        for (var index = PlayerProfile.Killer; index != PlayerProfile.NumProfiles; ++index)
-            profiles[index] = 0;
+        globalState.profiles[PlayerProfile.Explorer] += onPathChangeBonus;
     }
 }

@@ -16,17 +16,20 @@ public class ScoreView : MyBehaviour, IEventReceiver<OnScoreChange>
     void Start()
     {
         Assert.IsNotNull(textMesh);
+        UpdateText();
     }
 
     public void On(OnScoreChange message)
     {
-        int score = WorldRepresentation.instance.playerScore += message.scoreDelta;
-        UpdateText(score);
+        // Do next frame in case global state gets the message later than this.
+        this.DoNextFrame(UpdateText);
+        
         if (message.playBumpEffect) PlayBumpEffect();
     }
 
-    private void UpdateText(int score)
+    private void UpdateText()
     {
+        int score = GlobalState.instance.playerScore;
         string scoreString = score > 99 ? score.ToString() : score.ToString("D2");
         textMesh.text = "Score: " + scoreString;
     }

@@ -14,4 +14,15 @@ public static class MonoBehaviourExtensions
         yield return new WaitForSeconds(delay);
         action?.Invoke();
     }
+    
+    public static Coroutine DoNextFrame(this MonoBehaviour behaviour, Action action)
+    {
+        return behaviour.StartCoroutine(DoNextFrameCoroutine(action));
+    }
+    
+    private static IEnumerator DoNextFrameCoroutine(Action action)
+    {
+        yield return null;
+        action?.Invoke();
+    }
 }
