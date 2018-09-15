@@ -11,5 +11,5 @@ public class LevelLoadingOverlay : TransitionableScreen,
     public void On(OnLevelFinishSwitching message) => this.Delay(0f, TransitionOut);
     
     protected override void OnTransitionIn () => fadeZoom.FadeIn (canvasGroup, transform);
-    protected override void OnTransitionOut() => fadeZoom.FadeOut(canvasGroup, transform);
+    protected override void OnTransitionOut() => fadeZoom.FadeOut(canvasGroup, transform, waitForFadeIn: true);
 }
