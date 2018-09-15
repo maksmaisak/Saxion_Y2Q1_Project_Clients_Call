@@ -1,7 +1,4 @@
-﻿﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerDeath : MonoBehaviour
@@ -13,6 +10,8 @@ public class PlayerDeath : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+
+        Debug.Assert(rigidBody != null);
     }
 
     private void GameOver()
@@ -34,12 +33,5 @@ public class PlayerDeath : MonoBehaviour
     public void DeathFall()
     {
         GameOver();
-
-        playerController.enabled = false;
-        rigidBody.isKinematic = false;
-        rigidBody.useGravity  = true;
-        rigidBody.freezeRotation = true;
-        rigidBody.detectCollisions = false;
-        rigidBody.AddForce(transform.forward * 200.0f);
     }
 }
