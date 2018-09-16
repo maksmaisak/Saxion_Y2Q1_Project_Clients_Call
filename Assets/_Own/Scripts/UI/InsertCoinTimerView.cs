@@ -47,7 +47,7 @@ public class InsertCoinTimerView : MyBehaviour, IEventReceiver<OnPlayerDeath>,
     public void On(OnPlayerDeath message)
     {
         Delay(delayTime, ShowTimer);
-;    }
+    }
 
     public void On(OnPlayerRespawn message)
     {
