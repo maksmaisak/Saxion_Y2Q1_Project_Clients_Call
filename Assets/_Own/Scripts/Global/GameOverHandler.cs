@@ -42,7 +42,7 @@ public class GameOverHandler : MyBehaviour, IEventReceiver<OnGameOver>
             new Dictionary<PlayerProfile, int>(globalState.profiles)
         );
         globalState.Reset();
-        
+
         SceneManager.LoadScene(SceneNames.mainResolutionScreenName, LoadSceneMode.Single);
         message.PostEvent();
     }
