@@ -524,48 +524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftNeighbor: {fileID: 818426542}
   _rightNeighbor: {fileID: 0}
---- !u!1001 &511932531
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 180552287}
-    m_Modifications:
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &582284748
 Prefab:
   m_ObjectHideFlags: 0
@@ -990,6 +948,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1586832361
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 180552287}
+    m_Modifications:
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1616532270
 Prefab:
   m_ObjectHideFlags: 0
@@ -1506,4 +1506,4 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4717749678215610, guid: b3d042259c8854b399cbb6f0371bcac7,
     type: 2}
-  m_PrefabInternal: {fileID: 511932531}
+  m_PrefabInternal: {fileID: 1586832361}

@@ -36,7 +36,7 @@ public class Portal : GameplayObject
         if (playerRepresentation == null) return;
         if (representation.location.isAboveLane && !playerRepresentation.location.isAboveLane) return;
       
-        LevelManager.instance.LoadLevel(nextLevelName, pauseTimeWhileLoading: true);
+        LevelManager.instance.LoadLevel(nextLevelName, pauseTimeWhileLoading: false);
         new OnPortalEntered(kind).PostEvent();
 
         enabled = false;
