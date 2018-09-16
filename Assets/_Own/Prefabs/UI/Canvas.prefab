@@ -814,7 +814,7 @@ MonoBehaviour:
   timerText: {fileID: 114344958969933234}
   textView: {fileID: 114026788650953356}
   backgroundImage: {fileID: 114972305895809742}
-  delayTime: 2
+  delayTime: 0.5
   maxTimerDuration: 10
 --- !u!114 &114251614733253202
 MonoBehaviour:
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  delayTime: 2
+  delayTime: 0.5
   screenDuration: 10
 --- !u!114 &114513027938999032
 MonoBehaviour:
@@ -1714,8 +1714,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  transitionDuration: 0.1
-  maxScale: 2
+  fadeZoom:
+    transitionDuration: 0.1
+    fadedOutScale: 2
 --- !u!114 &114885332511631436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2349,7 +2350,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.6821289, y: 0}
+  m_SizeDelta: {x: 0.83691406, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224311044072996176
 RectTransform:
@@ -2507,7 +2508,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 59.011475}
+  m_SizeDelta: {x: 0, y: 59.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224665889700113112
 RectTransform:
