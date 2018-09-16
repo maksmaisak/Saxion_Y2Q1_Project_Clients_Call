@@ -42,7 +42,6 @@ public class PlayerController : GameplayObject
     private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
-    private Lane previousLane;
 
     public bool isJumping { get; private set; }
     public ObjectRepresentation previousPlatform { get; private set; }
@@ -86,9 +85,10 @@ public class PlayerController : GameplayObject
         //UpdateAnimator();
     }
 
-    public void UpdatePlatformAndLaneAfterRespawn()
+    public void ResetControllerAfterRespawn()
     {
         animator.SetBool("Death", false);
+        animator.Play("Moving_f");
         currentPlatformRepresentation = previousPlatform;
         representation.location.laneA = GetClosestLaneFrom(currentPlatformRepresentation.location);
     }
@@ -126,7 +126,6 @@ public class PlayerController : GameplayObject
         previousJumpStartTime = Time.unscaledTime;
         if (currentPlatformRepresentation != null)
             previousPlatform = currentPlatformRepresentation;
-        previousLane = representation.location.laneA;
         representation.location.laneB = targetLane;
         representation.location.isMovingBetweenLanes = currentLane && currentLane != targetLane;
         representation.location.isAboveLane = true;

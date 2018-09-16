@@ -3970,16 +3970,46 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 223898938326168018, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1024617531}
     - target: {fileID: 114510278297298778, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: controller
       value: 
       objectReference: {fileID: 219669952}
+    - target: {fileID: 223898938326168018, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1024617531}
+    - target: {fileID: 114953766492039608, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114953766492039608, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114896682116224922, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114896682116224922, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114597148752511206, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114597148752511206, guid: 19acc75b42c8ca1418f064c09a15086f,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.x
@@ -3995,36 +4025,6 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114597148752511206, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114597148752511206, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114896682116224922, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114896682116224922, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114953766492039608, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114953766492039608, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.x
@@ -4034,11 +4034,6 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 59.011475
-      objectReference: {fileID: 0}
-    - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19acc75b42c8ca1418f064c09a15086f, type: 2}
@@ -5010,7 +5005,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1949179468}
-  - component: {fileID: 1949179467}
   m_Layer: 8
   m_Name: Post-process Volume
   m_TagString: Untagged
@@ -5018,17 +5012,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1949179467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949179466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1949179468
 Transform:
   m_ObjectHideFlags: 0

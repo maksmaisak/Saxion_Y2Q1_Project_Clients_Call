@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class InsertCoinController : MyBehaviour, IEventReceiver<OnInsertCoinScreen>
+public class InsertCoinController : MyBehaviour, IEventReceiver<OnPlayerDeath>
 {
     [SerializeField] PlayerController controller;
+    [SerializeField] float delayTime = 2.0f;
+    [SerializeField] float screenDuration = 10.0f;
 
     private bool canListenToControls = false;
     private float initialTimeScale = 1.0f;
@@ -29,11 +32,21 @@ public class InsertCoinController : MyBehaviour, IEventReceiver<OnInsertCoinScre
         }
     }
 
-    public void On(OnInsertCoinScreen message)
+    public void On(OnPlayerDeath message)
+    {
+        Delay(delayTime, StartInsertCoinCountdown);
+    }
+
+    private void StartInsertCoinCountdown()
     {
         TimeHelper.timeScale = 0.0f;
         canListenToControls = true;
-        StartCoroutine(OnTimeExpire(10.0f));
+        StartCoroutine(OnTimeExpire(screenDuration));
+    }
+
+    private void Delay(float delay, Action action)
+    {
+        StartCoroutine(DelayCoroutine(delay, action));
     }
 
     private IEnumerator OnTimeExpire(float duration)
@@ -42,5 +55,11 @@ public class InsertCoinController : MyBehaviour, IEventReceiver<OnInsertCoinScre
 
         TimeHelper.timeScale = initialTimeScale;
         new OnGameOver().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
+    }
+
+    private IEnumerator DelayCoroutine(float delay, Action action)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        action?.Invoke();
     }
 }

@@ -23,7 +23,7 @@ public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerRespawn>
         transform.position              = targetPos;
 
         /// TEMP: Make a new event for this instead of using directly
-        controller.UpdatePlatformAndLaneAfterRespawn();
+        controller.ResetControllerAfterRespawn();
 
         StartCoroutine(EnableController());
     }

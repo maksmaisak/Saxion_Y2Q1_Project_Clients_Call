@@ -10,7 +10,6 @@ public class PlayerDeath : MonoBehaviour
     private PlayerController playerController = null;
 
     [SerializeField] Animator playerAnimator;
-    [SerializeField] float delayBeforeResolutionScreen = 2f;
 
     void Start()
     {
@@ -20,32 +19,28 @@ public class PlayerDeath : MonoBehaviour
         Debug.Assert(rigidBody != null);
     }
 
-    private void GameOver()
+    private void OnPlayerDeath()
     {
-        new OnInsertCoinScreen().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
+        playerController.enabled = false;
+        new OnPlayerDeath().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
     }
 
     public void DeathObstacle()
     {
-        playerController.enabled = false;
-
-        CollideAnimation();
-        Delay(delayBeforeResolutionScreen, GameOver);
+        OnPlayerDeath();
+        PlayCollideAnimation();
     }
 
     public void DeathEnemy()
     {
-        playerController.enabled = false;
-
-        CollideAnimation();
-        Delay(delayBeforeResolutionScreen, GameOver);
+        OnPlayerDeath();
+        PlayCollideAnimation();
     }
 
     public void DeathFall()
     {
-        playerController.enabled = false;
+        OnPlayerDeath();
 
-        GameOver();
         /*rigidBody.useGravity = true;
         rigidBody.isKinematic = false;
         rigidBody.freezeRotation = true;
@@ -53,19 +48,8 @@ public class PlayerDeath : MonoBehaviour
         rigidBody.AddForce(transform.forward * 200.0f);*/
     }
 
-    private void CollideAnimation()
+    private void PlayCollideAnimation()
     {
         playerAnimator.SetBool("Death", true);
-    }
-
-    private void Delay(float delay, Action action)
-    {
-        StartCoroutine(DelayCoroutine(delay, action));
-    }
-
-    private IEnumerator DelayCoroutine(float delay, Action action)
-    {
-        yield return new WaitForSeconds(delay);
-        action?.Invoke();
     }
 }

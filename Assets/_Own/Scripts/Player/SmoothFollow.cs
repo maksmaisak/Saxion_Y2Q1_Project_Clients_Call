@@ -35,8 +35,6 @@ public class SmoothFollow : MonoBehaviour
             currentRotation * Vector3.back * desiredDistanceXZ +
             Vector3.up * desiredDistanceY;
 
-        //desiredPosition.y = 0.75f + desiredDistanceY;
-                
         Vector3 delta = desiredPosition - transform.position;
         delta.x *= Mathf.Pow(positionDamping.x, Time.unscaledDeltaTime);
         delta.y *= Mathf.Pow(positionDamping.y, Time.unscaledDeltaTime);

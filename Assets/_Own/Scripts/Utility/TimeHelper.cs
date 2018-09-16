@@ -14,7 +14,6 @@ public static class TimeHelper
         {
             Time.timeScale = value;
             Time.fixedDeltaTime = defaultFixedDeltaTime * value;
-            Debug.Log(defaultFixedDeltaTime);
         }
     }
 

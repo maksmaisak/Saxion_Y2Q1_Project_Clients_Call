@@ -814,6 +814,7 @@ MonoBehaviour:
   timerText: {fileID: 114344958969933234}
   textView: {fileID: 114026788650953356}
   backgroundImage: {fileID: 114972305895809742}
+  delayTime: 2
   maxTimerDuration: 10
 --- !u!114 &114251614733253202
 MonoBehaviour:
@@ -1394,6 +1395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  delayTime: 2
+  screenDuration: 10
 --- !u!114 &114513027938999032
 MonoBehaviour:
   m_ObjectHideFlags: 1
