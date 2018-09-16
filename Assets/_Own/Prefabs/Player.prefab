@@ -436,7 +436,6 @@ GameObject:
   - component: {fileID: 114354146019280726}
   - component: {fileID: 114061403305105954}
   - component: {fileID: 114894864119097754}
-  - component: {fileID: 114618903848817178}
   - component: {fileID: 82691554110119404}
   - component: {fileID: 114308972246926838}
   m_Layer: 0
@@ -1969,21 +1968,6 @@ MonoBehaviour:
     gameObject: {fileID: 0}
   jumpAudioSource: {fileID: 82691554110119404}
   animator: {fileID: 95311839881209884}
---- !u!114 &114618903848817178
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1426716546539346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d9d3f5afd26034b82e7f0853154442, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnemyKilledBonus: 3
-  onScoreChangeBonus: 1
-  onPathChangeBonus: 4
-  onCageOpenBonus: 20
 --- !u!114 &114696317479379728
 MonoBehaviour:
   m_ObjectHideFlags: 1

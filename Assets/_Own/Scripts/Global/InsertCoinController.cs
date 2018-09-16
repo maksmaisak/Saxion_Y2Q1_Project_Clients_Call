@@ -14,6 +14,9 @@ public class InsertCoinController : MyBehaviour, IEventReceiver<OnPlayerDeath>
 
     public void Start()
     {
+        // TODO Having to have a direct reference to PlayerController sucks a lot.
+        // Sort of defeats the purpose of sending it a broadcast message.
+        if (!controller) controller = FindObjectOfType<PlayerController>();
         Assert.IsNotNull(controller);
     }
 

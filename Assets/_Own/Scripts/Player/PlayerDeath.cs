@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerDeath : MonoBehaviour
 {
-    private Rigidbody rigidBody = null;
     private PlayerController playerController = null;
 
     [SerializeField] Animator playerAnimator;
 
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
         Assert.IsNotNull(playerAnimator);
-        Debug.Assert(rigidBody != null);
     }
 
     private void OnPlayerDeath()
@@ -40,6 +39,7 @@ public class PlayerDeath : MonoBehaviour
     public void DeathFall()
     {
         OnPlayerDeath();
+        PlayCollideAnimation();
 
         /*rigidBody.useGravity = true;
         rigidBody.isKinematic = false;

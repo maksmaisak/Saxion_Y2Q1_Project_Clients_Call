@@ -3,14 +3,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 
+/// A representation of the current level that's easier to use for detecting gameplay events.
 public class WorldRepresentation : Singleton<WorldRepresentation>
 {  
     private readonly List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
-
-    /// TEMP move this somewhere else. A global state manager, like the one that will manage audio.
-    public int playerScore { get; set; }
-    public Dictionary<PlayerProfile, int> playerProfiles { get; set; }
-
+    
     public void Add(ObjectRepresentation obj)
     {
         Assert.IsFalse(objects.Contains(obj));
@@ -44,14 +41,14 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
         return null;
     }
 
-    public ObjectRepresentation CheckIntersect(ObjectRepresentation obj, ObjectKind allowedKinds, float margin = 0f)
+    public ObjectRepresentation CheckIntersect(ObjectRepresentation obj, ObjectKind allowedKinds, float margin = 0f, bool aboveLaneMatters = true)
     {
         // TODO Broadphase optimization here
         
         foreach (ObjectRepresentation other in objects)
         {
             if ((other.kind & allowedKinds) == 0) continue;
-            if (obj.location.isAboveLane != other.location.isAboveLane) continue;
+            if (aboveLaneMatters && obj.location.isAboveLane != other.location.isAboveLane) continue;
             if (!CommonLanes(obj.location, other.location)) continue;
             
             if (obj.location.bounds.Intersects(other.location.bounds, margin)) return other;

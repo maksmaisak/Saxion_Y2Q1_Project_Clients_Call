@@ -5,7 +5,8 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class PlayerController : GameplayObject
+public class PlayerController : GameplayObject,
+    IEventReceiver<OnLevelBeginSwitching>
 {
     [Space]
     [SerializeField] float baseSpeed = 10f;
@@ -84,6 +85,8 @@ public class PlayerController : GameplayObject
 
         //UpdateAnimator();
     }
+    
+    public void On(OnLevelBeginSwitching message) => enabled = false;
 
     public void ResetControllerAfterRespawn()
     {
@@ -200,11 +203,11 @@ public class PlayerController : GameplayObject
     }
 
     private bool CheckDeathObstaclesEnemies()
-    {
-        PlayerDeath playerDeath = GetComponent<PlayerDeath>();
-        
+    {        
         var obj = WorldRepresentation.instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
         if (obj == null) return false;
+        
+        PlayerDeath playerDeath = GetComponent<PlayerDeath>();
         
         if (obj.kind == ObjectKind.Enemy)
         {

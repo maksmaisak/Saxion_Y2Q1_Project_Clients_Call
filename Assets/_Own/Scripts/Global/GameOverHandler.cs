@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ public class GameOverHandler : MyBehaviour, IEventReceiver<OnGameOver>
         reactions = new Action[] 
         {
             GoToResolutionScreen,
-            RestartScene
+            RestartCurrentLevel
         };
     }
 
@@ -28,18 +29,21 @@ public class GameOverHandler : MyBehaviour, IEventReceiver<OnGameOver>
         reactions?[(int)gameOverReaction]?.Invoke();
     }
 
-    public void RestartScene()
+    public void RestartCurrentLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        LevelManager.instance.ReloadCurrentLevel();
     }
 
     public void GoToResolutionScreen()
     {
-        var world = WorldRepresentation.instance;
-        Assert.IsNotNull(world);
+        var globalState = GlobalState.instance;        
+        var message = new OnResolutionScreen(
+            globalState.playerScore, 
+            new Dictionary<PlayerProfile, int>(globalState.profiles)
+        );
+        globalState.Reset();
         
         SceneManager.LoadScene(SceneNames.mainResolutionScreenName, LoadSceneMode.Single);
-        
-        new OnResolutionScreen(world.playerScore, world.playerProfiles).PostEvent();
+        message.PostEvent();
     }
 }

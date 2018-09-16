@@ -8,6 +8,9 @@ public interface IBroadcastEvent
     MessageDeliveryType deliveryType { get; }
 }
 
+/// A message that can be broadcast to all objects which subscribe to this type of event.
+/// Use PostEvent to send,
+/// Use SetDeliveryType to set when the message will be delivered.
 public abstract class BroadcastEvent<T> : IBroadcastEvent where T : BroadcastEvent<T>
 {
     public delegate void Handler(T eventData);
@@ -35,7 +38,10 @@ public abstract class BroadcastEvent<T> : IBroadcastEvent where T : BroadcastEve
     
     public BroadcastEvent<T> SetDeliveryType(MessageDeliveryType newDeliveryType)
     {
+        Assert.IsFalse(isPosted, "Can't set the delivery type of a broadcast event after it has been posted.");
+        Assert.IsFalse(isDelivered, "Can't set the delivery type of a broadcast event after it has been delivered.");
         Assert.IsFalse(wasDeliveryTypeSet, "You can only set the delivery type of a broadcast event once.");
+        
         deliveryType = newDeliveryType;
         wasDeliveryTypeSet = true;
 

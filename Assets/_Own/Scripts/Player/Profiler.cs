@@ -8,42 +8,45 @@ public enum PlayerProfile
     Socializer,
     Explorer,
     Achiever,
-    All,
+    
+    NumProfiles,
 }
 
-public class Profiler : MyBehaviour, IEventReceiver<OnEnemyKilled>, 
-    IEventReceiver<OnScoreChange>, IEventReceiver<OnCageOpen>, IEventReceiver<OnPathChange>
+public class Profiler : PersistentSingleton<Profiler>, 
+    IEventReceiver<OnEnemyKilled>,
+    IEventReceiver<OnScoreChange>,
+    IEventReceiver<OnCageOpen>,
+    IEventReceiver<OnPathChange>
 {
     [SerializeField] int onEnemyKilledBonus = 4;
     [SerializeField] int onScoreChangeBonus = 1;
     [SerializeField] int onPathChangeBonus  = 4;
     [SerializeField] int onCageOpenBonus    = 3;
 
-    protected void Start()
+    private GlobalState globalState;
+
+    void Start()
     {
-        WorldRepresentation.instance.playerProfiles = new Dictionary<PlayerProfile, int>();
-
-        for (PlayerProfile index = PlayerProfile.Killer; index != PlayerProfile.All; index++)
-            WorldRepresentation.instance.playerProfiles.Add(index, 0);
+        globalState = GlobalState.instance;
     }
-
+    
     public void On(OnEnemyKilled message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Killer] += onEnemyKilledBonus;
+        globalState.profiles[PlayerProfile.Killer] += onEnemyKilledBonus;
     }
 
     public void On(OnScoreChange message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Achiever] += onScoreChangeBonus;
+        globalState.profiles[PlayerProfile.Achiever] += onScoreChangeBonus;
     }
 
     public void On(OnCageOpen message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Socializer] += onCageOpenBonus;
+        globalState.profiles[PlayerProfile.Socializer] += onCageOpenBonus;
     }
 
     public void On(OnPathChange message)
     {
-        WorldRepresentation.instance.playerProfiles[PlayerProfile.Explorer] += onPathChangeBonus;
+        globalState.profiles[PlayerProfile.Explorer] += onPathChangeBonus;
     }
 }
