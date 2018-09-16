@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class Portal : GameplayObject
@@ -14,7 +15,16 @@ public class Portal : GameplayObject
     [SerializeField] float playerDetectionMargin = 0.2f;
     [SerializeField] Kind kind;
     [SerializeField] string nextLevelName;
-    
+    [Space] 
+    [SerializeField] Transform inside;
+    [SerializeField] float rotationDegreesPerSecond = 180f;
+
+    protected override void Start()
+    {
+        base.Start();
+        RotateInside();
+    }
+
     void FixedUpdate()
     {
         var playerRepresentation = WorldRepresentation.instance.CheckIntersect(
@@ -26,24 +36,19 @@ public class Portal : GameplayObject
         if (playerRepresentation == null) return;
         if (representation.location.isAboveLane && !playerRepresentation.location.isAboveLane) return;
       
-        LevelManager.instance.LoadLevel(nextLevelName, pauseTimeWhileLoading: true);
+        LevelManager.instance.LoadLevel(nextLevelName, pauseTimeWhileLoading: false);
         new OnPortalEntered(kind).PostEvent();
-        
-        /*switch (kind)
-        {
-            case Kind.LevelExit:
-                new OnLevelExit().PostEvent();
-                break;
-            case Kind.BonusLevelEntry:
-                new OnBonusLevelEntry().PostEvent();
-                break;
-            case Kind.BonusLevelExit:
-                new OnBonusLevelExit().PostEvent();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"Invalid portal kind: {kind}");
-        }*/
 
         enabled = false;
+    }
+
+    private void RotateInside()
+    {
+        if (!inside) return;
+
+        inside
+            .DOLocalRotate(Vector3.forward * rotationDegreesPerSecond, 1f, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Incremental);
     }
 }
