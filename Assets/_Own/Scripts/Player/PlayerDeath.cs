@@ -39,17 +39,16 @@ public class PlayerDeath : MonoBehaviour
     public void DeathFall()
     {
         OnPlayerDeath();
-        PlayCollideAnimation();
-
-        /*rigidBody.useGravity = true;
-        rigidBody.isKinematic = false;
-        rigidBody.freezeRotation = true;
-        rigidBody.detectCollisions = false;
-        rigidBody.AddForce(transform.forward * 200.0f);*/
+        PlayFallAnimation();
     }
 
     private void PlayCollideAnimation()
     {
-        playerAnimator.SetBool("Death", true);
+        playerAnimator.SetTrigger("Death_Obstacle");
+    }
+
+    private void PlayFallAnimation()
+    {
+        playerAnimator.SetTrigger("Death_Fall");
     }
 }
