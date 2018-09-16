@@ -182,8 +182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc6fe11c7d668e49a3085243a5ddda4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isFacingRight: 1
-  _currentLane: {fileID: 0}
+  objectKind: 0
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
+  targetLane: {fileID: 0}
+  playerDetectionMargin: 0.1
 --- !u!135 &135763127393372824
 SphereCollider:
   m_ObjectHideFlags: 1
