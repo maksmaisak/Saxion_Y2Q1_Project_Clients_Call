@@ -404,7 +404,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   fadeZoom:
-    transitionDuration: 0.1
+    transitionDuration: 0.2
     fadedOutScale: 1
 --- !u!225 &482700625
 CanvasGroup:
@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 500788399}
   - component: {fileID: 500788398}
   - component: {fileID: 500788397}
+  - component: {fileID: 500788400}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -443,7 +444,7 @@ RectTransform:
   m_GameObject: {fileID: 500788395}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 482700623}
   m_RootOrder: 0
@@ -451,7 +452,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.1932373, y: 0}
+  m_SizeDelta: {x: 0, y: 840}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500788397
 MonoBehaviour:
@@ -465,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 1.7777777
+  m_AspectRatio: 1
 --- !u!114 &500788398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +486,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 16efd631fb87a4ae89fbf8a2a7af833b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 637bb96bc836d4fd08119efaed5f66bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -500,6 +501,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 500788395}
   m_CullTransparentMesh: 0
+--- !u!114 &500788400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 500788395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ed44fc739974d25b4cd171e44d2650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationPerSecond: {x: 0, y: 0, z: 360}
 --- !u!1 &2041511376
 GameObject:
   m_ObjectHideFlags: 0
