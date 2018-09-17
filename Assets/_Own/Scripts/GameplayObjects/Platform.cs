@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 using DG.Tweening;
@@ -29,8 +30,8 @@ public class Platform : GameplayObject
     {
         if (!movingPlatform) return;
         if (isPlayingAnimation) return;
-
-        if (moveCountdown > 0f && LevelState.instance.canPlatformsMove)
+        
+        if (moveCountdown > 0f)
         {
             moveCountdown -= Time.fixedDeltaTime;
             if (moveCountdown > 0f) return;
@@ -41,32 +42,37 @@ public class Platform : GameplayObject
 
     private void ShakeAndMove()
     {
-        //UpdateMovementDirection();
-        Lane nextLane = GetNextTargetLane();
+        UpdateMovementDirection();
 
         isPlayingAnimation = true;
         PlayShake().OnComplete(() =>
         {
-            MoveTo(nextLane);
-            moveCountdown = moveInterval;
-            isPlayingAnimation = false;
+            StartCoroutine(MoveCoroutine());
         });
     }
 
-    private Lane GetNextTargetLane()
+    private void UpdateMovementDirection()
     {
         Lane targetLane = isMovingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
-        if (targetLane != null) return targetLane;
-        
-        isMovingRight = !isMovingRight;
-        targetLane = isMovingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
-        return targetLane;
+        if (targetLane == null) isMovingRight = !isMovingRight;
     }
 
     private Tween PlayShake()
     {
         Vector3 targetAngles = Vector3.forward * shakeStrength * (isMovingRight ? -1f : 1f);
         return transform.DOPunchRotation(targetAngles, shakeDuration, shakeVibrato, shakeElasticity);
+    }
+    
+    private IEnumerator MoveCoroutine()
+    {
+        yield return new WaitUntil(() => LevelState.instance.canPlatformsMove);
+        MoveTo(GetNextTargetLane());
+    }
+
+    private Lane GetNextTargetLane()
+    {
+        UpdateMovementDirection();
+        return isMovingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
     }
     
     private void MoveTo(Lane targetLane)
@@ -82,6 +88,9 @@ public class Platform : GameplayObject
                 representation.location.laneA = targetLane;
                 representation.location.laneB = null;
                 representation.location.isMovingBetweenLanes = false;
+
+                isPlayingAnimation = false;
+                moveCountdown = moveInterval;
             });
 
         representation.location.laneB = targetLane;

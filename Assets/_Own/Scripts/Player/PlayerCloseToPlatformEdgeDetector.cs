@@ -39,7 +39,7 @@ public class PlayerCloseToPlatformEdgeDetector : MyBehaviour
         // If too far inside.
         return platform.location
             .bounds
-            .Inflated(-minDistanceFromPlayerToEdgeToMove)
+            .Inflated(0f, -minDistanceFromPlayerToEdgeToMove)
             .Intersects(representation.location.bounds);
     }
 }
