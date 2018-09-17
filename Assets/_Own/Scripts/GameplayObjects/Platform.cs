@@ -17,6 +17,7 @@ public class Platform : GameplayObject
 
     private float moveCountdown;
     private bool isPlayingAnimation;
+    private bool isPlayerCloseToThis;
 
     protected override void Start()
     {
@@ -28,16 +29,16 @@ public class Platform : GameplayObject
     {
         if (!movingPlatform) return;
         if (isPlayingAnimation) return;
-        
-        if (moveCountdown > 0f)
-        {            
+
+        if (moveCountdown > 0f && LevelState.instance.canPlatformsMove)
+        {
             moveCountdown -= Time.fixedDeltaTime;
             if (moveCountdown > 0f) return;
-            
+
             ShakeAndMove();
         }
     }
-    
+
     private void ShakeAndMove()
     {
         //UpdateMovementDirection();

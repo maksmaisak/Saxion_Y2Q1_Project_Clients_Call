@@ -12,10 +12,9 @@ public class PlayerController : GameplayObject,
     [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
-
     [Tooltip("Smaller means the player can double jump within a larger period of time. Since the previous jump")]
-    [SerializeField] float doubleJumpTime = 0.1f;
-    [Space] 
+    [SerializeField] float doubleJumpTime = 0.2f;
+    [Space]
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
     [SerializeField] float obstacleCollisionTolerance = 0.1f;
@@ -160,7 +159,7 @@ public class PlayerController : GameplayObject,
         }
         else
         {
-            currentPlatformRepresentation = WorldRepresentation.instance.CheckByKind(
+            currentPlatformRepresentation = LevelState.instance.CheckByKind(
                 ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
             );
         }
@@ -231,7 +230,7 @@ public class PlayerController : GameplayObject,
 
     private bool CheckDeathObstaclesEnemies()
     {        
-        var obj = WorldRepresentation.instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
+        var obj = LevelState.instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
         if (obj == null) return false;
         
         PlayerDeath playerDeath = GetComponent<PlayerDeath>();
@@ -265,7 +264,7 @@ public class PlayerController : GameplayObject,
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
     {
         float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
-        ObjectRepresentation enemyRecord = WorldRepresentation.instance.CheckByKind(ObjectKind.Enemy, targetLane,
+        ObjectRepresentation enemyRecord = LevelState.instance.CheckByKind(ObjectKind.Enemy, targetLane,
             laneTargetPosition, enemyJumpOnErrorTolerance);
         
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();
