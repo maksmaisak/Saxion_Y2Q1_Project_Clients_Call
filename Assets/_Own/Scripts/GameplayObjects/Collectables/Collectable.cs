@@ -16,7 +16,7 @@ public abstract class Collectable : GameplayObject
 
     private void CheckPlayer()
     {
-        var playerRepresentation = WorldRepresentation.instance.CheckIntersect(
+        var playerRepresentation = LevelState.instance.CheckIntersect(
             representation, 
             ObjectKind.Player, 
             playerDetectionMargin

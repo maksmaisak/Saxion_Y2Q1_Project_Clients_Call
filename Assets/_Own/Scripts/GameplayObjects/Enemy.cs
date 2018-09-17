@@ -25,7 +25,7 @@ public class Enemy : GameplayObject
         if (wasJumpedOn)
         {
             PlayDeathAnimation();
-            RemoveFromWorldModel();
+            RemoveFromLevelState();
             enabled = false;
             return;
         }

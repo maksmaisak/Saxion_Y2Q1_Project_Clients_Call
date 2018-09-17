@@ -11,7 +11,13 @@ public class EnsurePreloadScene : MonoBehaviour
 
     void Awake()
     {
-        if (wasPreloadLoaded || GameObject.Find("__app")) return;
+        if (wasPreloadLoaded || isPreloadLoading) return;
+        if (GameObject.Find("__app"))
+        {
+            wasPreloadLoaded = true;
+            return;
+        }
+
         SceneManager.LoadScene(SceneNames.preload, LoadSceneMode.Additive);
         
         isPreloadLoading = true;

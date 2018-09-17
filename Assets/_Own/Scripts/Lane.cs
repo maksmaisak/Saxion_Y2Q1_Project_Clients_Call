@@ -16,6 +16,13 @@ public class Lane : MonoBehaviour
         return jumpOrigin;
     }
 
+    public Vector3 GetClosestPointOnLane(Vector3 point)
+    {
+        /// TODO Assumes all lanes are straight and axis aligned.
+        point.x = transform.position.x;
+        return point;
+    }
+
     public float GetPositionOnLane(Vector3 position)
     {
         /// TEMP

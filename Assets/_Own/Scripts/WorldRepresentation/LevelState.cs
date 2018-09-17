@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine.Assertions;
 
 /// A representation of the current level that's easier to use for detecting gameplay events.
-public class WorldRepresentation : Singleton<WorldRepresentation>
-{  
+/// Also shared non-persistent storage.
+public class LevelState : Singleton<LevelState>
+{
     private readonly List<ObjectRepresentation> objects = new List<ObjectRepresentation>();
+    public bool canPlatformsMove { get; set; } = true;
     
     public void Add(ObjectRepresentation obj)
     {
@@ -56,7 +58,7 @@ public class WorldRepresentation : Singleton<WorldRepresentation>
 
         return null;
     }
-
+    
     private bool CommonLanes(ObjectLocation a, ObjectLocation b)
     {
         if (a.isBetweenLanes && b.isBetweenLanes)

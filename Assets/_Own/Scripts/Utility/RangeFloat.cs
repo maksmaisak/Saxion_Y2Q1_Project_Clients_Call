@@ -55,6 +55,11 @@ public static class RangeFloatExtensions
         return new RangeFloat(range.min - margin, range.max + margin);
     }
     
+    public static RangeFloat Inflated(this RangeFloat range, float marginMin, float marginMax)
+    {
+        return new RangeFloat(range.min - marginMin, range.max + marginMax);
+    }
+    
     public static bool Intersects(this RangeFloat a, RangeFloat b)
     {
         if (a.min <= b.min && b.max <= a.max) return true;
