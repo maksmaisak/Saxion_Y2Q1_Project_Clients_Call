@@ -6,11 +6,19 @@ using UnityEngine.SceneManagement;
 /// Put on vital GameObjects such as the player to make it easy.
 public class EnsurePreloadScene : MonoBehaviour
 {
-    private static bool wasPreloadLoaded;
+    public static bool isPreloadLoading { get; private set; }
+    public static bool wasPreloadLoaded { get; private set; }
 
     void Awake()
     {
-        if (GameObject.Find("__app")) return;
+        if (wasPreloadLoaded || GameObject.Find("__app")) return;
         SceneManager.LoadScene(SceneNames.preload, LoadSceneMode.Additive);
+        
+        isPreloadLoading = true;
+        this.DoNextFrame(() =>
+        {
+            wasPreloadLoaded = true;
+            isPreloadLoading = false;
+        });
     }
 }
