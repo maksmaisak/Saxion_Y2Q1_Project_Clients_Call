@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PersistentSingleton<T> : MyBehaviour where T : Component
+public class PersistentSingleton<T> : MyBehaviour where T : PersistentSingleton<T>
 {
     private static T instanceCached;
 

@@ -28,7 +28,11 @@ public class FadeZoom
             .SetEase(Ease.OutExpo)
             .SetUpdate(isIndependentUpdate: true);
 
-        currentTransition = DOTween.Sequence().Join(fade).Join(zoom);
+        currentTransition = DOTween
+            .Sequence()
+            .Join(fade)
+            .Join(zoom)
+            .SetUpdate(isIndependentUpdate: true);
     }
 
     public void FadeOut(CanvasGroup canvasGroup, Transform transform, bool waitForFadeIn = false)
