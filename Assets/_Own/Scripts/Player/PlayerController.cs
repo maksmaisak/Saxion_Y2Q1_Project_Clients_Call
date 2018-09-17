@@ -19,9 +19,10 @@ public class PlayerController : GameplayObject,
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
     [SerializeField] float obstacleCollisionTolerance = 0.1f;
-
-    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")] 
+    [Space]
+    [Tooltip("Smaller is faster. Distance gets multiplied by this every second.")] 
     [SerializeField] float platformSnappingCoefficient = 0.01f;
+    [SerializeField] float minPlatformSnappingDistance = 1.5f;
     [Space] 
     [SerializeField] ObjectRepresentation currentPlatformRepresentation;
     [Space]
@@ -164,6 +165,11 @@ public class PlayerController : GameplayObject,
             );
         }
 
+        if (currentPlatformRepresentation != null && !IsCloseEnoughForSnapping(currentPlatformRepresentation))
+        {
+            currentPlatformRepresentation = null;
+        }
+
         if (currentPlatformRepresentation != null)
         {
             previousPlatform = currentPlatformRepresentation;
@@ -180,15 +186,21 @@ public class PlayerController : GameplayObject,
     private void SnapToPlatform()
     {
         if (currentPlatformRepresentation == null) return;
-
-        Vector3 targetPosition = currentPlatformRepresentation.gameObject.transform.position;
+        if (!IsCloseEnoughForSnapping(currentPlatformRepresentation)) return;
+        
+        Vector3 currentPlatformPosition = currentPlatformRepresentation.gameObject.transform.position;
         Vector3 newPosition = transform.position;
         newPosition.x = Mathf.Lerp(
-            newPosition.x, targetPosition.x,
+            newPosition.x, currentPlatformPosition.x,
             1f - Mathf.Pow(platformSnappingCoefficient, Time.deltaTime)
         );
         
         transform.position = newPosition;
+    }
+
+    private bool IsCloseEnoughForSnapping(ObjectRepresentation platformRepresentation)
+    {
+        return Mathf.Abs(transform.position.x - platformRepresentation.gameObject.transform.position.x) <= minPlatformSnappingDistance;
     }
 
     private void SnapToMovingPlatformInMidair()
@@ -196,9 +208,11 @@ public class PlayerController : GameplayObject,
         if (!isJumping) return;
         if (currentPlatformRepresentation == null) return;
         if (!currentPlatformRepresentation.location.isMovingBetweenLanes) return;
-
+        if (!IsCloseEnoughForSnapping(currentPlatformRepresentation)) return;
+        
         Vector3 targetPosition = currentJumpAnimation.targetPosition;
-        targetPosition.x = currentPlatformRepresentation.gameObject.transform.position.x;
+        Vector3 currentPlatformPosition = currentPlatformRepresentation.gameObject.transform.position;
+        targetPosition.x = currentPlatformPosition.x;
         currentJumpAnimation?.ChangeTargetPosition(targetPosition);
     }
 
