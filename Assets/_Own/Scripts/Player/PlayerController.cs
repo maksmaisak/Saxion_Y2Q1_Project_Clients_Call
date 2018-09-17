@@ -39,13 +39,12 @@ public class PlayerController : GameplayObject,
     private Player player;
     private new Rigidbody rigidbody;
 
-    private Tweener currentJumpTweener;
-
     private bool wasJumpPressed = true;
     private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
-
+    
+    private PlayerJump currentJumpAnimation;
     public bool isJumping { get; private set; }
     public ObjectRepresentation previousPlatform { get; private set; }
 
@@ -83,6 +82,7 @@ public class PlayerController : GameplayObject,
         {
             UpdateBounds();
             UpdateCurrentPlatform();
+            SnapToMovingPlatformInMidair();
         }
 
         //UpdateAnimator();
@@ -114,10 +114,10 @@ public class PlayerController : GameplayObject,
             targetPosition.z += currentSpeed * jumpDuration;
         }
 
-        transform
-            .DOJump(targetPosition, jumpPower, 1, jumpDuration)
+        currentJumpAnimation = new PlayerJump(transform, targetPosition, jumpPower, jumpDuration)
             .OnComplete(() =>
             {
+                currentJumpAnimation = null;
                 isJumping = false;
 
                 representation.location.laneA = targetLane;
@@ -189,6 +189,17 @@ public class PlayerController : GameplayObject,
         );
         
         transform.position = newPosition;
+    }
+
+    private void SnapToMovingPlatformInMidair()
+    {
+        if (!isJumping) return;
+        if (currentPlatformRepresentation == null) return;
+        if (!currentPlatformRepresentation.location.isMovingBetweenLanes) return;
+
+        Vector3 targetPosition = currentJumpAnimation.targetPosition;
+        targetPosition.x = currentPlatformRepresentation.gameObject.transform.position.x;
+        currentJumpAnimation?.ChangeTargetPosition(targetPosition);
     }
 
     private bool CheckDeath()
