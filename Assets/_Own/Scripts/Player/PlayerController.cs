@@ -39,6 +39,8 @@ public class PlayerController : GameplayObject,
     private Player player;
     private new Rigidbody rigidbody;
 
+    private Tweener currentJumpTweener;
+
     private bool wasJumpPressed = true;
     private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;

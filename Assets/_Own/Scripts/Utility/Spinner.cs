@@ -12,6 +12,7 @@ public class Spinner : MonoBehaviour
         transform
             .DOLocalRotate(rotationPerSecond, 1f, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
+            .SetRelative()
             .SetLoops(-1, LoopType.Incremental);
     }
 }

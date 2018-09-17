@@ -8,7 +8,7 @@ public abstract class MyBehaviour : MonoBehaviour
     {
         if (!EnsurePreloadScene.wasPreloadLoaded)
         {
-            // Wait for the preload scene to load in the EventsManager.
+            // Wait for the preload scene to load the EventsManager.
             this.DoNextFrame(Subscribe);
         }
         else
