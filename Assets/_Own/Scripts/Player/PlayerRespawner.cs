@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 
 [RequireComponent(typeof(PlayerController))]
-public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerRespawn>
+public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerWillRespawn>
 {
     [SerializeField] float respawnDuration = 5.0f;
     private PlayerController controller;
@@ -14,7 +14,7 @@ public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerRespawn>
         Assert.IsNotNull(controller);
     }
 
-    public void On(OnPlayerRespawn message)
+    public void On(OnPlayerWillRespawn message)
     {
         ObjectRepresentation platform   = message.previousPlatform;
         Vector3 targetPos               = platform.gameObject.transform.position;
@@ -33,6 +33,8 @@ public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerRespawn>
         yield return new WaitForSecondsRealtime(respawnDuration);
         controller.enabled = true;
         TimeHelper.timeScale = 1.0f;
+        
+        new OnPlayerRespawned().PostEvent();
     }
 }
 

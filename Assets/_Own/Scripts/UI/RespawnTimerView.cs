@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class RespawnTimerView : MyBehaviour, IEventReceiver<OnPlayerRespawn>
+public class RespawnTimerView : MyBehaviour, IEventReceiver<OnPlayerWillRespawn>
 {
     [SerializeField] float maxTimerDuration = 5.0f;
     [SerializeField] TMP_Text timerText;
@@ -29,7 +29,7 @@ public class RespawnTimerView : MyBehaviour, IEventReceiver<OnPlayerRespawn>
             ShowTimer(false);
     }
 
-    public void On(OnPlayerRespawn message)
+    public void On(OnPlayerWillRespawn message)
     {
         ShowTimer(true);
     }

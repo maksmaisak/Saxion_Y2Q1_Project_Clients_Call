@@ -24,12 +24,12 @@ public class InsertCoinController : MyBehaviour, IEventReceiver<OnPlayerDeath>
     {
         if (!canListenToControls) return;
 
-        if(Input.GetButtonDown("Respawn"))
+        if (Input.GetButtonDown("Respawn"))
         {
             canListenToControls = false;
             StopAllCoroutines();
 
-            new OnPlayerRespawn(controller.previousPlatform)
+            new OnPlayerWillRespawn(controller.previousPlatform)
                 .SetDeliveryType(MessageDeliveryType.Immediate)
                 .PostEvent();
         }
