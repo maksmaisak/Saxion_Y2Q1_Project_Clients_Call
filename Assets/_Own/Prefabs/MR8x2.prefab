@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4368705357917784}
+  - component: {fileID: 114557976791807730}
   m_Layer: 0
   m_Name: MR8x2
   m_TagString: Untagged
@@ -65,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1910896159038024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -29, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4725255744794660}
@@ -79,7 +80,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407241439143472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.237, z: 11}
+  m_LocalPosition: {x: 0, y: 0, z: -76}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 4063300793155298}
@@ -141,3 +142,25 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374946207960594}
   m_Mesh: {fileID: 4300000, guid: 03b81b50918514641a1393832f79bbcb, type: 3}
+--- !u!114 &114557976791807730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1407241439143472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c96f274c7f4bc58220c4bace767637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectKind: 1
+  laneDistanceDifferenceTolerance: 1
+  minHeightAboveLane: 1.49
+  movingPlatform: 0
+  moveInterval: 1.5
+  shakeDuration: 0.5
+  moveDuration: 0.9
+  isMovingRight: 0
+  shakeStrength: 20
+  shakeVibrato: 4
+  shakeElasticity: 1
