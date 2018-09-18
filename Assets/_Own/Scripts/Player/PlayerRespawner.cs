@@ -31,10 +31,9 @@ public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerWillRespawn>
     IEnumerator EnableController()
     {
         yield return new WaitForSecondsRealtime(respawnDuration);
-        controller.enabled = true;
-        TimeHelper.timeScale = 1.0f;
         
-        new OnPlayerRespawned().PostEvent();
+        TimeHelper.timeScale = 1.0f;
+        new OnPlayerRespawned().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
     }
 }
 

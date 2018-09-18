@@ -6,7 +6,9 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class PlayerController : GameplayObject,
-    IEventReceiver<OnLevelBeganSwitching>
+    IEventReceiver<OnLevelBeganSwitching>,
+    IEventReceiver<OnPlayerDeath>,
+    IEventReceiver<OnPlayerRespawned>
 {
     [Space]
     [SerializeField] float baseSpeed = 10f;
@@ -37,7 +39,6 @@ public class PlayerController : GameplayObject,
     }
 
     private Player player;
-    private new Rigidbody rigidbody;
 
     private bool wasJumpPressed = true;
     private bool wasJumpPressedDuringJump = false;
@@ -55,9 +56,7 @@ public class PlayerController : GameplayObject,
         base.Start();
         Assert.IsNotNull(currentLane);
         player = GetComponent<Player>();
-        rigidbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(player);
-        Assert.IsNotNull(rigidbody);
         Assert.IsNotNull(animator);
     }
 
@@ -89,6 +88,8 @@ public class PlayerController : GameplayObject,
     }
     
     public void On(OnLevelBeganSwitching message) => enabled = false;
+    public void On(OnPlayerDeath     message) => enabled = false;
+    public void On(OnPlayerRespawned message) => enabled = true;
 
     public void ResetControllerAfterRespawn()
     {
