@@ -1,7 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseController : MyBehaviour
+public class PauseController : MyBehaviour,
+    IEventReceiver<OnPlayerDeath>,
+    IEventReceiver<OnPlayerRespawned>,
+    IEventReceiver<OnLevelBeganSwitching>,
+    IEventReceiver<OnLevelFinishedSwitching>
 {
     public bool isPaused { get; private set; }
     
@@ -15,6 +19,12 @@ public class PauseController : MyBehaviour
         else Pause();
     }
 
+    public void On(OnPlayerDeath         message) => enabled = false;
+    public void On(OnPlayerRespawned     message) => enabled = true;
+    
+    public void On(OnLevelBeganSwitching  message) => enabled = false;
+    public void On(OnLevelFinishedSwitching message) => enabled = true;
+    
     protected override void OnDestroy()
     {
         base.OnDestroy();

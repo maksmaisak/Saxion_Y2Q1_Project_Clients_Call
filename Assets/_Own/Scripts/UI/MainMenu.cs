@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneNames.mainLevelName);
+        LevelManager.instance.StartStoryMode();
     }
 
     public void QuiToDesktop() => Quit.ToDesktop();

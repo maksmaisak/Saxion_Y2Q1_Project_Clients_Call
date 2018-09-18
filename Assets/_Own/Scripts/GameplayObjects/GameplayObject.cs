@@ -11,8 +11,8 @@ public class GameplayObject : MyBehaviour
     [Tooltip("The minimum height this must be above a lane to register as being above it.")]
     [SerializeField] float minHeightAboveLane = 1.49f;
     
-    protected ObjectRepresentation representation;
-    private bool isRemoved;
+    public ObjectRepresentation representation { get; private set; }
+    private bool wasRemovedFromLevelState;
 
     protected float positionOnLane => representation.location.bounds.middle;
     protected Lane currentLane => representation.location.laneA;
@@ -23,15 +23,15 @@ public class GameplayObject : MyBehaviour
         // TEMP. Use old system for determining type while transitioning away from the old system.
         if (objectKind == ObjectKind.Unassigned) objectKind = GetKindBasedOnGameObjectTag();
         
-        WorldRepresentation.instance.Add(MakeRepresentation());
+        LevelState.instance.Add(MakeRepresentation());
     }
 
-    public void RemoveFromWorldModel()
+    public void RemoveFromLevelState()
     {
-        if (isRemoved) return;
+        if (wasRemovedFromLevelState) return;
 
-        WorldRepresentation.instance.Remove(representation);
-        isRemoved = true;
+        LevelState.instance.Remove(representation);
+        wasRemovedFromLevelState = true;
     }
     
     public void UpdateBounds()

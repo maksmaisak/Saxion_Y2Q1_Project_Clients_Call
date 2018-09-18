@@ -9,7 +9,7 @@ public class JumpPad : GameplayObject
 
     void FixedUpdate()
     {
-        ObjectRepresentation playerRepresentation = WorldRepresentation.instance.CheckIntersect(
+        ObjectRepresentation playerRepresentation = LevelState.instance.CheckIntersect(
             representation, ObjectKind.Player, playerDetectionMargin
         );
         if (playerRepresentation == null) return;

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-/// Commonly accessible storage of global game state.
+/// Common storage of global game state. Persistent between scenes.
 public class GlobalState : PersistentSingleton<GlobalState>,
-    IEventReceiver<OnScoreChange>
+    IEventReceiver<OnScoreChange>,
+    IEventReceiver<OnGameplaySessionStarted>
 {
     public int playerScore { get; private set; }
     public readonly Dictionary<PlayerProfile, int> profiles = new Dictionary<PlayerProfile, int>();
@@ -11,15 +12,13 @@ public class GlobalState : PersistentSingleton<GlobalState>,
     protected override void Awake()
     {
         base.Awake();
-        Reset();
+        ResetGameplaySessionInfo();
     }
        
-    public void On(OnScoreChange message)
-    {
-        playerScore += message.scoreDelta;
-    }
+    public void On(OnScoreChange message) => playerScore += message.scoreDelta;
+    public void On(OnGameplaySessionStarted message) => ResetGameplaySessionInfo();
 
-    public void Reset()
+    private void ResetGameplaySessionInfo()
     {
         playerScore = 0;
         ClearProfiles();

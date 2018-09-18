@@ -27,7 +27,7 @@ public class Portal : GameplayObject
 
     void FixedUpdate()
     {
-        var playerRepresentation = WorldRepresentation.instance.CheckIntersect(
+        var playerRepresentation = LevelState.instance.CheckIntersect(
             representation, 
             ObjectKind.Player, 
             playerDetectionMargin,

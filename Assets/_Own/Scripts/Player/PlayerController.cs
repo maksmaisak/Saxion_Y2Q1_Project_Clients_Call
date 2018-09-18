@@ -6,22 +6,24 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class PlayerController : GameplayObject,
-    IEventReceiver<OnLevelBeginSwitching>
+    IEventReceiver<OnLevelBeganSwitching>,
+    IEventReceiver<OnPlayerDeath>,
+    IEventReceiver<OnPlayerRespawned>
 {
     [Space]
     [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
-
     [Tooltip("Smaller means the player can double jump within a larger period of time. Since the previous jump")]
-    [SerializeField] float doubleJumpTime = 0.1f;
-    [Space] 
+    [SerializeField] float doubleJumpTime = 0.2f;
+    [Space]
     [SerializeField] float enemyJumpOnErrorTolerance = 0.1f;
     [SerializeField] float platformErrorTolerance = 0.1f;
     [SerializeField] float obstacleCollisionTolerance = 0.1f;
-
-    [Tooltip("Smaller is faster. Difference gets multiplied by this every second.")] 
+    [Space]
+    [Tooltip("Smaller is faster. Distance gets multiplied by this every second.")] 
     [SerializeField] float platformSnappingCoefficient = 0.01f;
+    [SerializeField] float minPlatformSnappingDistance = 1.5f;
     [Space] 
     [SerializeField] ObjectRepresentation currentPlatformRepresentation;
     [Space]
@@ -37,13 +39,13 @@ public class PlayerController : GameplayObject,
     }
 
     private Player player;
-    private new Rigidbody rigidbody;
 
     private bool wasJumpPressed = true;
     private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
-
+    
+    private PlayerJump currentJumpAnimation;
     public bool isJumping { get; private set; }
     public ObjectRepresentation previousPlatform { get; private set; }
 
@@ -54,9 +56,7 @@ public class PlayerController : GameplayObject,
         base.Start();
         Assert.IsNotNull(currentLane);
         player = GetComponent<Player>();
-        rigidbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(player);
-        Assert.IsNotNull(rigidbody);
         Assert.IsNotNull(animator);
     }
 
@@ -81,12 +81,15 @@ public class PlayerController : GameplayObject,
         {
             UpdateBounds();
             UpdateCurrentPlatform();
+            SnapToMovingPlatformInMidair();
         }
 
         //UpdateAnimator();
     }
     
-    public void On(OnLevelBeginSwitching message) => enabled = false;
+    public void On(OnLevelBeganSwitching message) => enabled = false;
+    public void On(OnPlayerDeath     message) => enabled = false;
+    public void On(OnPlayerRespawned message) => enabled = true;
 
     public void ResetControllerAfterRespawn()
     {
@@ -112,10 +115,10 @@ public class PlayerController : GameplayObject,
             targetPosition.z += currentSpeed * jumpDuration;
         }
 
-        transform
-            .DOJump(targetPosition, jumpPower, 1, jumpDuration)
+        currentJumpAnimation = new PlayerJump(transform, targetPosition, jumpPower, jumpDuration)
             .OnComplete(() =>
             {
+                currentJumpAnimation = null;
                 isJumping = false;
 
                 representation.location.laneA = targetLane;
@@ -157,9 +160,14 @@ public class PlayerController : GameplayObject,
         }
         else
         {
-            currentPlatformRepresentation = WorldRepresentation.instance.CheckByKind(
+            currentPlatformRepresentation = LevelState.instance.CheckByKind(
                 ObjectKind.Platform, currentLane, positionOnLane, platformErrorTolerance, areMovingObjectsAllowed: true
             );
+        }
+
+        if (currentPlatformRepresentation != null && !IsCloseEnoughForSnapping(currentPlatformRepresentation))
+        {
+            currentPlatformRepresentation = null;
         }
 
         if (currentPlatformRepresentation != null)
@@ -178,15 +186,34 @@ public class PlayerController : GameplayObject,
     private void SnapToPlatform()
     {
         if (currentPlatformRepresentation == null) return;
-
-        Vector3 targetPosition = currentPlatformRepresentation.gameObject.transform.position;
+        if (!IsCloseEnoughForSnapping(currentPlatformRepresentation)) return;
+        
+        Vector3 currentPlatformPosition = currentPlatformRepresentation.gameObject.transform.position;
         Vector3 newPosition = transform.position;
         newPosition.x = Mathf.Lerp(
-            newPosition.x, targetPosition.x,
+            newPosition.x, currentPlatformPosition.x,
             1f - Mathf.Pow(platformSnappingCoefficient, Time.deltaTime)
         );
         
         transform.position = newPosition;
+    }
+
+    private bool IsCloseEnoughForSnapping(ObjectRepresentation platformRepresentation)
+    {
+        return Mathf.Abs(transform.position.x - platformRepresentation.gameObject.transform.position.x) <= minPlatformSnappingDistance;
+    }
+
+    private void SnapToMovingPlatformInMidair()
+    {
+        if (!isJumping) return;
+        if (currentPlatformRepresentation == null) return;
+        if (!currentPlatformRepresentation.location.isMovingBetweenLanes) return;
+        if (!IsCloseEnoughForSnapping(currentPlatformRepresentation)) return;
+        
+        Vector3 targetPosition = currentJumpAnimation.targetPosition;
+        Vector3 currentPlatformPosition = currentPlatformRepresentation.gameObject.transform.position;
+        targetPosition.x = currentPlatformPosition.x;
+        currentJumpAnimation?.ChangeTargetPosition(targetPosition);
     }
 
     private bool CheckDeath()
@@ -204,7 +231,7 @@ public class PlayerController : GameplayObject,
 
     private bool CheckDeathObstaclesEnemies()
     {        
-        var obj = WorldRepresentation.instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
+        var obj = LevelState.instance.CheckIntersect(representation, ObjectKind.Obstacle | ObjectKind.Enemy, -obstacleCollisionTolerance);
         if (obj == null) return false;
         
         PlayerDeath playerDeath = GetComponent<PlayerDeath>();
@@ -238,7 +265,7 @@ public class PlayerController : GameplayObject,
     private void KillEnemyAtJumpDestination(Lane targetLane, Vector3 targetPosition)
     {
         float laneTargetPosition = targetLane.GetPositionOnLane(targetPosition);
-        ObjectRepresentation enemyRecord = WorldRepresentation.instance.CheckByKind(ObjectKind.Enemy, targetLane,
+        ObjectRepresentation enemyRecord = LevelState.instance.CheckByKind(ObjectKind.Enemy, targetLane,
             laneTargetPosition, enemyJumpOnErrorTolerance);
         
         enemyRecord?.gameObject.GetComponent<Enemy>().JumpedOn();

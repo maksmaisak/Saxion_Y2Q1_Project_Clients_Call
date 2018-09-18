@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 public class InsertCoinTimerView : MyBehaviour, IEventReceiver<OnPlayerDeath>,
-    IEventReceiver<OnPlayerRespawn>
+    IEventReceiver<OnPlayerWillRespawn>
 {
     [SerializeField] TMP_Text timerText;
     [SerializeField] TMP_Text textView;
@@ -49,7 +49,7 @@ public class InsertCoinTimerView : MyBehaviour, IEventReceiver<OnPlayerDeath>,
         Delay(delayTime, ShowTimer);
     }
 
-    public void On(OnPlayerRespawn message)
+    public void On(OnPlayerWillRespawn message)
     {
         ShowTimer(false);
     }
