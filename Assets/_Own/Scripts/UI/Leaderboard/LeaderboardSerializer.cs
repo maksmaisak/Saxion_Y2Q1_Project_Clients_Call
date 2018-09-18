@@ -14,7 +14,7 @@ public static class LeaderboardSerializer
             File.Create(filePath).Close();
 
         string dataAsJson =
-            JsonHelper.ToJson(leaderboard.GetLeaderboardEntries.ToArray(), true);
+            JsonHelper.ToJson(leaderboard.LeaderboardEntries.ToArray(), true);
 
         File.WriteAllText(filePath, dataAsJson);
     }

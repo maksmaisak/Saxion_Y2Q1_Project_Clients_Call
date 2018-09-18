@@ -7,7 +7,8 @@
                 "x": 0.0,
                 "y": 0.0,
                 "z": 0.0
-            }
+            },
+            "isTemp": false
         },
         {
             "playerName": "GEO",
@@ -16,7 +17,18 @@
                 "x": 0.0,
                 "y": 0.0,
                 "z": 0.0
-            }
+            },
+            "isTemp": false
+        },
+        {
+            "playerName": "ZDR",
+            "playerScore": 1150,
+            "playerDeathPosition": {
+                "x": 0.0,
+                "y": 0.75,
+                "z": 245.44287109375
+            },
+            "isTemp": false
         },
         {
             "playerName": "MAX",
@@ -25,7 +37,58 @@
                 "x": 0.0,
                 "y": 0.0,
                 "z": 0.0
-            }
+            },
+            "isTemp": false
+        },
+        {
+            "playerName": "ROT",
+            "playerScore": 600,
+            "playerDeathPosition": {
+                "x": 3.0,
+                "y": 0.75,
+                "z": -4.063827991485596
+            },
+            "isTemp": false
+        },
+        {
+            "playerName": "KMQ",
+            "playerScore": 500,
+            "playerDeathPosition": {
+                "x": 3.0,
+                "y": 0.75,
+                "z": -15.070037841796875
+            },
+            "isTemp": false
+        },
+        {
+            "playerName": "OCN",
+            "playerScore": 150,
+            "playerDeathPosition": {
+                "x": 0.0,
+                "y": 0.75,
+                "z": 11.837113380432129
+            },
+            "isTemp": false
+        },
+        {
+            "playerName": "YUV",
+            "playerScore": 130,
+            "playerDeathPosition": {
+                "x": 0.0,
+                "y": 0.75,
+                "z": 20.887971878051759
+            },
+            "isTemp": false
+        },
+        {
+            "playerName": "ZUP",
+            "playerScore": 80,
+            "playerDeathPosition": {
+                "x": 3.0,
+                "y": 0.75,
+                "z": -1.272228717803955
+            },
+            "isTemp": false
         }
     ]
 }

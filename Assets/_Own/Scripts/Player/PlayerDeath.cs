@@ -21,7 +21,10 @@ public class PlayerDeath : MonoBehaviour
     private void OnPlayerDeath()
     {
         playerController.enabled = false;
-        new OnPlayerDeath().SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
+
+        new OnPlayerDeath(transform.position)
+            .SetDeliveryType(MessageDeliveryType.Immediate)
+            .PostEvent();
     }
 
     public void DeathObstacle()

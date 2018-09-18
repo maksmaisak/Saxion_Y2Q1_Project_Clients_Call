@@ -9,12 +9,14 @@ public class LeaderboardEntry
     public string playerName;
     public int playerScore;
     public Vector3 playerDeathPosition;
+    public bool isTemp;
 
-    public LeaderboardEntry(string name, int score, Vector3 deathPosition)
+    public LeaderboardEntry(string name, int score, Vector3 deathPosition, bool isTemp = false)
     {
         playerName = name;
         playerScore = score;
         playerDeathPosition = deathPosition;
+        this.isTemp = isTemp;
     }
 }
 
@@ -23,20 +25,11 @@ public class Leaderboard
 {
     private List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
 
+    public List<LeaderboardEntry> LeaderboardEntries => entries.OrderByDescending(x => x.playerScore).ToList();
+
     public void AddNewEntry(LeaderboardEntry newEntry)
     {
-        /// If there is already an entry with exact name check if the currentScore is higher
-        /// than previous one if it just replace it.
-        LeaderboardEntry oldEntry = 
-            entries.FirstOrDefault<LeaderboardEntry>(x => x.playerName == newEntry.playerName);
-
-        if (oldEntry != null)
-        {
-            if (newEntry.playerScore > oldEntry.playerScore)
-                entries[entries.IndexOf(oldEntry)] = newEntry;
-        }
-        else
-            entries.Add(newEntry);
+        entries.Add(newEntry);
     }
 
     public bool RemoveEntry(LeaderboardEntry entry)
@@ -44,5 +37,14 @@ public class Leaderboard
         return entries.Remove(entry);
     }
 
-    public List<LeaderboardEntry> GetLeaderboardEntries => entries.OrderByDescending(x => x.playerScore).ToList();
+    public void RemoveAllTempEntries()
+    {
+        entries.RemoveAll(x => x.isTemp == true);
+    }
+
+    public int GetPlaceOnLeaderboardForPlayer(int playerScore)
+    {
+        List<LeaderboardEntry> leaderboardEntries = LeaderboardEntries.Where(x => x.playerScore > playerScore).ToList();
+        return leaderboardEntries.Count + 1;
+    }
 }
