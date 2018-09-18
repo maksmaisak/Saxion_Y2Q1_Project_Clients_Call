@@ -55,8 +55,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121695300220748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.5}
-  m_LocalScale: {x: 0.375, y: 0.375, z: 0.37499997}
+  m_LocalPosition: {x: -3, y: 1, z: -20.5}
+  m_LocalScale: {x: 0.375, y: 0.375, z: 0.375}
   m_Children:
   - {fileID: 4906816862739664}
   m_Father: {fileID: 0}
@@ -280,7 +280,7 @@ MonoBehaviour:
   objectKind: 8
   laneDistanceDifferenceTolerance: 1
   minHeightAboveLane: 1.49
-  playerDetectionRadius: 0.2
+  playerDetectionMargin: 0.2
   scoreBonus: 10
   animations:
     animationDuration: 0.25
