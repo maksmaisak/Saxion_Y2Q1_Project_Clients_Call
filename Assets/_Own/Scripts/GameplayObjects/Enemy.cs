@@ -58,20 +58,23 @@ public class Enemy : GameplayObject
 
     private void Jump()
     {
+        UpdateMovementDirection();
+        animator.SetTrigger(isJumpingRight ? "Jump_Right" : "Jump_Left");
+        
         JumpTo(GetNextTargetLane());
         jumpCountdown = jumpInterval;
-        
-        animator.SetTrigger("Jump");
+    }
+    
+    private void UpdateMovementDirection()
+    {
+        Lane targetLane = isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
+        if (targetLane == null) isJumpingRight = !isJumpingRight;
     }
 
     private Lane GetNextTargetLane()
     {
-        Lane targetLane = isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
-        if (targetLane != null) return targetLane;
-        
-        isJumpingRight = !isJumpingRight;
-        targetLane = isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
-        return targetLane;
+        UpdateMovementDirection();
+        return isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
     }
     
     private void JumpTo(Lane targetLane)
@@ -100,10 +103,10 @@ public class Enemy : GameplayObject
     {
         animator.SetTrigger("Death");
         
-        DOTween
+        /*DOTween
             .Sequence()
             .Append(transform.DOJump(new Vector3(1.5f, 0f, 10f), 1f, 1, 0.5f).SetRelative())
             .Append(transform.DOMoveY(-20f, 1f).SetRelative().SetEase(Ease.InExpo))
-            .AppendCallback(() => Destroy(gameObject));
+            .AppendCallback(() => Destroy(gameObject));*/
     }
 }
