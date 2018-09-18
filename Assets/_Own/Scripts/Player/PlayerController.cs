@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class PlayerController : GameplayObject,
-    IEventReceiver<OnLevelBeginSwitching>
+    IEventReceiver<OnLevelBeganSwitching>
 {
     [Space]
     [SerializeField] float baseSpeed = 10f;
@@ -88,7 +88,7 @@ public class PlayerController : GameplayObject,
         //UpdateAnimator();
     }
     
-    public void On(OnLevelBeginSwitching message) => enabled = false;
+    public void On(OnLevelBeganSwitching message) => enabled = false;
 
     public void ResetControllerAfterRespawn()
     {

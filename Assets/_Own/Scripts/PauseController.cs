@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 public class PauseController : MyBehaviour,
     IEventReceiver<OnPlayerDeath>,
     IEventReceiver<OnPlayerRespawned>,
-    IEventReceiver<OnLevelBeginSwitching>,
-    IEventReceiver<OnLevelFinishSwitching>
+    IEventReceiver<OnLevelBeganSwitching>,
+    IEventReceiver<OnLevelFinishedSwitching>
 {
     public bool isPaused { get; private set; }
     
@@ -22,8 +22,8 @@ public class PauseController : MyBehaviour,
     public void On(OnPlayerDeath         message) => enabled = false;
     public void On(OnPlayerRespawned     message) => enabled = true;
     
-    public void On(OnLevelBeginSwitching  message) => enabled = false;
-    public void On(OnLevelFinishSwitching message) => enabled = true;
+    public void On(OnLevelBeganSwitching  message) => enabled = false;
+    public void On(OnLevelFinishedSwitching message) => enabled = true;
     
     protected override void OnDestroy()
     {
