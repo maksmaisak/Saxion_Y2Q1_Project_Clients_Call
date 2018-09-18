@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class Enemy : GameplayObject
 {
+    [Space]
     [SerializeField] float jumpInterval = 1f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
@@ -99,10 +100,10 @@ public class Enemy : GameplayObject
     {
         animator.SetTrigger("Death");
         
-        /*DOTween
+        DOTween
             .Sequence()
-            .Append(transform.DOJump(Vector3.down , 1f, 1, 0.5f).SetRelative())
-            .Append(transform.DOJump(Vector3.right, 1f, 1, 0.5f).SetRelative())
-            .AppendCallback(() => Destroy(gameObject));*/
+            .Append(transform.DOJump(new Vector3(1.5f, 0f, 10f), 1f, 1, 0.5f).SetRelative())
+            .Append(transform.DOMoveY(-20f, 1f).SetRelative().SetEase(Ease.InExpo))
+            .AppendCallback(() => Destroy(gameObject));
     }
 }
