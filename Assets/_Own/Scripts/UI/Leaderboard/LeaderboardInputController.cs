@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
@@ -16,48 +17,59 @@ public class LeaderboardInputController : MyBehaviour
         'T', 'U', 'V',
         'W', 'X', 'Y', 'Z' };
 
-    internal enum LetterBox
+    internal enum ButtonIndex
     {
         Left,
         Middle,
         Right,
+        Check,
+        Start,
+        Quit,
         All,
     }
 
-    [SerializeField] List<Button> disabledButtons = new List<Button>();
     [SerializeField] List<Button> buttons = new List<Button>();
-
-    private Dictionary<LetterBox, int> buttonLetterIndexes = new Dictionary<LetterBox, int>();
+    private Dictionary<ButtonIndex, int> buttonLetterIndexes = new Dictionary<ButtonIndex, int>();
 
     private Button currentButton;
 
-    private int currentLetterBoxIndex = 0;
+    private ButtonIndex currentButtonIndex = ButtonIndex.Left;
     private bool isLetterUpdateRequired = false;
 
     private void Start()
     {
-        buttonLetterIndexes.Add(LetterBox.Left, Random.Range(0, letters.Length - 1));
-        buttonLetterIndexes.Add(LetterBox.Middle, Random.Range(0, letters.Length - 1));
-        buttonLetterIndexes.Add(LetterBox.Right, Random.Range(0, letters.Length - 1));
+        buttonLetterIndexes.Add(ButtonIndex.Left, Random.Range(0, letters.Length - 1));
+        buttonLetterIndexes.Add(ButtonIndex.Middle, Random.Range(0, letters.Length - 1));
+        buttonLetterIndexes.Add(ButtonIndex.Right, Random.Range(0, letters.Length - 1));
 
         foreach (var button in GetComponentsInChildren<Button>())
             buttons.Add(button);
 
-        for (int i = 0; i < buttons.Count; i++)
+        for (int i = 0; i < (int)ButtonIndex.Check; i++)
         {
             Button button = buttons[i];
-            button.GetComponentInChildren<TMP_Text>().text = letters[buttonLetterIndexes[(LetterBox)i]].ToString();
-            button.onClick.AddListener(() => OnSelectBox());
+            button.GetComponentInChildren<TMP_Text>().text = letters[buttonLetterIndexes[(ButtonIndex)i]].ToString();
         }
 
+        buttons[(int)ButtonIndex.Check].onClick.AddListener(() => OnSelectCheckBox());
+
         /// Bleah, delete this.
-        disabledButtons.Add(GameObject.Find("Play").GetComponent<Button>());
-        disabledButtons.Add(GameObject.Find("Quit").GetComponent<Button>());
+        Button playButton = GameObject.Find("Play").GetComponent<Button>();
+        Button quitButton = GameObject.Find("Quit").GetComponent<Button>();
 
-        foreach (var button in disabledButtons)
-            button.interactable = false;
+        buttons.Add(playButton);
+        buttons.Add(quitButton);
 
-        currentButton = buttons[currentLetterBoxIndex];
+        Navigation navigation = new Navigation();
+        navigation.mode = Navigation.Mode.Explicit;
+        navigation.selectOnDown = playButton;
+        navigation.selectOnUp = playButton;
+        navigation.selectOnRight = playButton;
+        navigation.selectOnLeft = buttons[(int)ButtonIndex.Right];
+
+        buttons[(int)ButtonIndex.Check].navigation = navigation;
+
+        currentButton = buttons[(int)currentButtonIndex];
         currentButton.Select();
     }
 
@@ -65,56 +77,54 @@ public class LeaderboardInputController : MyBehaviour
     {
         base.OnDestroy();
 
-        foreach (var button in buttons)
-            button.onClick.RemoveListener(() => OnSelectBox());
+        buttons[(int)ButtonIndex.Check].onClick.RemoveListener(() => OnSelectCheckBox());
     }
 
     private void Update()
     {
-        CheckInputVertically();
+        GameObject selectedGameobject = EventSystem.current.currentSelectedGameObject;
 
-        currentButton = buttons[currentLetterBoxIndex];
+        if (selectedGameobject == null)
+            return;
+
+        currentButton = selectedGameobject.GetComponent<Button>();
 
         if (currentButton == null)
             return;
 
-        currentButton.Select();
+        currentButtonIndex = (ButtonIndex)buttons.IndexOf(currentButton);
+
+        if (currentButtonIndex > ButtonIndex.Right || (int)currentButtonIndex == -1)
+            return;
+
+        CheckInputVertically();
 
         if (isLetterUpdateRequired)
         {
             isLetterUpdateRequired = false;
 
             currentButton.GetComponentInChildren<TMP_Text>().text =
-                letters[buttonLetterIndexes[(LetterBox)currentLetterBoxIndex]].ToString();
+                letters[buttonLetterIndexes[(ButtonIndex)currentButtonIndex]].ToString();
         }
     }
 
-    public void OnSelectBox()
+    public void OnSelectCheckBox()
     {
-        currentButton.interactable = false;
-        currentLetterBoxIndex++;
+        for (int i = 0; i < (int)ButtonIndex.Start; i++)
+            buttons[i].interactable = false;
 
-        if(currentLetterBoxIndex > 2)
-        {
-            string newPlayerName =
-                letters[buttonLetterIndexes[LetterBox.Left]].ToString() +
-                letters[buttonLetterIndexes[LetterBox.Middle]].ToString() +
-                letters[buttonLetterIndexes[LetterBox.Right]].ToString();
+        string newPlayerName =
+            letters[buttonLetterIndexes[ButtonIndex.Left]].ToString() +
+            letters[buttonLetterIndexes[ButtonIndex.Middle]].ToString() +
+            letters[buttonLetterIndexes[ButtonIndex.Right]].ToString();
 
-            foreach (var button in disabledButtons)
-                button.interactable = true;
+        new OnNameInput(newPlayerName)
+            .SetDeliveryType(MessageDeliveryType.Immediate)
+            .PostEvent();
 
-            disabledButtons[0].Select();
+        buttons[(int)ButtonIndex.Start].Select();
 
-            new OnNameInput(newPlayerName)
-                .SetDeliveryType(MessageDeliveryType.Immediate)
-                .PostEvent();
-
-            Destroy(this.gameObject);
-            return;
-        }
-
-        currentButton = buttons[currentLetterBoxIndex];
+        Destroy(this.gameObject);
     }
 
     private void CheckInputVertically()
@@ -126,15 +136,15 @@ public class LeaderboardInputController : MyBehaviour
 
         if (inputY < -0.01f)
         {
-            buttonLetterIndexes[(LetterBox)currentLetterBoxIndex]++;
-            if (buttonLetterIndexes[(LetterBox)currentLetterBoxIndex] >= letters.Length)
-                buttonLetterIndexes[(LetterBox)currentLetterBoxIndex] = 0;
+            buttonLetterIndexes[(ButtonIndex)currentButtonIndex]++;
+            if (buttonLetterIndexes[(ButtonIndex)currentButtonIndex] >= letters.Length)
+                buttonLetterIndexes[(ButtonIndex)currentButtonIndex] = 0;
         }
         else if (inputY > 0.01f)
         {
-            buttonLetterIndexes[(LetterBox)currentLetterBoxIndex]--;
-            if (buttonLetterIndexes[(LetterBox)currentLetterBoxIndex] < 0)
-                buttonLetterIndexes[(LetterBox)currentLetterBoxIndex] = letters.Length - 1;
+            buttonLetterIndexes[(ButtonIndex)currentButtonIndex]--;
+            if (buttonLetterIndexes[(ButtonIndex)currentButtonIndex] < 0)
+                buttonLetterIndexes[(ButtonIndex)currentButtonIndex] = letters.Length - 1;
         }
 
         isLetterUpdateRequired = true;

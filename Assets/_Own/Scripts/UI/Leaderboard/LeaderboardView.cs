@@ -62,12 +62,15 @@ public class LeaderboardView : MyBehaviour,
     private void SetupInput(int textObjectIndex, int playerScore)
     {
         int playerPlace = LeaderboardManager.instance.currentPlayerPlace;
-        leaderboardViews[textObjectIndex].nameText.text = playerPlace.ToString() + ". ";
-        GameObject nameTextObject = leaderboardViews[textObjectIndex].nameText.gameObject;
-        Instantiate(inputPrefab, nameTextObject.transform);
+
+        string nameText = playerPlace.ToString() + ".  ";
+        leaderboardViews[textObjectIndex].nameText.text = nameText;
 
         if (textObjectIndex >= nonLeaderboardTextIndex)
             leaderboardViews[textObjectIndex].scoreText.text = playerScore.ToString("D2");
+
+        GameObject nameTextObject = leaderboardViews[textObjectIndex].nameText.gameObject;
+        Instantiate(inputPrefab, nameTextObject.transform);
     }
 
     public void On(OnNameInput message)
