@@ -6,21 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Own/Scenes/Main/main_menu.unity
+    path: Assets/_Own/Scenes/main/main_menu.unity
     guid: 381bafdbf2b2b4e70b8647f2746e22ac
   - enabled: 1
-    path: Assets/_Own/Scenes/Main/__preload.unity
+    path: Assets/_Own/Scenes/main/__preload.unity
     guid: c4f89695dc3be4f769b9c471647eb081
   - enabled: 1
-    path: Assets/_Own/Scenes/Main/Levels/main.unity
+    path: Assets/_Own/Scenes/main/Levels/main.unity
     guid: dcec85c0ff72a4c1b92a77e5a03010bf
   - enabled: 1
-    path: Assets/_Own/Scenes/Main/main_resolution_screen.unity
+    path: Assets/_Own/Scenes/main/main_resolution_screen.unity
     guid: 2481bc68d07d30740bb398b570d82b02
   - enabled: 1
-    path: Assets/_Own/Scenes/Test/Portals/test portals_2.unity
+    path: Assets/_Own/Scenes/test/portals/test portals_2.unity
     guid: 08928e5447bc64bd98970c09a79ebdf1
   - enabled: 1
-    path: Assets/_Own/Scenes/Test/Portals/test portals.unity
+    path: Assets/_Own/Scenes/test/portals/test portals.unity
     guid: c6240ce3bc5284fb28f2953b72c9817e
+  - enabled: 1
+    path: Assets/_Own/Scenes/main/Levels/TutorialPart2.unity
+    guid: 5b0838c0a5af6a148b1d5cf95ccf56a3
   m_configObjects: {}
