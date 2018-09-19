@@ -1857,7 +1857,7 @@ Prefab:
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 261.37537
+      value: 124.414185
       objectReference: {fileID: 0}
     - target: {fileID: 114642635599233172, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -1902,7 +1902,7 @@ Prefab:
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 195.71008
+      value: 62.664795
       objectReference: {fileID: 0}
     - target: {fileID: 224546591379605846, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -2044,6 +2044,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903939160}
+  - component: {fileID: 903939161}
   - component: {fileID: 903939159}
   - component: {fileID: 903939158}
   m_Layer: 0
@@ -2082,7 +2083,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: c19d3a848ba0b4d8e8b433be83d2cc2f, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -2139,6 +2140,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &903939161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 903939157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6d35b7831cc48ac86031790e32a508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  introPlayableDirector: {fileID: 903939159}
 --- !u!1001 &975594265
 Prefab:
   m_ObjectHideFlags: 0

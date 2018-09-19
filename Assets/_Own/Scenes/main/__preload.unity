@@ -452,7 +452,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 840.4242}
+  m_SizeDelta: {x: 0, y: 927.90955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500788397
 MonoBehaviour:
@@ -586,6 +586,7 @@ MonoBehaviour:
   soundtrackAudioSource: {fileID: 136859165}
   soundtrack: {fileID: 8300000, guid: d04ca2c2c876c4dbf93afcda424b73b8, type: 3}
   pitchChangeDuration: 0.5
+  volumeChangeDuration: 0
   pitchMultiplierWhenSlowPowerup: 0.75
   pitchMultiplierWhenFastPowerup: 1.5
 --- !u!114 &2041511381
@@ -627,7 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: main_menu
-  firstLevel: Tutorial_1
+  firstLevel: test intro
 --- !u!114 &2041511384
 MonoBehaviour:
   m_ObjectHideFlags: 0

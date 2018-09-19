@@ -7,10 +7,15 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
     [SerializeField] AudioSource soundtrackAudioSource;
     [SerializeField] AudioClip soundtrack;
     [SerializeField] float pitchChangeDuration = 0.5f;
+    [SerializeField] float volumeChangeDuration = 0.1f;
     [SerializeField] float pitchMultiplierWhenSlowPowerup = 0.5f;
     [SerializeField] float pitchMultiplierWhenFastPowerup = 2f;
 
     private float soundtrackDefaultPitch;
+    private float soundtrackDefaultVolume;
+
+    private Tween soundtrackPitchTween;
+    private Tween soundtrackVolumeTween;
 
     void Start()
     {
@@ -18,6 +23,7 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
         if (!soundtrackAudioSource) return;
 
         soundtrackDefaultPitch = soundtrackAudioSource.pitch;
+        soundtrackDefaultVolume = soundtrackAudioSource.volume;
 
         soundtrackAudioSource.clip = soundtrack;
         soundtrackAudioSource.loop = true;
@@ -28,8 +34,8 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
     {
         float targetPitch = soundtrackDefaultPitch * GetTargetPitch(message.powerUpInfo.type);
 
-        soundtrackAudioSource.DOKill(complete: false);
-        DOTween
+        soundtrackPitchTween?.Kill();
+        soundtrackPitchTween = DOTween
             .Sequence()
             .SetUpdate(isIndependentUpdate: true)
             .AppendInterval(message.powerUpInfo.duration)
@@ -38,6 +44,13 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
 
     }
 
+    public void SetMusicVolume(float normalizedTargetVolume)
+    {
+        soundtrackVolumeTween?.Kill();
+        soundtrackVolumeTween = soundtrackAudioSource
+            .DOFade(normalizedTargetVolume * soundtrackDefaultVolume, volumeChangeDuration);
+    }
+        
     private Tween TweenSoundtrackPitch(float targetPitch)
     {
         return soundtrackAudioSource
