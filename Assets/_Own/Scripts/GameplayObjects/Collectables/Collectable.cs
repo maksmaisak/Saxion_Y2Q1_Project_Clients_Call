@@ -4,8 +4,8 @@ using UnityEngine.Serialization;
 public abstract class Collectable : GameplayObject
 {
     [FormerlySerializedAs("playerDetectionRadius")] 
-    [SerializeField] 
-    protected float playerDetectionMargin = 0.2f;
+    [SerializeField] float playerDetectionMargin = 0.2f;
+    [SerializeField] bool isTall;
 
     protected virtual void FixedUpdate()
     {
@@ -19,7 +19,8 @@ public abstract class Collectable : GameplayObject
         var playerRepresentation = LevelState.instance.CheckIntersect(
             representation, 
             ObjectKind.Player, 
-            playerDetectionMargin
+            playerDetectionMargin,
+            aboveLaneMatters: !isTall
         );
         if (playerRepresentation == null) return;
         if (representation.location.isBetweenLanes && !playerRepresentation.location.isBetweenLanes) return;
