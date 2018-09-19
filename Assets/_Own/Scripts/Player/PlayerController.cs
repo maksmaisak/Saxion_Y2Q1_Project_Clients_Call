@@ -60,7 +60,7 @@ public class PlayerController : GameplayObject,
         Assert.IsNotNull(animator);
     }
 
-    private void Update()
+    void Update()
     {
         UpdateInput();
 
@@ -83,21 +83,19 @@ public class PlayerController : GameplayObject,
             UpdateCurrentPlatform();
             SnapToMovingPlatformInMidair();
         }
+    }
 
-        //UpdateAnimator();
+    void OnEnable()
+    {
+        currentInput = InputKind.None;
+        wasJumpPressedDuringJump = false;
     }
     
     public void On(OnLevelBeganSwitching message) => enabled = false;
     public void On(OnPlayerDeath     message) => enabled = false;
 
     public void On(OnPlayerWillRespawn message) => ResetToPreviousPlatform();
-    public void On(OnPlayerRespawned message)
-    {
-        currentInput = InputKind.None;
-        wasJumpPressedDuringJump = false;
-        
-        enabled = true;
-    }
+    public void On(OnPlayerRespawned message) => enabled = true;
 
     public void ResetToPreviousPlatform()
     {
