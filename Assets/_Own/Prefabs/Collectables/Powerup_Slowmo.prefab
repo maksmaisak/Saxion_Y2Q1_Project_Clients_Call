@@ -83,8 +83,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048341737336846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 1, z: 0.17}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3, y: 1.24, z: 0.17}
+  m_LocalScale: {x: 1.305612, y: 1.305612, z: 1.305612}
   m_Children:
   - {fileID: 4131889142295988}
   - {fileID: 4681744046313618}
@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272536116005750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4633165143613242}
@@ -262,13 +262,13 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.41304737, g: 0.9578397, b: 0.9622642, a: 1}
-  m_Intensity: 1.25
-  m_Range: 10
+  m_Color: {r: 0.5707547, g: 0.9969339, b: 1, a: 1}
+  m_Intensity: 1.03
+  m_Range: 1
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -276,7 +276,7 @@ Light:
     m_NormalBias: 0.1
     m_NearPlane: 0.1
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
+  m_DrawHalo: 1
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
@@ -305,6 +305,7 @@ MonoBehaviour:
   laneDistanceDifferenceTolerance: 1
   minHeightAboveLane: 0.9
   playerDetectionMargin: 0.2
+  isTall: 0
   info:
     duration: 10
     basepoints: 0.5
