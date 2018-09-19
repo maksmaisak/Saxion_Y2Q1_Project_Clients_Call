@@ -17,8 +17,10 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
     private Tween soundtrackPitchTween;
     private Tween soundtrackVolumeTween;
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
+        
         if (!soundtrack) return;
         if (!soundtrackAudioSource) return;
 
@@ -44,9 +46,16 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
 
     }
 
-    public void SetMusicVolume(float normalizedTargetVolume)
+    public void SetMusicVolume(float normalizedTargetVolume, bool immediate = false)
     {
         soundtrackVolumeTween?.Kill();
+        float targetVolume = normalizedTargetVolume * soundtrackDefaultVolume;
+        if (immediate)
+        {
+            soundtrackAudioSource.volume = targetVolume;
+            return;
+        }
+        
         soundtrackVolumeTween = soundtrackAudioSource
             .DOFade(normalizedTargetVolume * soundtrackDefaultVolume, volumeChangeDuration);
     }
