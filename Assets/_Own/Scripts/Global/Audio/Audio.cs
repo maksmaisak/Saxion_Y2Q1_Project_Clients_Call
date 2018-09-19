@@ -4,12 +4,14 @@ using UnityEngine.Assertions;
 
 public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
 {
+    [Header("Soundtrack")]
     [SerializeField] AudioSource soundtrackAudioSource;
     [SerializeField] AudioClip soundtrack;
     [SerializeField] float pitchChangeDuration = 0.5f;
     [SerializeField] float volumeChangeDuration = 0.1f;
     [SerializeField] float pitchMultiplierWhenSlowPowerup = 0.5f;
     [SerializeField] float pitchMultiplierWhenFastPowerup = 2f;
+    [Header("Effects")]
 
     private float soundtrackDefaultPitch;
     private float soundtrackDefaultVolume;
