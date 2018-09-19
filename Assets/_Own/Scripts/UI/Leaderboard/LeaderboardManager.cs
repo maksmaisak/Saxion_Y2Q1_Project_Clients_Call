@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Linq;
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class LeaderboardManager : PersistentSingleton<LeaderboardManager>, 
     IEventReceiver<OnResolutionScreen>, IEventReceiver<OnNameInput>,
@@ -61,7 +60,9 @@ public class LeaderboardManager : PersistentSingleton<LeaderboardManager>,
 
     public Leaderboard GetLeaderboardForCurrentMode()
     {
-        /// TEMP: until we implement different modes;
+        if (GlobalState.instance.currentGameMode == GameMode.Story)
+            return storyLeadboard;
+
         return endlessLeadboard;
     }
 
