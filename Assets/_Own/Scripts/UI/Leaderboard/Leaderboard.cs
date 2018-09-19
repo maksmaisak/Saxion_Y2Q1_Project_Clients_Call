@@ -9,14 +9,16 @@ public class LeaderboardEntry
     public string playerName;
     public int playerScore;
     public Vector3 playerDeathPosition;
-    public bool isTemp;
+    public string playerDeathSceneName;
+    public bool isTemporary;
 
-    public LeaderboardEntry(string name, int score, Vector3 deathPosition, bool isTemp = false)
+    public LeaderboardEntry(string name, int score, Vector3 deathPosition, string sceneName, bool isTemp = false)
     {
         playerName = name;
         playerScore = score;
         playerDeathPosition = deathPosition;
-        this.isTemp = isTemp;
+        playerDeathSceneName = sceneName;
+        this.isTemporary = isTemp;
     }
 }
 
@@ -39,7 +41,7 @@ public class Leaderboard
 
     public void RemoveAllTempEntries()
     {
-        entries.RemoveAll(x => x.isTemp == true);
+        entries.RemoveAll(x => x.isTemporary == true);
     }
 
     public int GetPlaceOnLeaderboardForPlayer(int playerScore)

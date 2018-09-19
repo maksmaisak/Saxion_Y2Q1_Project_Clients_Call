@@ -2,10 +2,12 @@
 
 public class OnPlayerDeath : BroadcastEvent<OnPlayerDeath>
 {
-    public Vector3 position = Vector3.zero;
+    public Vector3 deathPosition = Vector3.zero;
+    public string deathSceneName = "";
 
-    public OnPlayerDeath(Vector3 deathPosition)
+    public OnPlayerDeath(Vector3 deathPosition, string sceneName)
     {
-        position = deathPosition;
+        this.deathPosition = deathPosition;
+        this.deathSceneName = sceneName;
     }
 }
