@@ -6,13 +6,6 @@ using System.Collections;
 public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerWillRespawn>
 {
     [SerializeField] float respawnDuration = 5.0f;
-    private PlayerController controller;
-
-    public void Start()
-    {
-        controller = GetComponent<PlayerController>();
-        Assert.IsNotNull(controller);
-    }
 
     public void On(OnPlayerWillRespawn message)
     {
@@ -21,9 +14,6 @@ public class PlayerRespawner : MyBehaviour, IEventReceiver<OnPlayerWillRespawn>
         targetPos.y                     = 0.75f;
         targetPos.z                     = platform.location.bounds.min;
         transform.position              = targetPos;
-
-        /// TEMP: Make a new event for this instead of using directly
-        controller.ResetControllerAfterRespawn();
 
         StartCoroutine(EnableController());
     }

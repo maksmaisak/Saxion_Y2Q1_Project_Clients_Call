@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 public class PlayerController : GameplayObject,
     IEventReceiver<OnLevelBeganSwitching>,
     IEventReceiver<OnPlayerDeath>,
+    IEventReceiver<OnPlayerWillRespawn>,
     IEventReceiver<OnPlayerRespawned>
 {
     [Space]
@@ -90,11 +91,12 @@ public class PlayerController : GameplayObject,
     public void On(OnLevelBeganSwitching message) => enabled = false;
     public void On(OnPlayerDeath     message) => enabled = false;
     public void On(OnPlayerRespawned message) => enabled = true;
+    public void On(OnPlayerWillRespawn message) => ResetControllerAfterRespawn();
 
     public void ResetControllerAfterRespawn()
     {
-        animator.SetBool("Death", false);
-        animator.Play("Moving_f");
+        animator.Rebind();
+
         currentPlatformRepresentation = previousPlatform;
         representation.location.laneA = GetClosestLaneFrom(currentPlatformRepresentation.location);
     }
