@@ -1,8 +1,11 @@
+using System.Net.Configuration;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
+public class Audio : Singleton<Audio>, 
+    IEventReceiver<OnPowerUpCollected>,
+    IEventReceiver<OnPortalEntered>
 {
     [Header("Soundtrack")]
     [SerializeField] AudioSource soundtrackAudioSource;
@@ -11,7 +14,8 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
     [SerializeField] float volumeChangeDuration = 0.1f;
     [SerializeField] float pitchMultiplierWhenSlowPowerup = 0.5f;
     [SerializeField] float pitchMultiplierWhenFastPowerup = 2f;
-    [Header("Effects")]
+    [Header("Effects")] 
+    [SerializeField] AudioSource portalAudioSource;
 
     private float soundtrackDefaultPitch;
     private float soundtrackDefaultVolume;
@@ -45,7 +49,11 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
             .AppendInterval(message.powerUpInfo.duration)
             .Join(TweenSoundtrackPitch(targetPitch))
             .Append(TweenSoundtrackPitch(soundtrackDefaultPitch));
+    }
 
+    public void On(OnPortalEntered message)
+    {
+        if (portalAudioSource) portalAudioSource.Play();
     }
 
     public void SetMusicVolume(float normalizedTargetVolume, bool immediate = false)
@@ -61,7 +69,7 @@ public class Audio : Singleton<Audio>, IEventReceiver<OnPowerUpCollected>
         soundtrackVolumeTween = soundtrackAudioSource
             .DOFade(normalizedTargetVolume * soundtrackDefaultVolume, volumeChangeDuration);
     }
-        
+                
     private Tween TweenSoundtrackPitch(float targetPitch)
     {
         return soundtrackAudioSource
