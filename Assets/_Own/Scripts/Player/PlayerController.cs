@@ -41,7 +41,6 @@ public class PlayerController : GameplayObject,
 
     private Player player;
 
-    private bool wasJumpPressed = true;
     private bool wasJumpPressedDuringJump = false;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
@@ -61,7 +60,7 @@ public class PlayerController : GameplayObject,
         Assert.IsNotNull(animator);
     }
 
-    private void Update()
+    void Update()
     {
         UpdateInput();
 
@@ -84,16 +83,21 @@ public class PlayerController : GameplayObject,
             UpdateCurrentPlatform();
             SnapToMovingPlatformInMidair();
         }
+    }
 
-        //UpdateAnimator();
+    void OnEnable()
+    {
+        currentInput = InputKind.None;
+        wasJumpPressedDuringJump = false;
     }
     
     public void On(OnLevelBeganSwitching message) => enabled = false;
     public void On(OnPlayerDeath     message) => enabled = false;
-    public void On(OnPlayerRespawned message) => enabled = true;
-    public void On(OnPlayerWillRespawn message) => ResetControllerAfterRespawn();
 
-    public void ResetControllerAfterRespawn()
+    public void On(OnPlayerWillRespawn message) => ResetToPreviousPlatform();
+    public void On(OnPlayerRespawned message) => enabled = true;
+
+    public void ResetToPreviousPlatform()
     {
         animator.Rebind();
 
@@ -276,7 +280,7 @@ public class PlayerController : GameplayObject,
     private void UpdateInput()
     {
         var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        wasJumpPressed = Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical");
+        bool wasJumpPressed = Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical");
 
         if (!wasJumpPressed)
         {

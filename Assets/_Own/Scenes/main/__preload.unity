@@ -452,7 +452,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 840.4242}
+  m_SizeDelta: {x: 0, y: 972.8368}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500788397
 MonoBehaviour:
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ed44fc739974d25b4cd171e44d2650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationPerSecond: {x: 0, y: 0, z: 360}
+  rotationPerSecond: {x: 0, y: 0, z: -360}
 --- !u!1 &2041511376
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +586,7 @@ MonoBehaviour:
   soundtrackAudioSource: {fileID: 136859165}
   soundtrack: {fileID: 8300000, guid: d04ca2c2c876c4dbf93afcda424b73b8, type: 3}
   pitchChangeDuration: 0.5
+  volumeChangeDuration: 0.5
   pitchMultiplierWhenSlowPowerup: 0.75
   pitchMultiplierWhenFastPowerup: 1.5
 --- !u!114 &2041511381
@@ -611,10 +612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d9d3f5afd26034b82e7f0853154442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnemyKilledBonus: 6
-  onScoreChangeBonus: 1
-  onPathChangeBonus: 4
-  onCageOpenBonus: 20
+  onEnemyKilledBonus: 90
+  onScoreChangeBonus: 5
+  onPathChangeBonus: 200
+  onCageOpenBonus: 100
 --- !u!114 &2041511383
 MonoBehaviour:
   m_ObjectHideFlags: 0
