@@ -16,7 +16,7 @@ public class PlayerDeath : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        new OnPlayerDeath(transform.position)
+        new OnPlayerDeath(transform.position, SceneManager.GetActiveScene().name)
             .SetDeliveryType(MessageDeliveryType.Immediate)
             .PostEvent();
     }

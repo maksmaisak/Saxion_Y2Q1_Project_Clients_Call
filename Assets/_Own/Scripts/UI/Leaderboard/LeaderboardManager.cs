@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class LeaderboardManager : PersistentSingleton<LeaderboardManager>, 
-    IEventReceiver<OnResolutionScreen>, IEventReceiver<OnNameInput>
+    IEventReceiver<OnResolutionScreen>, IEventReceiver<OnNameInput>,
+    IEventReceiver<OnGameplaySessionStarted>
 {
     [SerializeField] string endlessFileName = "endless.json";
     [SerializeField] string storyFileName = "story.json";
@@ -26,16 +27,6 @@ public class LeaderboardManager : PersistentSingleton<LeaderboardManager>,
         All = 2,
     }
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
     public void On(OnResolutionScreen message)
     {
         /// Do here all sorts of leaderboard stuff before updating
@@ -45,9 +36,13 @@ public class LeaderboardManager : PersistentSingleton<LeaderboardManager>,
         currentPlayerPlace = leaderboard.GetPlaceOnLeaderboardForPlayer(message.score);
         bool isOnLeaderboard = currentPlayerPlace <= maxPlayersOnLeaderboard;
 
-        leaderboard.AddNewEntry(new LeaderboardEntry("You", message.score, message.position, true));
+        string sceneName = GlobalState.instance.playerDeathSceneName;
+        int playerScore = GlobalState.instance.playerScore;
+        Vector3 playerDeathPosition = GlobalState.instance.playerDeathPosition;
 
-        new OnLeaderboardDisplay(leaderboard, new LeaderboardViewInfo(isOnLeaderboard, currentPlayerPlace, message.score))
+        leaderboard.AddNewEntry(new LeaderboardEntry("You", playerScore, playerDeathPosition, sceneName, true));
+
+        new OnLeaderboardDisplay(leaderboard, new LeaderboardViewInfo(isOnLeaderboard, currentPlayerPlace, playerScore))
             .SetDeliveryType(MessageDeliveryType.Immediate)
             .PostEvent();
     }
@@ -58,7 +53,7 @@ public class LeaderboardManager : PersistentSingleton<LeaderboardManager>,
 
         LeaderboardEntry leaderboardEntry = leaderboard.LeaderboardEntries.ElementAt(currentPlayerPlace - 1);
         leaderboardEntry.playerName = onNameInput.newName;
-        leaderboardEntry.isTemp = false;
+        leaderboardEntry.isTemporary = false;
 
         // Save leaderboard to JSON file
         LeaderboardSerializer.SaveLeaderboardToFile(leaderboard, endlessFileName);
@@ -81,10 +76,9 @@ public class LeaderboardManager : PersistentSingleton<LeaderboardManager>,
         Assert.IsTrue(leaderboards.Count >= 2);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    public void On(OnGameplaySessionStarted message)
     {
-        if (scene.name == SceneNames.mainLevelName)
-            foreach (var leaderboard in leaderboards)
-                leaderboard.RemoveAllTempEntries();
+        foreach (var leaderboard in leaderboards)
+            leaderboard.RemoveAllTempEntries();
     }
 }

@@ -40,7 +40,7 @@ public class GameOverHandler : MyBehaviour, IEventReceiver<OnGameOver>
         var message = new OnResolutionScreen(
             globalState.playerScore, 
             new Dictionary<PlayerProfile, int>(globalState.profiles),
-            globalState.playerPosition
+            globalState.playerDeathPosition
         );
         
         SceneManager.LoadScene(SceneNames.mainResolutionScreenName, LoadSceneMode.Single);

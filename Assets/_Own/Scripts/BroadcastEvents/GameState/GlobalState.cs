@@ -10,7 +10,8 @@ public class GlobalState : PersistentSingleton<GlobalState>,
 {
     public int playerScore { get; private set; }
     public readonly Dictionary<PlayerProfile, int> profiles = new Dictionary<PlayerProfile, int>();
-    public Vector3 playerPosition { get; private set; }
+    public Vector3 playerDeathPosition { get; private set; }
+    public string playerDeathSceneName { get; private set; }
 
     protected override void Awake()
     {
@@ -20,12 +21,16 @@ public class GlobalState : PersistentSingleton<GlobalState>,
        
     public void On(OnScoreChange message) => playerScore += message.scoreDelta;
     public void On(OnGameplaySessionStarted message) => ResetGameplaySessionInfo();
-    public void On(OnPlayerDeath message) => playerPosition = message.position;
-    
+    public void On(OnPlayerDeath message)
+    {
+        playerDeathPosition = message.deathPosition;
+        playerDeathSceneName = message.deathSceneName;
+    }
+
     private void ResetGameplaySessionInfo()
     {
         playerScore = 0;
-        playerPosition = Vector3.zero;
+        playerDeathPosition = Vector3.zero;
         ClearProfiles();
     }
     
