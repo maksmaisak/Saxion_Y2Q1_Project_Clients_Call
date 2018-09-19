@@ -99,11 +99,12 @@ public class TransitionableScreen : MyBehaviour
         screen.onTransitionOut.Invoke();
     }
 
-    protected virtual void OnTransitionIn () {}
+    protected virtual void OnTransitionIn() {}
     protected virtual void OnTransitionOut() {}
 
     protected void SelectFirstButton()
     {
-        GetComponentInChildren<Button>().Select();
+        var button = GetComponentInChildren<Button>();
+        if (button) button.Select();
     }
 }
