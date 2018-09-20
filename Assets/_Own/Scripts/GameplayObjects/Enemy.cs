@@ -13,6 +13,7 @@ public class Enemy : GameplayObject
     [Space] 
     [SerializeField] int scoreBonusWhenKilled = 100;
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource deathAudioSource;
     
     private float jumpCountdown;
     private bool isJumpingRight;
@@ -37,6 +38,10 @@ public class Enemy : GameplayObject
             PlayDeathAnimation();
             RemoveFromLevelState();
             enabled = false;
+
+            if (!deathAudioSource || !deathAudioSource) return;
+
+            deathAudioSource.Play();
             return;
         }
 

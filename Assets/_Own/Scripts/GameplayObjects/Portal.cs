@@ -8,13 +8,12 @@ public class Portal : GameplayObject
     {
         LevelExit,
         BonusLevelEntry,
-        BonusLevelExit
     }
     
     [Space]
     [SerializeField] float playerDetectionMargin = 0.2f;
     [SerializeField] Kind kind;
-    [SerializeField] string nextLevelName;
+    [SerializeField] string storyModeNextLevelScene;
     [Space] 
     [SerializeField] Transform inside;
     [SerializeField] float rotationDegreesPerSecond = 180f;
@@ -36,8 +35,7 @@ public class Portal : GameplayObject
         if (playerRepresentation == null) return;
         if (representation.location.isAboveLane && !playerRepresentation.location.isAboveLane) return;
       
-        LevelManager.instance.LoadLevel(nextLevelName, pauseTimeWhileLoading: false);
-        new OnPortalEntered(kind).PostEvent();
+        new OnPortalEntered(kind, storyModeNextLevelScene).PostEvent();
 
         enabled = false;
     }

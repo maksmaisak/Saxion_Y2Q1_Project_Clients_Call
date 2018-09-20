@@ -7,14 +7,17 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] TransitionableScreen gameModeSelectionScreen;
+
     void Start()
     {
+        Debug.Assert(gameModeSelectionScreen);
         CursorHelper.Lock();
     }
 
-    public void StartGame()
+    public void OnButtonStartSelect()
     {
-        LevelManager.instance.StartStoryMode();
+        gameModeSelectionScreen.TransitionIn();
     }
 
     public void QuiToDesktop() => Quit.ToDesktop();
