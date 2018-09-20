@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 public class Outro : MonoBehaviour
 {
     [SerializeField] PlayableDirector outroDirector;
+    [SerializeField] int scoreBonus = 5000;
 
     private bool wasTriggered;
 
@@ -30,6 +31,7 @@ public class Outro : MonoBehaviour
 
     private void EndGame()
     {
+        new OnScoreChange(scoreBonus).SetDeliveryType(MessageDeliveryType.Immediate).PostEvent(); 
         new OnGameOver(isVictory: true).SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
     }
 }
