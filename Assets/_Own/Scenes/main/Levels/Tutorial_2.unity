@@ -13452,17 +13452,17 @@ Prefab:
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 59.900146
+      value: 331.4629
       objectReference: {fileID: 0}
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0.14453125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 263.70923
       objectReference: {fileID: 0}
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -21123,6 +21123,11 @@ Prefab:
     - target: {fileID: 114324823711236408, guid: b3d042259c8854b399cbb6f0371bcac7,
         type: 2}
       propertyPath: nextLevelName
+      value: Story_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114324823711236408, guid: b3d042259c8854b399cbb6f0371bcac7,
+        type: 2}
+      propertyPath: storyModeNextLevelScene
       value: Story_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
