@@ -765,7 +765,7 @@ Transform:
   m_LocalScale: {x: 0.007624457, y: 0.0067167655, z: 0.007624457}
   m_Children: []
   m_Father: {fileID: 305924377}
-  m_RootOrder: 32
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 60.000004, z: 0}
 --- !u!23 &294551361
 MeshRenderer:
@@ -861,6 +861,7 @@ Transform:
   - {fileID: 978986388}
   - {fileID: 30932260}
   - {fileID: 88257390}
+  - {fileID: 294551360}
   - {fileID: 862893553}
   - {fileID: 686776415}
   - {fileID: 60327919}
@@ -873,7 +874,6 @@ Transform:
   - {fileID: 1581104097}
   - {fileID: 262243380}
   - {fileID: 209907834}
-  - {fileID: 294551360}
   - {fileID: 1652989393}
   - {fileID: 1112030496}
   - {fileID: 1864544432}
@@ -3133,12 +3133,12 @@ Prefab:
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 94.678955
+      value: 365.40057
       objectReference: {fileID: 0}
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 157.34998
+      value: 436.38556
       objectReference: {fileID: 0}
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -9610,7 +9610,7 @@ Prefab:
     - target: {fileID: 114812625983881722, guid: 5854602daccf146fd9081b6a520dd835,
         type: 2}
       propertyPath: movingPlatform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5854602daccf146fd9081b6a520dd835, type: 2}
