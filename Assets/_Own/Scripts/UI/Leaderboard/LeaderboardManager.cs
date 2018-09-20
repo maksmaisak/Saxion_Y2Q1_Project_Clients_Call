@@ -54,8 +54,10 @@ public class LeaderboardManager : PersistentSingleton<LeaderboardManager>,
         leaderboardEntry.playerName = onNameInput.newName;
         leaderboardEntry.isTemporary = false;
 
+        GameMode gameMode = GlobalState.instance.currentGameMode;
+
         // Save leaderboard to JSON file
-        LeaderboardSerializer.SaveLeaderboardToFile(leaderboard, endlessFileName);
+        LeaderboardSerializer.SaveLeaderboardToFile(leaderboard, gameMode == GameMode.Endless ? endlessFileName : storyFileName);
     }
 
     public Leaderboard GetLeaderboardForCurrentMode()
