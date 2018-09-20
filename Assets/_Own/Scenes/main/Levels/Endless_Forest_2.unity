@@ -1571,6 +1571,11 @@ Prefab:
       propertyPath: m_Name
       value: Portal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114324823711236408, guid: b3d042259c8854b399cbb6f0371bcac7,
+        type: 2}
+      propertyPath: kind
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3d042259c8854b399cbb6f0371bcac7, type: 2}
   m_IsPrefabAsset: 0
@@ -10333,7 +10338,7 @@ Prefab:
     - target: {fileID: 224600293598394642, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224600293598394642, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -10373,7 +10378,7 @@ Prefab:
     - target: {fileID: 224600293598394642, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224600293598394642, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -10468,7 +10473,7 @@ Prefab:
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 318.87994
+      value: 331.4629
       objectReference: {fileID: 0}
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
@@ -10478,7 +10483,7 @@ Prefab:
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 251.50543
+      value: 263.70923
       objectReference: {fileID: 0}
     - target: {fileID: 224219502946853310, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
