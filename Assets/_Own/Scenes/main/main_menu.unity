@@ -2652,6 +2652,26 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114702136030040718, guid: 6c22c541aa07ed541aea19af421b5712,
+        type: 2}
+      propertyPath: deactivateOnTransitionOut
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114826544082601710, guid: 6c22c541aa07ed541aea19af421b5712,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2089582411}
+    - target: {fileID: 114826544082601710, guid: 6c22c541aa07ed541aea19af421b5712,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114826544082601710, guid: 6c22c541aa07ed541aea19af421b5712,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnBackButtonSelect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c22c541aa07ed541aea19af421b5712, type: 2}
   m_IsPrefabAsset: 0

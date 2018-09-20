@@ -20,4 +20,10 @@ public class GameModeSelectionScreen : TransitionableScreen
     {
         fadeZoom.FadeOut(canvasGroup, transform);
     }
+
+    public void OnBackButtonSelect()
+    {
+        previousScreens.Peek().TransitionIn();
+        GetComponent<GameModeSelectionController>().enabled = false;
+    }
 }
