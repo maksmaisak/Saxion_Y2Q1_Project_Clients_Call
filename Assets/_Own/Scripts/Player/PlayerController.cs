@@ -9,7 +9,8 @@ public class PlayerController : GameplayObject,
     IEventReceiver<OnLevelBeganSwitching>,
     IEventReceiver<OnPlayerDeath>,
     IEventReceiver<OnPlayerWillRespawn>,
-    IEventReceiver<OnPlayerRespawned>
+    IEventReceiver<OnPlayerRespawned>,
+    IEventReceiver<OnGameOver>
 {
     [Space]
     [SerializeField] float baseSpeed = 10f;
@@ -96,6 +97,8 @@ public class PlayerController : GameplayObject,
 
     public void On(OnPlayerWillRespawn message) => ResetToPreviousPlatform();
     public void On(OnPlayerRespawned message) => enabled = true;
+    
+    public void On(OnGameOver message) => gameObject.SetActive(false);
 
     public void ResetToPreviousPlatform()
     {

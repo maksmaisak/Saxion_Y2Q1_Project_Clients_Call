@@ -8515,7 +8515,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4970438211401760, guid: 77e2a7bf615164f4595afe17052da1a9, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -87.5
+      value: 195
       objectReference: {fileID: 0}
     - target: {fileID: 4970438211401760, guid: 77e2a7bf615164f4595afe17052da1a9, type: 2}
       propertyPath: m_LocalRotation.x
@@ -10764,7 +10764,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 314566876}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 3, z: 1}
@@ -10780,7 +10780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b199ab35a658248d48b858ac56900fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outroDirector: {fileID: 0}
+  outroDirector: {fileID: 314566877}
 --- !u!4 &320298679
 Transform:
   m_ObjectHideFlags: 0
@@ -16972,7 +16972,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4009362017764876, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -31.34
+      value: 197.5
       objectReference: {fileID: 0}
     - target: {fileID: 4009362017764876, guid: 99e7ba94a71f8554cbcf7e01ffd9cd35, type: 2}
       propertyPath: m_LocalRotation.x
@@ -18929,12 +18929,12 @@ Prefab:
     - target: {fileID: 224624113029661974, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 59.142944
+      value: 59.243774
       objectReference: {fileID: 0}
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1.4547119
+      value: 1.2801514
       objectReference: {fileID: 0}
     - target: {fileID: 224247837769337062, guid: 19acc75b42c8ca1418f064c09a15086f,
         type: 2}

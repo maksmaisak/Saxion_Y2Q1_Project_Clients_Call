@@ -5,7 +5,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 
-public class InsertCoinTimerView : MyBehaviour, IEventReceiver<OnPlayerDeath>,
+public class InsertCoinTimerView : MyBehaviour, 
+    IEventReceiver<OnPlayerDeath>,
     IEventReceiver<OnPlayerWillRespawn>
 {
     [SerializeField] TMP_Text timerText;

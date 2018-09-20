@@ -21,15 +21,15 @@ public class Outro : MonoBehaviour
         if (wasTriggered) return;
         if (!enabled) return;
         if (!other.CompareTag("Player")) return;
-        
+
         outroDirector.Play();
-        this.Delay((float)outroDirector.duration, EndGame);
+        this.Delay((float)outroDirector.duration - 0.1f, EndGame);
 
         wasTriggered = true;
     }
 
     private void EndGame()
     {
-        new OnGameOver().PostEvent();
+        new OnGameOver(isVictory: true).SetDeliveryType(MessageDeliveryType.Immediate).PostEvent();
     }
 }
