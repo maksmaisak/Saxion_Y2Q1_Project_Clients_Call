@@ -4,4 +4,4 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class OnCageOpen : BroadcastEvent<OnCageOpen> { }
+public class OnCageOpen : BroadcastEvent<OnCageOpen> {}
