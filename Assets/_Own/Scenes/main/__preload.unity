@@ -452,7 +452,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 839.57385}
+  m_SizeDelta: {x: 0, y: 840.2633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &500788397
 MonoBehaviour:
@@ -738,10 +738,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d9d3f5afd26034b82e7f0853154442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnemyKilledBonus: 90
+  onEnemyKilledBonus: 1500
   onScoreChangeBonus: 5
-  onPathChangeBonus: 200
-  onCageOpenBonus: 100
+  onPathChangeBonus: 10000
+  onCageOpenBonus: 1000
 --- !u!114 &2041511383
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -35,6 +35,31 @@ public class LevelManager : PersistentSingleton<LevelManager>,
         else
             StartEndlessMode();
     }
+    
+    public void On(OnPortalEntered portal)
+    {
+        if (portal.kind == Portal.Kind.BonusLevelEntry && GlobalState.instance.currentGameMode == GameMode.Story)
+            LoadLevel(portal.storyModeNextLevelScene, pauseTimeWhileLoading: false);
+        else if(portal.kind == Portal.Kind.BonusLevelEntry && GlobalState.instance.currentGameMode == GameMode.Endless)
+            LoadNextBonusLevel();
+        else if (GlobalState.instance.currentGameMode == GameMode.Story)
+            LoadLevel(portal.storyModeNextLevelScene, pauseTimeWhileLoading: false);
+        else if (GlobalState.instance.currentGameMode == GameMode.Endless)
+            LoadNextEndlessModeScene();
+    }
+
+    public void RestartGame()
+    {
+        if (GlobalState.instance.currentGameMode == GameMode.Story)
+            StartStoryMode();
+        else
+            StartEndlessMode();
+    }
+
+    public void ReloadCurrentLevel()
+    {
+        LoadLevel(SceneManager.GetActiveScene().name);
+    }
 
     private void StartStoryMode()
     {
@@ -87,48 +112,24 @@ public class LevelManager : PersistentSingleton<LevelManager>,
 
     private void RandomizeSceneSequences()
     {
-        /// Random shuffle lists using the Fisher-Yates algorithm
+        Shuffle(endlessModeSceneNames);
+        foreach (string sceneName in endlessModeSceneNames)
+            endlessSceneNamesSequence.Enqueue(sceneName);
+        
+        Shuffle(bonusLevelSceneNames);
+        foreach (string sceneName in bonusLevelSceneNames)
+            bonusSceneNamesSequence.Enqueue(sceneName);
+    }
+
+    private void Shuffle<T>(List<T> list)
+    {
         for (int i = bonusLevelSceneNames.Count - 1; i >= 1; i--)
         {
             int j = Random.Range(0, i);
-            bonusLevelSceneNames[j] = bonusLevelSceneNames[i];
+
+            T temp = list[j];
+            list[j] = list[i];
+            list[i] = temp;
         }
-
-        foreach (string sceneName in bonusLevelSceneNames)
-            bonusSceneNamesSequence.Enqueue(sceneName);
-
-        for (int i = endlessModeSceneNames.Count - 1; i >= 1; i--)
-        {
-            int j = Random.Range(0, i);
-            endlessModeSceneNames[j] = endlessModeSceneNames[i];
-        }
-
-        foreach (string sceneName in endlessModeSceneNames)
-            endlessSceneNamesSequence.Enqueue(sceneName);
-    }
-
-    public void On(OnPortalEntered portal)
-    {
-        if (portal.kind == Portal.Kind.BonusLevelEntry && GlobalState.instance.currentGameMode == GameMode.Story)
-            LoadLevel(portal.storyModeNextLevelScene, pauseTimeWhileLoading: false);
-        else if(portal.kind == Portal.Kind.BonusLevelEntry && GlobalState.instance.currentGameMode == GameMode.Endless)
-            LoadNextBonusLevel();
-        else if (GlobalState.instance.currentGameMode == GameMode.Story)
-            LoadLevel(portal.storyModeNextLevelScene, pauseTimeWhileLoading: false);
-        else if (GlobalState.instance.currentGameMode == GameMode.Endless)
-            LoadNextEndlessModeScene();
-    }
-
-    public void RestartGame()
-    {
-        if (GlobalState.instance.currentGameMode == GameMode.Story)
-            StartStoryMode();
-        else
-            StartEndlessMode();
-    }
-
-    public void ReloadCurrentLevel()
-    {
-        LoadLevel(SceneManager.GetActiveScene().name);
     }
 }
