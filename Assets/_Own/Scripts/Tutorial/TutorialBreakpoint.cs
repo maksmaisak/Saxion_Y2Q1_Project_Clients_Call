@@ -4,11 +4,12 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class TutorialBreakpoint : MonoBehaviour
+public abstract class TutorialBreakpoint : MonoBehaviour
 {
     [SerializeField] Transform uiTransform;
-    [SerializeField] float appearDuration = 0.2f;
-    [SerializeField] float disappearDuration = 0.2f;
+    [SerializeField] float appearDuration = 0.4f;
+    [SerializeField] float disappearDuration = 0.4f;
+    [SerializeField] bool dontStartIdConditionMetEarly;
 
     private Tween appearTween;
     private bool wasTriggered;
@@ -26,11 +27,24 @@ public class TutorialBreakpoint : MonoBehaviour
 
     void Update()
     {
+        if (!wasTriggered)
+        {
+            if (dontStartIdConditionMetEarly && ReleaseCondition())
+            {
+                uiTransform.DOKill();
+                enabled = false;
+                return;
+            }
+        }
         
+        if (!ReleaseCondition()) return;
+        
+        Release();
     }
     
     private void OnTriggerEnter(Collider other)
     {
+        if (!enabled) return;
         if (!other.CompareTag("Player")) return;
 
         wasTriggered = true;
@@ -39,8 +53,19 @@ public class TutorialBreakpoint : MonoBehaviour
         appearTween.Play();
     }
 
-    private void Free()
+    protected abstract bool ReleaseCondition();
+
+    private void Release()
     {
+        uiTransform.DOKill();
+        uiTransform
+            .DOScale(Vector3.zero, disappearDuration)
+            .From()
+            .SetEase(Ease.InExpo)
+            .SetUpdate(isIndependentUpdate: true)
+            .Pause();
         
+        TimeHelper.timeScale = 1f;
+        enabled = false;
     }
 }
