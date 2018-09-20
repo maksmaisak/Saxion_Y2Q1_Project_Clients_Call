@@ -119,6 +119,14 @@ public class LevelManager : PersistentSingleton<LevelManager>,
             LoadNextEndlessModeScene();
     }
 
+    public void RestartGame()
+    {
+        if (GlobalState.instance.currentGameMode == GameMode.Story)
+            StartStoryMode();
+        else
+            StartEndlessMode();
+    }
+
     public void ReloadCurrentLevel()
     {
         LoadLevel(SceneManager.GetActiveScene().name);

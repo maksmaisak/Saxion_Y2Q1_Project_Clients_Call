@@ -445,6 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224880616629430504}
   - component: {fileID: 222503848695840828}
+  - component: {fileID: 114237006283641016}
   - component: {fileID: 114646475578512916}
   - component: {fileID: 114736796770927626}
   - component: {fileID: 95737702487853892}
@@ -2041,6 +2042,17 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114237006283641016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1540460261908182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007e85f39539d1742a4342bdfcf52be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114253787954705022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3828,6 +3840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649928943e81546229dc6b22664ece51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameModeSelectionScreen: {fileID: 0}
 --- !u!114 &114854581824345748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5363,7 +5376,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.8494873, y: 0}
+  m_SizeDelta: {x: 0, y: 0.45300293}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224868370310117620
 RectTransform:
