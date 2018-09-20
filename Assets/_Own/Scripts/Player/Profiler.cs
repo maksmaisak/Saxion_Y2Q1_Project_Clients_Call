@@ -16,7 +16,7 @@ public class Profiler : PersistentSingleton<Profiler>,
     IEventReceiver<OnEnemyKilled>,
     IEventReceiver<OnScoreChange>,
     IEventReceiver<OnCageOpen>,
-    IEventReceiver<OnPathChange>
+    IEventReceiver<OnPortalEntered>
 {
     [SerializeField] int onEnemyKilledBonus = 4;
     [SerializeField] int onScoreChangeBonus = 1;
@@ -45,8 +45,9 @@ public class Profiler : PersistentSingleton<Profiler>,
         globalState.profiles[PlayerProfile.Socializer] += onCageOpenBonus;
     }
 
-    public void On(OnPathChange message)
+    public void On(OnPortalEntered portal)
     {
-        globalState.profiles[PlayerProfile.Explorer] += onPathChangeBonus;
+        if (portal.kind == Portal.Kind.BonusLevelEntry)
+            globalState.profiles[PlayerProfile.Explorer] += onPathChangeBonus;
     }
 }

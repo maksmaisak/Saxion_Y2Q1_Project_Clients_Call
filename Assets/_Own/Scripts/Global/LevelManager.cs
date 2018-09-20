@@ -109,7 +109,9 @@ public class LevelManager : PersistentSingleton<LevelManager>,
 
     public void On(OnPortalEntered portal)
     {
-        if (portal.kind == Portal.Kind.BonusLevelEntry)
+        if (portal.kind == Portal.Kind.BonusLevelEntry && GlobalState.instance.currentGameMode == GameMode.Story)
+            LoadLevel(portal.storyModeNextLevelScene, pauseTimeWhileLoading: false);
+        else if(portal.kind == Portal.Kind.BonusLevelEntry && GlobalState.instance.currentGameMode == GameMode.Endless)
             LoadNextBonusLevel();
         else if (GlobalState.instance.currentGameMode == GameMode.Story)
             LoadLevel(portal.storyModeNextLevelScene, pauseTimeWhileLoading: false);
