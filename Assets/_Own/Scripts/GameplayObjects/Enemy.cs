@@ -6,17 +6,27 @@ using DG.Tweening;
 
 public class Enemy : GameplayObject
 {
+    [Space]
     [SerializeField] float jumpInterval = 1f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Space] 
-    [SerializeField] private int scoreBonusWhenKilled = 100;
-
+    [SerializeField] int scoreBonusWhenKilled = 100;
+    [SerializeField] Animator animator;
+    
     private float jumpCountdown;
     private bool isJumpingRight;
 
     private bool isJumping;
     private bool wasJumpedOn;
+
+    protected override void Start()
+    {
+        base.Start();
+        
+        if (!animator) animator = GetComponentInChildren<Animator>();
+        Assert.IsNotNull(animator); 
+    }
 
     void FixedUpdate()
     {
@@ -48,18 +58,23 @@ public class Enemy : GameplayObject
 
     private void Jump()
     {
+        UpdateMovementDirection();
+        animator.SetTrigger(isJumpingRight ? "Jump_Right" : "Jump_Left");
+        
         JumpTo(GetNextTargetLane());
         jumpCountdown = jumpInterval;
+    }
+    
+    private void UpdateMovementDirection()
+    {
+        Lane targetLane = isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
+        if (targetLane == null) isJumpingRight = !isJumpingRight;
     }
 
     private Lane GetNextTargetLane()
     {
-        Lane targetLane = isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
-        if (targetLane != null) return targetLane;
-        
-        isJumpingRight = !isJumpingRight;
-        targetLane = isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
-        return targetLane;
+        UpdateMovementDirection();
+        return isJumpingRight ? currentLane.rightNeighbor : currentLane.leftNeighbor;
     }
     
     private void JumpTo(Lane targetLane)
@@ -86,10 +101,12 @@ public class Enemy : GameplayObject
     
     private void PlayDeathAnimation()
     {
-        DOTween
+        animator.SetTrigger("Death");
+        
+        /*DOTween
             .Sequence()
-            .Append(transform.DOJump(Vector3.down , 1f, 1, 0.5f).SetRelative())
-            .Append(transform.DOJump(Vector3.right, 1f, 1, 0.5f).SetRelative())
-            .AppendCallback(() => Destroy(gameObject));
+            .Append(transform.DOJump(new Vector3(1.5f, 0f, 10f), 1f, 1, 0.5f).SetRelative())
+            .Append(transform.DOMoveY(-20f, 1f).SetRelative().SetEase(Ease.InExpo))
+            .AppendCallback(() => Destroy(gameObject));*/
     }
 }
