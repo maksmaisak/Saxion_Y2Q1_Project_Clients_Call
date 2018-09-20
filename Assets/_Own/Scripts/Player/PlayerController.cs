@@ -279,7 +279,7 @@ public class PlayerController : GameplayObject,
 
     private void UpdateInput()
     {
-        var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         bool wasJumpPressed = Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical");
 
         if (!wasJumpPressed)
