@@ -23,7 +23,7 @@ public class Outro : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         outroDirector.Play();
-        this.Delay((float)outroDirector.duration - 0.1f, EndGame);
+        this.Delay((float)outroDirector.duration, EndGame);
 
         wasTriggered = true;
     }
