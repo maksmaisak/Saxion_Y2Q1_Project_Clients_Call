@@ -1705,7 +1705,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1426716546539346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: -81.5}
+  m_LocalPosition: {x: 0, y: 0.75, z: 65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4219108768484662}
@@ -1963,7 +1963,6 @@ MonoBehaviour:
   objectKind: 16
   laneDistanceDifferenceTolerance: 1
   minHeightAboveLane: 1.49
-  baseSpeed: 9
   jumpPower: 0.8
   jumpDuration: 0.3
   doubleJumpTime: 0.2
@@ -1982,6 +1981,13 @@ MonoBehaviour:
     gameObject: {fileID: 0}
   jumpAudioSource: {fileID: 82691554110119404}
   animator: {fileID: 95311839881209884}
+  playerDifficultySpeeds:
+  - difficulty: 0
+    speed: 7
+  - difficulty: 1
+    speed: 9
+  - difficulty: 2
+    speed: 15
 --- !u!114 &114696317479379728
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
+
+[Serializable]
+public struct PlayerDifficultySpeed
+{
+    public Difficulty difficulty;
+    public float speed;
+}
 
 public class PlayerController : GameplayObject,
     IEventReceiver<OnLevelBeganSwitching>,
@@ -12,7 +20,6 @@ public class PlayerController : GameplayObject,
     IEventReceiver<OnPlayerRespawned>
 {
     [Space]
-    [SerializeField] float baseSpeed = 10f;
     [SerializeField] float jumpPower = 2f;
     [SerializeField] float jumpDuration = 0.2f;
     [Tooltip("Smaller means the player can double jump within a larger period of time. Since the previous jump")]
@@ -30,6 +37,8 @@ public class PlayerController : GameplayObject,
     [Space]
     [SerializeField] AudioSource jumpAudioSource;
     [SerializeField] Animator animator;
+    [Space]
+    [SerializeField] List<PlayerDifficultySpeed> playerDifficultySpeeds = new List<PlayerDifficultySpeed>();
 
     enum InputKind
     {
@@ -42,6 +51,7 @@ public class PlayerController : GameplayObject,
     private Player player;
 
     private bool wasJumpPressedDuringJump = false;
+    float baseSpeed = 10f;
     private float previousJumpStartTime = 0f;
     private InputKind currentInput;
     
@@ -54,8 +64,10 @@ public class PlayerController : GameplayObject,
     protected override void Start()
     {
         base.Start();
+        Assert.IsTrue(playerDifficultySpeeds.Count >= 3);
         Assert.IsNotNull(currentLane);
         player = GetComponent<Player>();
+        baseSpeed = playerDifficultySpeeds.FirstOrDefault(x => x.difficulty == GlobalState.instance.currentGameDifficulty).speed;
         Assert.IsNotNull(player);
         Assert.IsNotNull(animator);
     }

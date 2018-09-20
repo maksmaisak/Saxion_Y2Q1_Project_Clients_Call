@@ -13,7 +13,8 @@ public enum GameMode
 public class GlobalState : PersistentSingleton<GlobalState>,
     IEventReceiver<OnScoreChange>,
     IEventReceiver<OnGameplaySessionStarted>,
-    IEventReceiver<OnPlayerDeath>
+    IEventReceiver<OnPlayerDeath>,
+    IEventReceiver<OnGameModeSelect>
 {
     public int playerScore { get; private set; }
     public readonly Dictionary<PlayerProfile, int> profiles = new Dictionary<PlayerProfile, int>();
