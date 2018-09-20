@@ -14,6 +14,11 @@ public class IncreaseScoreOverTime : MonoBehaviour
         StartCoroutine(IncreaseScoreCoroutine());
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     IEnumerator IncreaseScoreCoroutine()
     {
         while (true)
