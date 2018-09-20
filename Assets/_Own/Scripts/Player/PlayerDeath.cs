@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
-public class PlayerDeath : MonoBehaviour
+public class PlayerDeath : MyBehaviour, IEventReceiver<OnGameOver>
 {
     [SerializeField] Animator playerAnimator;
 
@@ -14,27 +14,28 @@ public class PlayerDeath : MonoBehaviour
         Assert.IsNotNull(playerAnimator);
     }
 
-    private void OnPlayerDeath()
-    {
-        new OnPlayerDeath(transform.position, SceneManager.GetActiveScene().name)
-            .SetDeliveryType(MessageDeliveryType.Immediate)
-            .PostEvent();
-    }
-
+    public void On(OnGameOver message) => enabled = false;
+    
     public void DeathObstacle()
     {
+        if (!enabled) return;
+        
         OnPlayerDeath();
         PlayCollideAnimation();
     }
 
     public void DeathEnemy()
     {
+        if (!enabled) return;
+        
         OnPlayerDeath();
         PlayCollideAnimation();
     }
 
     public void DeathFall()
     {
+        if (!enabled) return;
+        
         OnPlayerDeath();
         PlayFallAnimation();
     }
@@ -48,4 +49,12 @@ public class PlayerDeath : MonoBehaviour
     {
         playerAnimator.SetTrigger("Death_Fall");
     }
+    
+    private void OnPlayerDeath()
+    {
+        new OnPlayerDeath(transform.position, SceneManager.GetActiveScene().name)
+            .SetDeliveryType(MessageDeliveryType.Immediate)
+            .PostEvent();
+    }
+
 }
