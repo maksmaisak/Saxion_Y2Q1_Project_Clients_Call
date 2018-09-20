@@ -9,10 +9,11 @@ public abstract class TutorialBreakpoint : MonoBehaviour
     [SerializeField] Transform uiTransform;
     [SerializeField] float appearDuration = 0.4f;
     [SerializeField] float disappearDuration = 0.4f;
-    [SerializeField] bool dontStartIdConditionMetEarly;
+    [SerializeField] float timescaleWhenSlow = 0.01f;
+    [SerializeField] bool dontStartIfConditionMetEarly;
 
     private Tween appearTween;
-    private bool wasTriggered;
+    protected bool wasTriggered { get; private set; }
 
     void Start()
     {
@@ -29,7 +30,7 @@ public abstract class TutorialBreakpoint : MonoBehaviour
     {
         if (!wasTriggered)
         {
-            if (dontStartIdConditionMetEarly && ReleaseCondition())
+            if (dontStartIfConditionMetEarly && ReleaseCondition())
             {
                 uiTransform.DOKill();
                 enabled = false;
@@ -37,9 +38,7 @@ public abstract class TutorialBreakpoint : MonoBehaviour
             }
         }
         
-        if (!ReleaseCondition()) return;
-        
-        Release();
+        if (ReleaseCondition()) Release();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -48,19 +47,21 @@ public abstract class TutorialBreakpoint : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         wasTriggered = true;
-        
-        TimeHelper.timeScale = 0.01f;
+
+        TimeHelper.timeScale = timescaleWhenSlow;
         appearTween.Play();
+        
+        OnActivate();
     }
 
     protected abstract bool ReleaseCondition();
+    protected virtual void OnActivate() {}
 
     private void Release()
     {
         uiTransform.DOKill();
         uiTransform
             .DOScale(Vector3.zero, disappearDuration)
-            .From()
             .SetEase(Ease.InExpo)
             .SetUpdate(isIndependentUpdate: true)
             .Pause();
