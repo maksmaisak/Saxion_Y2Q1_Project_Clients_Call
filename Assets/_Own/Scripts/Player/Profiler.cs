@@ -37,7 +37,7 @@ public class Profiler : PersistentSingleton<Profiler>,
 
     public void On(OnScoreChange message)
     {
-        globalState.profiles[PlayerProfile.Achiever] += onScoreChangeBonus;
+        globalState.profiles[PlayerProfile.Achiever] += onScoreChangeBonus * message.scoreDelta;
     }
 
     public void On(OnCageOpen message)

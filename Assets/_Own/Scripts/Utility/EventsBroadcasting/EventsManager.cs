@@ -104,7 +104,7 @@ public class EventsManager : PersistentSingleton<EventsManager>
         catch (ArgumentException)
         {
             Debug.LogError(
-                $"Invalid generic parameter for {eventType}. It should inherit from NetworkMessage<{eventType.Name}>");
+                $"Invalid generic parameter for {eventType}. It should inherit from BroadcastEvent<{eventType.Name}>");
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class EventsManager : PersistentSingleton<EventsManager>
     }
 
     /// Registers event receivers of type TEvent, 
-    /// i.e registers objects which implement IEventReceiver<TEvent>.
+    /// i.e. registers objects which implement IEventReceiver<TEvent>.
     private class EventReceiverRegisterer<TEvent> : IEventReceiverRegisterer
         where TEvent : BroadcastEvent<TEvent>
     {
